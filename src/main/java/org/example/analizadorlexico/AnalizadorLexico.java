@@ -21,7 +21,7 @@ public class AnalizadorLexico {
     }
 
     private Token e0() {
-        //System.out.println("Char actual: " + caracterActual);
+        System.out.println("Char actual: " + caracterActual + " - Val: " + (int) caracterActual + " - Line: " + gestorDeFuente.getLineNumber());
         if (Character.isLowerCase(caracterActual)) {
             actualizarLexema();
             actualizarCaracterActual();
@@ -308,7 +308,7 @@ public class AnalizadorLexico {
         }
         throw new RuntimeException();
     }
-
+    
     private Token e99() {
         return new Token("EOF", "$", gestorDeFuente.getLineNumber());
     }
