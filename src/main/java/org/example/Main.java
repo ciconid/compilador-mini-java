@@ -7,7 +7,6 @@ import org.example.sourcemanager.SourceManagerImpl;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.Objects;
 
 public class Main {
     public static void main(String[] args) {
@@ -41,5 +40,6 @@ public class Main {
             throw new RuntimeException(e);
         }
 
+        System.out.println("[SinErrores]");
     }
 }

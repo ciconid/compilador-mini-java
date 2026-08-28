@@ -1,0 +1,10 @@
+puParentesisAbre
+puParentesisCierra
+puLlaveAbre
+puLlaveCierra
+puCorcheteAbre
+puCorcheteCierra
+puPuntoYComa
+puComa
+puPunto
+puDosPuntos
