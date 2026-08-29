@@ -97,6 +97,10 @@ public class AnalizadorLexico {
             actualizarLexema();
             actualizarCaracterActual();
             return e22();
+        } else if (caracterActual == '\'') {
+            actualizarLexema();
+            actualizarCaracterActual();
+            return e23();
         } else if (caracterActual == SourceManager.END_OF_FILE) {
             return e99();
         } else {
@@ -308,6 +312,48 @@ public class AnalizadorLexico {
         }
         throw new RuntimeException();
     }
+
+    private Token e23() {
+        if (caracterActual == '\\') {
+            actualizarLexema();
+            actualizarCaracterActual();
+            return e24();
+        } else if (esCaracterVisible(caracterActual)) {
+            actualizarLexema();
+            actualizarCaracterActual();
+            return e25();
+        } else {
+            throw new RuntimeException();
+        }
+    }
+
+    private Token e24() {
+        if (esCaracterVisible(caracterActual)) {
+            actualizarLexema();
+            actualizarCaracterActual();
+            return e25();
+        }
+        throw new RuntimeException();
+    }
+
+    private Token e25() {
+        if (caracterActual == '\'') {
+            actualizarLexema();
+            actualizarCaracterActual();
+            return crearToken("charLiteral");
+        }
+        throw new RuntimeException();
+    }
+
+
+
+
+    /*
+    * private Token e24(){
+        return null;
+    }
+    *
+    * */
 
     private Token e99() {
         return new Token("EOF", "$", gestorDeFuente.getLineNumber());

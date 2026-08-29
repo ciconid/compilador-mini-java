@@ -16,8 +16,7 @@ public class Main {
             System.exit(1);
         }
         String filePath = args[0];
-
-        //SourceManager sourceManager = new SourceManagerImpl();
+        
         SourceManager sourceManager = new SourceManagerImpl();
         try {
             sourceManager.open(filePath);
