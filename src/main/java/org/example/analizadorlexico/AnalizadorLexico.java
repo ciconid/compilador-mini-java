@@ -171,6 +171,10 @@ public class AnalizadorLexico {
             actualizarLexema();
             actualizarCaracterActual();
             return e5();
+        } else if (caracterActual == '*') {
+            actualizarLexema();
+            actualizarCaracterActual();
+            return e27();
         } else {
             return crearToken("opDivision");
         }
@@ -364,9 +368,26 @@ public class AnalizadorLexico {
         return crearToken("intLiteral");
     }
 
+    private Token e27() {
+        if (caracterActual == '*') {
+            actualizarCaracterActual();
+            return e28();
+        }
+        actualizarCaracterActual();
+        return e27();
+    }
 
+    private Token e28() {
+        if (caracterActual == '/') {
+            actualizarCaracterActual();
+            lexema = "";
+            return e0();
+        }
+        actualizarCaracterActual();
+        return e27();
+    }
 
-    /*
+    /*      TEMPLATE
     * private Token e24(){
         return null;
     }
