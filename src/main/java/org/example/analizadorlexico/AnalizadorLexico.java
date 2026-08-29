@@ -308,7 +308,7 @@ public class AnalizadorLexico {
         }
         throw new RuntimeException();
     }
-    
+
     private Token e99() {
         return new Token("EOF", "$", gestorDeFuente.getLineNumber());
     }

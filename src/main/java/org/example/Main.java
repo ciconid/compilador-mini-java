@@ -2,8 +2,8 @@ package org.example;
 
 import org.example.analizadorlexico.AnalizadorLexico;
 import org.example.analizadorlexico.Token;
-import org.example.sourcemanager.SourceManager;
 import org.example.sourcemanager.SourceManagerImpl;
+import org.example.sourcemanager.SourceManager;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -17,6 +17,7 @@ public class Main {
         }
         String filePath = args[0];
 
+        //SourceManager sourceManager = new SourceManagerImpl();
         SourceManager sourceManager = new SourceManagerImpl();
         try {
             sourceManager.open(filePath);

@@ -4,27 +4,21 @@ package org.example.sourcemanager;
 import java.io.*;
 import java.nio.charset.StandardCharsets;
 
-public class SourceManagerImpl implements SourceManager{
+public class SourceManagerImpl implements SourceManager {
     private BufferedReader reader;
-    private String currentLine;
     private int lineNumber;
-    private int lineIndexNumber;
+    private boolean endOfFileReached;
     private boolean mustReadNextLine;
 
-
     public SourceManagerImpl() {
-        currentLine = "";
-        lineNumber = 0;
-        lineIndexNumber = 0;
-        mustReadNextLine = true;
+        lineNumber = 1;
+        endOfFileReached = false;
+        mustReadNextLine = false;
     }
 
     @Override
     public void open(String filePath) throws FileNotFoundException {
-        FileInputStream fileInputStream = new FileInputStream(filePath);
-        InputStreamReader inputStreamReader = new InputStreamReader(fileInputStream, StandardCharsets.UTF_8);
-
-        reader = new BufferedReader(inputStreamReader);
+        reader = new BufferedReader(new InputStreamReader(new FileInputStream(filePath), StandardCharsets.UTF_8));
     }
 
     @Override
@@ -34,31 +28,30 @@ public class SourceManagerImpl implements SourceManager{
 
     @Override
     public char getNextChar() throws IOException {
-        char currentChar = ' ';
+        if (endOfFileReached) {
+            return END_OF_FILE;
+        }
 
-        if(mustReadNextLine) {
-            currentLine = reader.readLine();
+        if (mustReadNextLine) {
             lineNumber++;
-            lineIndexNumber = 0;
             mustReadNextLine = false;
         }
 
-        if(lineIndexNumber < currentLine.length()) {
-            currentChar = currentLine.charAt(lineIndexNumber);
-            lineIndexNumber++;
-        } else if (reader.ready()) {
-            currentChar = '\n';
-            mustReadNextLine = true;
-        } else {
-            currentChar = END_OF_FILE;
+        int c = reader.read();
+        if (c == -1) {
+            endOfFileReached = true;
+            return END_OF_FILE;
         }
 
-        return currentChar;
+        if (c == '\n') {
+            mustReadNextLine = true;
+        }
+
+        return (char) c;
     }
 
     @Override
     public int getLineNumber() {
         return lineNumber;
     }
-
 }
