@@ -101,6 +101,10 @@ public class AnalizadorLexico {
             actualizarLexema();
             actualizarCaracterActual();
             return e23();
+        } else if (Character.isDigit(caracterActual)) {
+            actualizarLexema();
+            actualizarCaracterActual();
+            return e26();
         } else if (caracterActual == SourceManager.END_OF_FILE) {
             return e99();
         } else {
@@ -345,6 +349,20 @@ public class AnalizadorLexico {
         throw new RuntimeException();
     }
 
+    private Token e26() {
+        int contador = 1;
+        while (Character.isDigit(caracterActual)) {
+            if (contador == 9) {
+                throw new RuntimeException();
+            }
+
+            actualizarLexema();
+            actualizarCaracterActual();
+            contador++;
+        }
+
+        return crearToken("intLiteral");
+    }
 
 
 
