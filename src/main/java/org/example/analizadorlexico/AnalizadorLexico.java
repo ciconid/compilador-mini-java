@@ -210,7 +210,7 @@ public class AnalizadorLexico {
             actualizarCaracterActual();
             return e6();
         } else {
-            throw new RuntimeException("Caracter invalido para String");
+            throw new ErrorLexico(lexema, gestorDeFuente.getLineNumber());
         }
     }
 
