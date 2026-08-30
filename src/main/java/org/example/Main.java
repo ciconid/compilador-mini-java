@@ -1,6 +1,7 @@
 package org.example;
 
 import org.example.analizadorlexico.AnalizadorLexico;
+import org.example.analizadorlexico.ErrorLexico;
 import org.example.analizadorlexico.Token;
 import org.example.sourcemanager.SourceManagerImpl;
 import org.example.sourcemanager.SourceManager;
@@ -10,13 +11,14 @@ import java.io.IOException;
 
 public class Main {
     public static void main(String[] args) {
+        boolean huboErrores = false;
 
         if (args.length != 1) {
             System.out.println("Uso: java -jar Compilador.jar <archivo.java>");
             System.exit(1);
         }
         String filePath = args[0];
-        
+
         SourceManager sourceManager = new SourceManagerImpl();
         try {
             sourceManager.open(filePath);
@@ -25,13 +27,18 @@ public class Main {
         }
 
         AnalizadorLexico analizadorLexico = new AnalizadorLexico(sourceManager);
-        Token token = analizadorLexico.proximoToken();
-        while (!token.token().equals("EOF")) {
-            System.out.println(token);
+        try {
+            Token token = analizadorLexico.proximoToken();
+            while (!token.token().equals("EOF")) {
+                System.out.println(token);
 
-            token = analizadorLexico.proximoToken();
+                token = analizadorLexico.proximoToken();
+            }
+            System.out.println(token);
+        } catch (ErrorLexico e) {
+            System.out.println("[Error:" + e.getLexema() + "|" + e.getNroLinea() + "]");
+            huboErrores = true;
         }
-        System.out.println(token);
 
 
         try {
@@ -40,6 +47,9 @@ public class Main {
             throw new RuntimeException(e);
         }
 
-        System.out.println("[SinErrores]");
+        if (!huboErrores) {
+            System.out.println("[SinErrores]");
+        }
+
     }
 }

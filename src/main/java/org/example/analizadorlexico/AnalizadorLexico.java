@@ -59,7 +59,7 @@ public class AnalizadorLexico {
                 case "," -> crearToken("puComa");
                 case "." -> crearToken("puPunto");
                 case ":" -> crearToken("puDosPuntos");
-                default -> throw new RuntimeException("Simbolo Puntuacion invalido");
+                default -> throw new ErrorLexico(lexema, gestorDeFuente.getLineNumber());
             };
         } else if (caracterActual == '=') {
             actualizarLexema();
@@ -107,9 +107,13 @@ public class AnalizadorLexico {
             return e26();
         } else if (caracterActual == SourceManager.END_OF_FILE) {
             return e99();
-        } else {
+        } else if (caracterActual == '\n' || caracterActual == '\r') { //falta lidiar con /r/n
             actualizarCaracterActual();
             return e0();
+        } else {
+            actualizarLexema();
+            actualizarCaracterActual();
+            throw new ErrorLexico(lexema, gestorDeFuente.getLineNumber());
         }
     }
 
@@ -142,7 +146,6 @@ public class AnalizadorLexico {
                 case "false" -> crearToken("prFalse");
                 default -> crearToken("idMetVal");
             };
-
         }
     }
 
@@ -386,13 +389,6 @@ public class AnalizadorLexico {
         actualizarCaracterActual();
         return e27();
     }
-
-    /*      TEMPLATE
-    * private Token e24(){
-        return null;
-    }
-    *
-    * */
 
     private Token e99() {
         return new Token("EOF", "$", gestorDeFuente.getLineNumber());
