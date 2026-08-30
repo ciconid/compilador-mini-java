@@ -21,7 +21,7 @@ public class AnalizadorLexico {
     }
 
     private Token e0() {
-        System.out.println("Char actual: " + caracterActual + " - Val: " + (int) caracterActual + " - Line: " + gestorDeFuente.getLineNumber());
+        //System.out.println("Char actual: " + caracterActual + " - Val: " + (int) caracterActual + " - Line: " + gestorDeFuente.getLineNumber());
         if (Character.isLowerCase(caracterActual)) {
             actualizarLexema();
             actualizarCaracterActual();
@@ -224,7 +224,7 @@ public class AnalizadorLexico {
             actualizarCaracterActual();
             return e6();
         } else {
-            throw new RuntimeException("Caracter invalido para String");
+            throw new ErrorLexico(lexema, gestorDeFuente.getLineNumber());
         }
     }
 
@@ -312,7 +312,7 @@ public class AnalizadorLexico {
             actualizarCaracterActual();
             return crearToken("opAnd");
         }
-        throw new RuntimeException();
+        throw new ErrorLexico(lexema, gestorDeFuente.getLineNumber());
     }
 
     private Token e22() {
@@ -321,10 +321,15 @@ public class AnalizadorLexico {
             actualizarCaracterActual();
             return crearToken("opOr");
         }
-        throw new RuntimeException();
+        throw new ErrorLexico(lexema, gestorDeFuente.getLineNumber());
     }
 
     private Token e23() {
+        if (caracterActual == '\'') {
+            actualizarLexema();
+            actualizarCaracterActual();
+            throw new ErrorLexico(lexema, gestorDeFuente.getLineNumber());
+        }
         if (caracterActual == '\\') {
             actualizarLexema();
             actualizarCaracterActual();
@@ -333,9 +338,8 @@ public class AnalizadorLexico {
             actualizarLexema();
             actualizarCaracterActual();
             return e25();
-        } else {
-            throw new RuntimeException();
         }
+        throw new ErrorLexico(lexema, gestorDeFuente.getLineNumber());
     }
 
     private Token e24() {
@@ -344,7 +348,7 @@ public class AnalizadorLexico {
             actualizarCaracterActual();
             return e25();
         }
-        throw new RuntimeException();
+        throw new ErrorLexico(lexema, gestorDeFuente.getLineNumber());
     }
 
     private Token e25() {
@@ -353,14 +357,18 @@ public class AnalizadorLexico {
             actualizarCaracterActual();
             return crearToken("charLiteral");
         }
-        throw new RuntimeException();
+        throw new ErrorLexico(lexema, gestorDeFuente.getLineNumber());
     }
 
     private Token e26() {
         int contador = 1;
         while (Character.isDigit(caracterActual)) {
             if (contador == 9) {
-                throw new RuntimeException();
+                do {
+                    actualizarLexema();
+                    actualizarCaracterActual();
+                } while (Character.isDigit(caracterActual));
+                throw new ErrorLexico(lexema, gestorDeFuente.getLineNumber());
             }
 
             actualizarLexema();
@@ -396,6 +404,17 @@ public class AnalizadorLexico {
         return e27();
     }
 
+    private Token e29() {
+        return null;
+    }
+
+
+    /*TEMPLATE
+    *
+    * private Token e29(){
+        return null;
+    }
+    * */
     private Token e99() {
         return new Token("EOF", "$", gestorDeFuente.getLineNumber());
     }
@@ -423,6 +442,13 @@ public class AnalizadorLexico {
     private boolean esSimboloPuntuacion(char c) {
         return switch (c) {
             case '(', ')', '{', '}', '[', ']', ',', ';', '.', ':' -> true;
+            default -> false;
+        };
+    }
+
+    private boolean esSaltoDeLinea(char c) {
+        return switch (c) {
+            case '\n', '\r' -> true;
             default -> false;
         };
     }
