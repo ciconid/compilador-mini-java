@@ -372,6 +372,9 @@ public class AnalizadorLexico {
     }
 
     private Token e27() {
+        if (caracterActual == SourceManager.END_OF_FILE) {
+            throw new ErrorLexico(lexema, gestorDeFuente.getLineNumber());
+        }
         if (caracterActual == '*') {
             actualizarCaracterActual();
             return e28();
@@ -381,6 +384,9 @@ public class AnalizadorLexico {
     }
 
     private Token e28() {
+        if (caracterActual == SourceManager.END_OF_FILE) {
+            throw new ErrorLexico(lexema, gestorDeFuente.getLineNumber());
+        }
         if (caracterActual == '/') {
             actualizarCaracterActual();
             lexema = "";
