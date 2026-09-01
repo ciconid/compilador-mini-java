@@ -9,6 +9,7 @@ public class SourceManagerImpl implements SourceManager {
     private int lineNumber;
     private boolean endOfFileReached;
     private boolean mustReadNextLine;
+    private char lastChar;
 
     public SourceManagerImpl() {
         lineNumber = 1;
@@ -43,9 +44,14 @@ public class SourceManagerImpl implements SourceManager {
             return END_OF_FILE;
         }
 
-        if (c == '\n') {
+        if (c == '\n' && lastChar != '\r') {
             mustReadNextLine = true;
         }
+        if (c == '\r') {
+            mustReadNextLine = true;
+        }
+
+        lastChar = (char) c;
 
         return (char) c;
     }

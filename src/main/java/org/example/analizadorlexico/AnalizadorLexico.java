@@ -107,7 +107,7 @@ public class AnalizadorLexico {
             return e26();
         } else if (caracterActual == SourceManager.END_OF_FILE) {
             return e99();
-        } else if (caracterActual == '\n' || caracterActual == '\r') { //falta lidiar con /r/n
+        } else if (caracterActual == '\n' || caracterActual == '\r') {
             actualizarCaracterActual();
             return e0();
         } else {
@@ -184,13 +184,13 @@ public class AnalizadorLexico {
     }
 
     private Token e5() {
-        if (caracterActual == SourceManager.END_OF_FILE) {
-            return e99();
-        }
-        if (caracterActual != '\n') {
+        while (!esSaltoDeLinea(caracterActual)) {
+            if (caracterActual == SourceManager.END_OF_FILE) {
+                return e99();
+            }
             actualizarCaracterActual();
-            return e5();
         }
+
         actualizarCaracterActual();
         lexema = "";
         return e0();
@@ -326,9 +326,9 @@ public class AnalizadorLexico {
 
     private Token e23() {
         if (caracterActual == '\'') {
-            actualizarLexema();
+            //actualizarLexema();
             actualizarCaracterActual();
-            throw new ErrorLexico(lexema, gestorDeFuente.getLineNumber());
+            return e29();
         }
         if (caracterActual == '\\') {
             actualizarLexema();
@@ -381,7 +381,7 @@ public class AnalizadorLexico {
 
     private Token e27() {
         if (caracterActual == SourceManager.END_OF_FILE) {
-            throw new ErrorLexico(lexema, gestorDeFuente.getLineNumber());
+            throw new ErrorLexico("$", gestorDeFuente.getLineNumber());
         }
         if (caracterActual == '*') {
             actualizarCaracterActual();
@@ -393,7 +393,11 @@ public class AnalizadorLexico {
 
     private Token e28() {
         if (caracterActual == SourceManager.END_OF_FILE) {
-            throw new ErrorLexico(lexema, gestorDeFuente.getLineNumber());
+            throw new ErrorLexico("$", gestorDeFuente.getLineNumber());
+        }
+        if (caracterActual == '*') {
+            actualizarCaracterActual();
+            return e28();
         }
         if (caracterActual == '/') {
             actualizarCaracterActual();
@@ -405,7 +409,14 @@ public class AnalizadorLexico {
     }
 
     private Token e29() {
-        return null;
+        int nroLinea = gestorDeFuente.getLineNumber();
+        if (caracterActual == '\''){
+            actualizarLexema();
+            actualizarCaracterActual();
+            throw new ErrorLexico(lexema, nroLinea);
+        }
+        actualizarCaracterActual();
+        throw new ErrorLexico(lexema, nroLinea);
     }
 
 
