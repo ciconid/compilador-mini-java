@@ -1,4 +1,4 @@
-///[Error:$|5]
+///[Error:/*|3]
 var
 /* este comentario
 nunca cierra

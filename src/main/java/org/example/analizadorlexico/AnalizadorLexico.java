@@ -8,6 +8,7 @@ public class AnalizadorLexico {
     private String lexema;
     private char caracterActual;
     private final SourceManager gestorDeFuente;
+    private int nroLineaInicalDelError;
 
     public AnalizadorLexico(SourceManager gestorDeFuente) {
         lexema = "";
@@ -17,6 +18,7 @@ public class AnalizadorLexico {
 
     public Token proximoToken() {
         lexema = "";
+        nroLineaInicalDelError = -1;
         return e0();
     }
 
@@ -175,6 +177,7 @@ public class AnalizadorLexico {
             actualizarCaracterActual();
             return e5();
         } else if (caracterActual == '*') {
+            nroLineaInicalDelError = gestorDeFuente.getLineNumber();
             actualizarLexema();
             actualizarCaracterActual();
             return e27();
@@ -326,7 +329,6 @@ public class AnalizadorLexico {
 
     private Token e23() {
         if (caracterActual == '\'') {
-            //actualizarLexema();
             actualizarCaracterActual();
             return e29();
         }
@@ -381,7 +383,7 @@ public class AnalizadorLexico {
 
     private Token e27() {
         if (caracterActual == SourceManager.END_OF_FILE) {
-            throw new ErrorLexico("$", gestorDeFuente.getLineNumber());
+            throw new ErrorLexico(lexema, nroLineaInicalDelError);
         }
         if (caracterActual == '*') {
             actualizarCaracterActual();
@@ -393,7 +395,7 @@ public class AnalizadorLexico {
 
     private Token e28() {
         if (caracterActual == SourceManager.END_OF_FILE) {
-            throw new ErrorLexico("$", gestorDeFuente.getLineNumber());
+            throw new ErrorLexico(lexema, nroLineaInicalDelError);
         }
         if (caracterActual == '*') {
             actualizarCaracterActual();
