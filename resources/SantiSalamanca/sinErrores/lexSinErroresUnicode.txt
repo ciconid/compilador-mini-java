@@ -1,0 +1,22 @@
+// Autor: Santiago Salamanca
+// SinErrores
+var s = "Hola \u0041";
+var c = '\u2605';
+var p = "Pajaro";
+
+//#var,3
+//#s,3
+//#=,3
+//#"Hola \u0041",3
+//#;,3
+//#var,4
+//#c,4
+//#=,4
+//#'\u2605',4
+//#;,4
+//#var,5
+//#p,5
+//#=,5
+//#"Pajaro",5
+//#;,5
+//#$,23

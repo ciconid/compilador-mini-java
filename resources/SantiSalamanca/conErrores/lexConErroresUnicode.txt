@@ -1,0 +1,3 @@
+///[Error:"\u004|2]
+var s = "\u004";
+// Autor: Santiago Salamanca

@@ -1,0 +1,7 @@
+// [Error:#|3]
+class TestMultiErrores {
+    v1 +# "hola" #+ "chau"
+    var x = 12345678901;
+    boolean b = a & b;
+}
+// Autor: Santiago Salamanca

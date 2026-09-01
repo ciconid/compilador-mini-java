@@ -1,0 +1,14 @@
+// Autor: Cátedra
+// SinErrores
+"hola"
+v1 + chau
+if class}
+
+//#"hola",3
+//#v1,4
+//#+,4
+//#chau,4
+//#if,5
+//#class,5
+//#},5
+//#$,15

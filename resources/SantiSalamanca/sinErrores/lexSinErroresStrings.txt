@@ -1,0 +1,13 @@
+// Autor: Santiago Salamanca
+// SinErrores
+"abc"
+"abc\""
+"a\uuu1238bc"
+"ab\c"
+"ab\\c"
+//#"abc",3
+//#"abc\"",4
+//#"a\uuu1238bc",5
+//#"ab\c",6
+//#"ab\\c",7
+//#$,14

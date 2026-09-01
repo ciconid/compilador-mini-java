@@ -1,0 +1,84 @@
+// Autor: Santiago Salamanca
+// SinErrores
+public class MiClase extends Base implements Interfaz {
+    static int contador;
+    boolean activo;
+    char letra;
+    void ejecutar() {
+        if (true) {
+            return;
+        } else {
+            while (false) {
+                var obj = new MiClase();
+                if (obj == null) {
+                    var ref = this;
+                }
+            }
+        }
+    }
+}
+
+//#public,3
+//#class,3
+//#MiClase,3
+//#extends,3
+//#Base,3
+//#implements,3
+//#Interfaz,3
+//#{,3
+//#static,4
+//#int,4
+//#contador,4
+//#;,4
+//#boolean,5
+//#activo,5
+//#;,5
+//#char,6
+//#letra,6
+//#;,6
+//#void,7
+//#ejecutar,7
+//#(,7
+//#),7
+//#{,7
+//#if,8
+//#(,8
+//#true,8
+//#),8
+//#{,8
+//#return,9
+//#;,9
+//#},10
+//#else,10
+//#{,10
+//#while,11
+//#(,11
+//#false,11
+//#),11
+//#{,11
+//#var,12
+//#obj,12
+//#=,12
+//#new,12
+//#MiClase,12
+//#(,12
+//#),12
+//#;,12
+//#if,13
+//#(,13
+//#obj,13
+//#==,13
+//#null,13
+//#),13
+//#{,13
+//#var,14
+//#ref,14
+//#=,14
+//#this,14
+//#;,14
+//#},15
+//#},16
+//#},17
+//#},18
+//#},19
+//#$,85

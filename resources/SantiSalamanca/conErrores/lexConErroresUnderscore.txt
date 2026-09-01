@@ -1,0 +1,3 @@
+// [Error:_|2]
+var x = _variable;
+// Autor: Santiago Salamanca

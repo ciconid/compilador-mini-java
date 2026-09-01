@@ -1,0 +1,16 @@
+// Autor: Santiago Salamanca
+// SinErrores
+var s1 = "hola\"";
+var s2 = "comilla al final\"";
+
+//#var,3
+//#s1,3
+//#=,3
+//#"hola\"",3
+//#;,3
+//#var,4
+//#s2,4
+//#=,4
+//#"comilla al final\"",4
+//#;,4
+//#$,17

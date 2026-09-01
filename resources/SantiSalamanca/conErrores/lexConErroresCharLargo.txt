@@ -1,0 +1,3 @@
+// [Error:'a|2]
+var c = 'ab';
+// Autor: Santiago Salamanca

@@ -1,0 +1,28 @@
+// Autor: Santiago Salamanca
+// SinErrores
+var s1 = "\uuuu0041";
+var s2 = "Texto \uuuuuu0042 con unicode";
+var c1 = '\uuuu0043';
+var c2 = '\uuuuuu2605';
+
+//#var,3
+//#s1,3
+//#=,3
+//#"\uuuu0041",3
+//#;,3
+//#var,4
+//#s2,4
+//#=,4
+//#"Texto \uuuuuu0042 con unicode",4
+//#;,4
+//#var,5
+//#c1,5
+//#=,5
+//#'\uuuu0043',5
+//#;,5
+//#var,6
+//#c2,6
+//#=,6
+//#'\uuuuuu2605',6
+//#;,6
+//#$,29

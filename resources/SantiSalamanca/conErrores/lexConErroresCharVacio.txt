@@ -1,0 +1,3 @@
+// [Error:''|2]
+var c = '';
+// Autor: Santiago Salamanca

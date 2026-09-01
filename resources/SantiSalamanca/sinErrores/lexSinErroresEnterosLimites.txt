@@ -1,0 +1,28 @@
+// Autor: Santiago Salamanca
+// SinErrores
+var zero = 0;
+var nine = 9;
+var maxInt1 = 123456789;
+var maxInt2 = 999999999;
+
+//#var,3
+//#zero,3
+//#=,3
+//#0,3
+//#;,3
+//#var,4
+//#nine,4
+//#=,4
+//#9,4
+//#;,4
+//#var,5
+//#maxInt1,5
+//#=,5
+//#123456789,5
+//#;,5
+//#var,6
+//#maxInt2,6
+//#=,6
+//#999999999,6
+//#;,6
+//#$,29

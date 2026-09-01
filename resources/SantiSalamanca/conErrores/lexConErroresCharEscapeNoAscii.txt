@@ -1,0 +1,3 @@
+// [Error:'\|2]
+var c = '\ñ';
+// Autor: Santiago Salamanca

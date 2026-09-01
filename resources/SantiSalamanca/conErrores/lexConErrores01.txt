@@ -1,0 +1,6 @@
+///[Error:#|5]
+// Autor: Cátedra
+
+"hola"
+v1 + # chau
+if class}

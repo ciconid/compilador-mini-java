@@ -1,23 +1,23 @@
+import org.example.Main;
+import org.hamcrest.CoreMatchers;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.junit.runners.Parameterized;
+
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-
-import org.example.Main;
-import org.hamcrest.CoreMatchers;
-import org.junit.After;
-import org.junit.Test;
-import org.junit.Before;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
-
 import static org.hamcrest.MatcherAssert.assertThat;
+
 @RunWith(Parameterized.class)
-public class TesterDeCasosSinErroresTB {
+public class TesterDeCasosSinErroresSS {
 
     private static final String MSG_EXITO = "[SinErrores]";
-    private static final String TEST_FILES_DIRECTORY_PATH = "resources/TomBertotto/sinErrores/";
+    private static final String TEST_FILES_DIRECTORY_PATH = "resources/SantiSalamanca/sinErrores/";
     private static final String EXPECTED_TOKEN_PREFIX = "//#";
 
     // TODO: Reemplazar Main por la clase del proyecto que declara:
@@ -33,7 +33,7 @@ public class TesterDeCasosSinErroresTB {
 
     private final String input;
 
-    public TesterDeCasosSinErroresTB(String input) {
+    public TesterDeCasosSinErroresSS(String input) {
         this.input = input;
     }
 

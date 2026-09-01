@@ -1,0 +1,4 @@
+// [Error:"hola|2]
+var s = "hola
+var x = 1;
+// Autor: Santiago Salamanca
