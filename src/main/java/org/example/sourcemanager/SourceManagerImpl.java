@@ -29,6 +29,9 @@ public class SourceManagerImpl implements SourceManager {
 
     @Override
     public char getNextChar() throws IOException {
+        if (reader == null) {
+            throw new IllegalStateException("El archivo no fue abierto");
+        }
         if (endOfFileReached) {
             return END_OF_FILE;
         }
