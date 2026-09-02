@@ -1,6 +1,6 @@
 # Informe - Etapa 1
 
-**Autor:** Nicolas Cid  
+**Autor:** Nicolás Cid  
 **Materia:** Compiladores e Intérpretes  
 
 
