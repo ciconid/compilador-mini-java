@@ -75,20 +75,86 @@ public class AnalizadorSintactico {
     }
 
     void extensionOpcional() {
+        if (Arrays.asList("extends").contains(tokenActual.token())) {
+            match("extends");
+            tipoReferencia();
+        } else {
+            // epsilon
+        }
     }
 
     void listaMiembros() {
+        if (Arrays.asList("boolean", "char", "int", "idClase", "idGen", "static", "void", "public").contains(tokenActual.token())) {
+            miembro();
+            listaMiembros();
+        } else {
+            // epsilon
+        }
     }
 
     void listaMetodosInterfaz() {
+        if (Arrays.asList("boolean", "char", "int", "idClase", "idGen", "void").contains(tokenActual.token())) {
+            metodoInterfaz();
+            listaMetodosInterfaz();
+        } else {
+            // epsilon
+        }
     }
 
     void miembro() {
+        if (Arrays.asList("boolean", "char", "int", "idClase", "idGen").contains(tokenActual.token())) {
+            tipo();
+            match("idMetVar");
+            restoMiembro();
+        } else if (Arrays.asList("static").contains(tokenActual.token())) {
+            match("static");
+            tipoMetodo();
+            match("idMetVar");
+            argsFormales();
+            bloque();
+        } else if (Arrays.asList("void").contains(tokenActual.token())) {
+            match("void");
+            match("idMetVar");
+            argsFormales();
+            bloque();
+        } else if (Arrays.asList("public").contains(tokenActual.token())) {
+            match("public");
+            match("idClase");
+            argsFormales();
+            bloque();
+        } else {
+            throw new ErrorSintactico(tokenActual.lexema(), tokenActual.nroDeLinea());
+        }
     }
 
     void restoMiembro() {
+        if (Arrays.asList(";").contains(tokenActual.token())) {
+            match("puPuntoYComa");
+        } else if (Arrays.asList("(").contains(tokenActual.token())) {
+            argsFormales();
+            bloque();
+        } else {
+            throw new ErrorSintactico(tokenActual.lexema(), tokenActual.nroDeLinea());
+        }
     }
 
+    // CON EPSILON
+    //if (Arrays.asList("extends").contains(tokenActual.token())) {
+    //
+    //    } else if (Arrays.asList("implements").contains(tokenActual.token())) {
+    //
+    //    } else {
+    //        // epsilon
+    //    }
+
+    // SIN EPSILON
+    //if (Arrays.asList("extends").contains(tokenActual.token())) {
+    //
+    //    } else if (Arrays.asList("implements").contains(tokenActual.token())) {
+    //
+    //    } else {
+    //      throw new ErrorSintactico(tokenActual.lexema(), tokenActual.nroDeLinea());
+    //    }
     void atributo() {
     }
 
