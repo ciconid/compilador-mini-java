@@ -1,5 +1,7 @@
 ## Producciones BNF
 
+    El no terminal de inicio es <Inicial> y las producciones de la Nueva Gramática de MiniJava son:
+
 | No Terminal | Producciones |
 |---|---|
 | `<Inicial>` | `<ListaClases> eof` |
@@ -51,10 +53,12 @@
 | `<Referencia>` | `<Primario> <RestoReferencia>` |
 | `<RestoReferencia>` | `. idMetVar <RestoReferenciaEncadenadas>` \| `<AccesoArreglo> <RestoReferencia>` \| `ϵ` |
 | `<RestoReferenciaEncadenadas>` | `<ArgsActuales> <RestoReferencia>` \| `<RestoReferencia>` |
-| `<Primario>` | `this` \| `stringLiteral` \| `idMetVar <RestoIdMetVar>` \| `new <RestoNew>` \| `idClase . idMetVar <ArgsActuales>` \| `( <Expresion> )` |
+| `<Primario>` | `this `\| `stringLiteral` \| `idMetVar <RestoIdMetVar> `\| `new <RestoNew> `\| `<LlamadaMetodoEstatico>` \| `<ExpresionParentizada>` | 
 | `<RestoIdMetVar>` | `ϵ` \| `<ArgsActuales>` |
 | `<RestoNew>` | `<TipoPrimitivo> <DimensionesConTamanio>` \| `idGen <DimensionesConTamanio>` \| `<TipoReferencia> <RestoTipoReferencia>` |
 | `<RestoTipoReferencia>` | `<DimensionesConTamanio>` \| `<ArgsActuales>` |
+| `<ExpresionParentizada>` | `( <Expresion> )` |
+| `<LlamadaMetodoEstatico>` | `idClase . idMetVar <ArgsActuales>` |
 | `<DimensionesConTamanio>` | `[ <Expresion> ] <DimensionesConTamanio>` \| `[ <Expresion> ]` |
 | `<ArgsActuales>` | `( <ListaExpsOpcional> )` |
 | `<ListaExpsOpcional>` | `<ListaExps>` \| `ϵ` |
