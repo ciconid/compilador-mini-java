@@ -3,6 +3,8 @@ package org.example;
 import org.example.analizadorlexico.AnalizadorLexico;
 import org.example.analizadorlexico.ErrorLexico;
 import org.example.analizadorlexico.Token;
+import org.example.analizadorsintactico.AnalizadorSintactico;
+import org.example.analizadorsintactico.ErrorSintactico;
 import org.example.sourcemanager.SourceManagerImpl;
 import org.example.sourcemanager.SourceManager;
 
@@ -28,18 +30,11 @@ public class Main {
 
         AnalizadorLexico analizadorLexico = new AnalizadorLexico(sourceManager);
         try {
-            Token token = analizadorLexico.proximoToken();
-            while (!token.token().equals("EOF")) {
-                System.out.println(token);
-
-                token = analizadorLexico.proximoToken();
-            }
-            System.out.println(token);
-        } catch (ErrorLexico e) {
+            AnalizadorSintactico analizadorSintactico = new AnalizadorSintactico(analizadorLexico);
+        } catch (ErrorSintactico e) {
             System.out.println("[Error:" + e.getLexema() + "|" + e.getNroLinea() + "]");
             huboErrores = true;
         }
-
 
         try {
             sourceManager.close();
