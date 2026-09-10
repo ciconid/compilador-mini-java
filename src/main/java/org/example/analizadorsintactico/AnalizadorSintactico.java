@@ -17,14 +17,14 @@ public class AnalizadorSintactico {
 
     void inicial() {
         listaClases();
-        match("$");
+        match("EOF");
     }
 
     void listaClases() {
-        if (Arrays.asList("class").contains(tokenActual.token())) {
+        if (Primeros.obtener("clase").contains(tokenActual.token())) {
             clase();
             listaClases();
-        } else if (Arrays.asList("interface").contains(tokenActual.token())) {
+        } else if (Primeros.obtener("interfaz").contains(tokenActual.token())) {
             interfaz();
             listaClases();
         } else {
@@ -33,7 +33,7 @@ public class AnalizadorSintactico {
     }
 
     void clase() {
-        match("class");
+        match("prClass");
         match("idClase");
         genericidadOpcional();
         herenciaOpcional();
@@ -41,33 +41,33 @@ public class AnalizadorSintactico {
     }
 
     void interfaz() {
-        match("interface");
+        match("prInterface");
         match("idClase");
-        match("<");
+        match("opMenor");
         genericidadOpcional();
-        match(">");
+        match("opMayor");
         extensionOpcional();
-        match("{");
+        match("puLlaveAbre");
         listaMetodosInterfaz();
-        match("}");
+        match("puLlaveCierra");
     }
 
     void genericidadOpcional() {
-        if (Arrays.asList("<").contains(tokenActual.token())) {
-            match("<");
+        if (Arrays.asList("opMenor").contains(tokenActual.token())) {
+            match("opMenor");
             match("idGen");
-            match(">");
+            match("opMayor");
         } else {
             // epsilon
         }
     }
 
     void herenciaOpcional() {
-        if (Arrays.asList("extends").contains(tokenActual.token())) {
-            match("extends");
+        if (Arrays.asList("prExtends").contains(tokenActual.token())) {
+            match("prExtends");
             tipoReferencia();
-        } else if (Arrays.asList("implements").contains(tokenActual.token())) {
-            match("implements");
+        } else if (Arrays.asList("prImplements").contains(tokenActual.token())) {
+            match("prImplements");
             tipoReferencia();
         } else {
             // epsilon
@@ -75,8 +75,8 @@ public class AnalizadorSintactico {
     }
 
     void extensionOpcional() {
-        if (Arrays.asList("extends").contains(tokenActual.token())) {
-            match("extends");
+        if (Arrays.asList("prEextends").contains(tokenActual.token())) {
+            match("prExtends");
             tipoReferencia();
         } else {
             // epsilon
@@ -84,7 +84,7 @@ public class AnalizadorSintactico {
     }
 
     void listaMiembros() {
-        if (Arrays.asList("boolean", "char", "int", "idClase", "idGen", "static", "void", "public").contains(tokenActual.token())) {
+        if (Primeros.obtener("miembro").contains(tokenActual.token())) {
             miembro();
             listaMiembros();
         } else {
@@ -93,7 +93,7 @@ public class AnalizadorSintactico {
     }
 
     void listaMetodosInterfaz() {
-        if (Arrays.asList("boolean", "char", "int", "idClase", "idGen", "void").contains(tokenActual.token())) {
+        if (Primeros.obtener("metodoInterfaz").contains(tokenActual.token())) {
             metodoInterfaz();
             listaMetodosInterfaz();
         } else {
@@ -102,23 +102,23 @@ public class AnalizadorSintactico {
     }
 
     void miembro() {
-        if (Arrays.asList("boolean", "char", "int", "idClase", "idGen").contains(tokenActual.token())) {
+        if (Primeros.obtener("tipo").contains(tokenActual.token())) {
             tipo();
-            match("idMetVar");
+            match("idMetVal");
             restoMiembro();
-        } else if (Arrays.asList("static").contains(tokenActual.token())) {
-            match("static");
+        } else if (Arrays.asList("prStatic").contains(tokenActual.token())) {
+            match("prStatic");
             tipoMetodo();
-            match("idMetVar");
+            match("idMetVal");
             argsFormales();
             bloque();
-        } else if (Arrays.asList("void").contains(tokenActual.token())) {
-            match("void");
-            match("idMetVar");
+        } else if (Arrays.asList("prVoid").contains(tokenActual.token())) {
+            match("prVoid");
+            match("idMetVal");
             argsFormales();
             bloque();
-        } else if (Arrays.asList("public").contains(tokenActual.token())) {
-            match("public");
+        } else if (Arrays.asList("PrPublic").contains(tokenActual.token())) {
+            match("prPublic");
             match("idClase");
             argsFormales();
             bloque();
@@ -128,9 +128,9 @@ public class AnalizadorSintactico {
     }
 
     void restoMiembro() {
-        if (Arrays.asList(";").contains(tokenActual.token())) {
+        if (Arrays.asList("puPuntoYComa").contains(tokenActual.token())) {
             match("puPuntoYComa");
-        } else if (Arrays.asList("(").contains(tokenActual.token())) {
+        } else if (Arrays.asList("puParentesisAbre").contains(tokenActual.token())) {
             argsFormales();
             bloque();
         } else {
@@ -156,9 +156,17 @@ public class AnalizadorSintactico {
     //      throw new ErrorSintactico(tokenActual.lexema(), tokenActual.nroDeLinea());
     //    }
     void atributo() {
+        tipo();
+        match("idMetVal");
+        match("puPuntoYComa");
     }
 
     void metodo() {
+        modificadorOpcional();
+        tipoMetodo();
+        match("idMetVal");
+        argsFormales();
+        bloque();
     }
 
     void metodoInterfaz() {
