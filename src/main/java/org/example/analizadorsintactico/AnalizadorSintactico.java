@@ -37,7 +37,9 @@ public class AnalizadorSintactico {
         match("idClase");
         genericidadOpcional();
         herenciaOpcional();
+        match("puLlaveAbre");
         listaMiembros();
+        match("puLlaveCierra");
     }
 
     void interfaz() {
@@ -138,23 +140,7 @@ public class AnalizadorSintactico {
         }
     }
 
-    // CON EPSILON
-    //if (Arrays.asList("extends").contains(tokenActual.token())) {
-    //
-    //    } else if (Arrays.asList("implements").contains(tokenActual.token())) {
-    //
-    //    } else {
-    //        // epsilon
-    //    }
 
-    // SIN EPSILON
-    //if (Arrays.asList("extends").contains(tokenActual.token())) {
-    //
-    //    } else if (Arrays.asList("implements").contains(tokenActual.token())) {
-    //
-    //    } else {
-    //      throw new ErrorSintactico(tokenActual.lexema(), tokenActual.nroDeLinea());
-    //    }
     void atributo() {
         tipo();
         match("idMetVal");
@@ -170,42 +156,112 @@ public class AnalizadorSintactico {
     }
 
     void metodoInterfaz() {
+        tipoMetodo();
+        match("idMetVal");
+        argsFormales();
     }
 
     void constructor() {
+        match("prPublic");
+        match("idClase");
+        argsFormales();
+        bloque();
     }
 
     void modificadorOpcional() {
+        if (Arrays.asList("prStatic").contains(tokenActual.token())) {
+            match("prStatic");
+        } else {
+            // epsilon
+        }
     }
 
     void tipoMetodo() {
+        if (Primeros.obtener("tipo").contains(tokenActual.token())) {
+            tipo();
+        } else if (Arrays.asList("prVoid").contains(tokenActual.token())) {
+            match("prVoid");
+        } else {
+            throw new ErrorSintactico(tokenActual.lexema(), tokenActual.nroDeLinea());
+        }
     }
 
     void tipo() {
+        tipoBase();
+        dimensionesOpcionales();
     }
 
     void tipoBase() {
+        if (Primeros.obtener("tipoPrimitivo").contains(tokenActual.token())) {
+            tipoPrimitivo();
+        } else if (Primeros.obtener("tipoReferencia").contains(tokenActual.token())) {
+            tipoReferencia();
+        } else if (Arrays.asList("idGen").contains(tokenActual.token())) {
+            match("idGen");
+        } else {
+            throw new ErrorSintactico(tokenActual.lexema(), tokenActual.nroDeLinea());
+        }
     }
 
     void dimensionesOpcionales() {
+        if (Arrays.asList("puCorcheteAbre").contains(tokenActual.token())) {
+            match("puCorcheteAbre");
+            match("puCorcheteCierra");
+            dimensionesOpcionales();
+        } else {
+            // epsilon
+        }
     }
 
     void tipoReferencia() {
+        match("idClase");
+        tipoGenericoOpcional();
     }
 
     void tipoPrimitivo() {
+        if (Arrays.asList("prBoolean").contains(tokenActual.token())) {
+            match("prBoolean");
+        } else if (Arrays.asList("prChar").contains(tokenActual.token())) {
+            match("prChar");
+        } else if (Arrays.asList("prInt").contains(tokenActual.token())) {
+            match("prInt");
+        } else {
+            throw new ErrorSintactico(tokenActual.lexema(), tokenActual.nroDeLinea());
+        }
     }
 
     void tipoGenericoOpcional() {
+        if (Arrays.asList("opMenor").contains(tokenActual.token())) {
+            match("opMenor");
+            instanciadoOParametrico();
+            match("opMayor");
+        } else {
+            // epsilon
+        }
     }
 
     void instanciadoOParametrico() {
+        if (Arrays.asList("idGen").contains(tokenActual.token())) {
+            match("idGen");
+        } else if (Arrays.asList("idClase").contains(tokenActual.token())) {
+            match("idClase");
+        } else {
+            throw new ErrorSintactico(tokenActual.lexema(), tokenActual.nroDeLinea());
+        }
     }
 
     void argsFormales() {
+        match("puParentesisAbre");
+        listaArgsFormales();
+        match("puParentesisCierra");
     }
 
     void listaArgsFormalesOpcional() {
+        if (Primeros.obtener("listaArgsFormales").contains(tokenActual.token())) {
+            listaArgsFormales();
+        } else {
+            // epsilon
+        }
     }
 
     void listaArgsFormales() {
@@ -218,101 +274,357 @@ public class AnalizadorSintactico {
     }
 
     void bloque() {
+        match("puLlaveAbre");
+        listaSentencias();
+        match("puLlaveCierra");
     }
 
     void listaSentencias() {
+        if (Primeros.obtener("sentencia").contains(tokenActual.token())) {
+            sentencia();
+            listaSentencias();
+        } else {
+            // epsilon
+        }
     }
 
     void sentencia() {
+        if (Arrays.asList("puPuntoYComa").contains(tokenActual.token())) {
+            match("puPuntoYComa");
+        } else if (Primeros.obtener("asignacionYLlamada").contains(tokenActual.token())) {
+            asignacionYLlamada();
+            match("puPuntoYComa");
+        } else if (Primeros.obtener("varLocal").contains(tokenActual.token())) {
+            varLocal();
+            match("puPuntoYComa");
+        } else if (Primeros.obtener("returnNT").contains(tokenActual.token())) {
+            returnNT();
+            match("puPuntoYComa");
+        } else if (Primeros.obtener("ifNT").contains(tokenActual.token())) {
+            ifNT();
+        } else if (Primeros.obtener("whileNT").contains(tokenActual.token())) {
+            whileNT();
+        } else if (Primeros.obtener("bloque").contains(tokenActual.token())) {
+            bloque();
+        } else {
+            throw new ErrorSintactico(tokenActual.lexema(), tokenActual.nroDeLinea());
+        }
     }
 
     void asignacionYLlamada() {
+        expresion();
     }
 
     void varLocal() {
+        match("prVar");
+        match("idMetVal");
+        match("opAsignacion");
+        expresionCompuesta();
     }
 
-    void RetornoReturn() {
+    void returnNT() {
+        match("prReturn");
+        expresionOpcional();
     }
 
     void expresionOpcional() {
+        if (Primeros.obtener("expresion").contains(tokenActual.token())) {
+            expresion();
+        } else {
+            // epsilon
+        }
     }
 
-    void condicionalIf() {
+    void ifNT() {
+        ifBase();
+        elseNT();
     }
 
-    void loopWhile() {
+    void ifBase() {
+        match("prIf");
+        match("puParentesisAbre");
+        expresion();
+        match("puParentesisCierra");
+        sentencia();
+    }
+
+    void elseNT() {
+        if (Arrays.asList("prElse").contains(tokenActual.token())) {
+            match("prElse");
+            sentencia();
+        } else {
+            // epsilon
+        }
+    }
+
+    void whileNT() {
+        match("prWhile");
+        match("puParentesisAbre");
+        expresion();
+        match("puParentesisCierra");
+        sentencia();
     }
 
     void expresion() {
+        expresionCompuesta();
+        restoExpresion();
+    }
+
+    void restoExpresion() {
+        if (Primeros.obtener("operadorAsignacion").contains(tokenActual.token())) {
+            operadorAsignacion();
+            expresionCompuesta();
+        } else {
+            // epsilon
+        }
     }
 
     void operadorAsignacion() {
+        match("opAsignacion");
     }
 
     void expresionCompuesta() {
+        expresionBasica();
+        restoExpresionCompuesta();
+    }
+
+    void restoExpresionCompuesta() {
+        if (Primeros.obtener("operadorBinario").contains(tokenActual.token())) {
+            operadorBinario();
+            expresionCompuesta();
+        } else {
+            // epsilon
+        }
     }
 
     void operadorBinario() {
+        if (Arrays.asList("opOr").contains(tokenActual.token())) {
+            match("opOr");
+        } else if (Arrays.asList("opAnd").contains(tokenActual.token())) {
+            match("opAnd");
+        } else if (Arrays.asList("opIgualdad").contains(tokenActual.token())) {
+            match("opIgualdad");
+        } else if (Arrays.asList("opDistinto").contains(tokenActual.token())) {
+            match("opDistinto");
+        } else if (Arrays.asList("opMenor").contains(tokenActual.token())) {
+            match("opMenor");
+        } else if (Arrays.asList("opMayor").contains(tokenActual.token())) {
+            match("opMayor");
+        } else if (Arrays.asList("opMenorIgual").contains(tokenActual.token())) {
+            match("opMenorIgual");
+        } else if (Arrays.asList("opMayorIgual").contains(tokenActual.token())) {
+            match("opMayorIgual");
+        } else if (Arrays.asList("opSuma").contains(tokenActual.token())) {
+            match("opSuma");
+        } else if (Arrays.asList("opResta").contains(tokenActual.token())) {
+            match("opResta");
+        } else if (Arrays.asList("opMultiplicacion").contains(tokenActual.token())) {
+            match("opMultiplicacion");
+        } else if (Arrays.asList("opDivision").contains(tokenActual.token())) {
+            match("opDivision");
+        } else if (Arrays.asList("opModulo").contains(tokenActual.token())) {
+            match("opModulo");
+        } else {
+            throw new ErrorSintactico(tokenActual.lexema(), tokenActual.nroDeLinea());
+        }
     }
 
     void expresionBasica() {
+        if (Primeros.obtener("operadorUnario").contains(tokenActual.token())) {
+            operadorUnario();
+            operando();
+        } else if (Primeros.obtener("operando").contains(tokenActual.token())) {
+            operando();
+        } else {
+            throw new ErrorSintactico(tokenActual.lexema(), tokenActual.nroDeLinea());
+        }
     }
 
     void operadorUnario() {
+        if (Arrays.asList("opSuma").contains(tokenActual.token())) {
+            match("opSuma");
+        } else if (Arrays.asList("opResta").contains(tokenActual.token())) {
+            match("opResta");
+        } else if (Arrays.asList("opNegacion").contains(tokenActual.token())) {
+            match("opNegacion");
+        } else {
+            throw new ErrorSintactico(tokenActual.lexema(), tokenActual.nroDeLinea());
+        }
     }
 
     void operando() {
+        if (Primeros.obtener("primitivo").contains(tokenActual.token())) {
+            primitivo();
+        } else if (Primeros.obtener("referencia").contains(tokenActual.token())) {
+            referencia();
+        } else {
+            throw new ErrorSintactico(tokenActual.lexema(), tokenActual.nroDeLinea());
+        }
     }
 
     void primitivo() {
+        if (Arrays.asList("prTrue").contains(tokenActual.token())) {
+            match("prTrue");
+        } else if (Arrays.asList("prFalse").contains(tokenActual.token())) {
+            match("prFalse");
+        } else if (Arrays.asList("intLiteral").contains(tokenActual.token())) {
+            match("intLiteral");
+        } else if (Arrays.asList("charLiteral").contains(tokenActual.token())) {
+            match("charLiteral");
+        } else if (Arrays.asList("prNull").contains(tokenActual.token())) {
+            match("prNull");
+        } else {
+            throw new ErrorSintactico(tokenActual.lexema(), tokenActual.nroDeLinea());
+        }
     }
 
     void referencia() {
+        primario();
+        restoReferencia();
     }
 
     void restoReferencia() {
+        if (Arrays.asList("puPunto").contains(tokenActual.token())) {
+            match("puPunto");
+            match("idMetVal");
+            restoReferenciaEncadenadas();
+        } else if (Primeros.obtener("accesoArreglo").contains(tokenActual.token())) {
+            accesoArreglo();
+            restoReferencia();
+        } else {
+            // epsilon
+        }
     }
 
     void restoReferenciaEncadenadas() {
+        if (Primeros.obtener("argsActuales").contains(tokenActual.token())) {
+            argsActuales();
+            restoReferencia();
+        } else if (Primeros.obtener("restoReferencia").contains(tokenActual.token())) {
+            restoReferencia();
+        } else {
+            throw new ErrorSintactico(tokenActual.lexema(), tokenActual.nroDeLinea());
+        }
     }
 
     void primario() {
+        if (Arrays.asList("prThis").contains(tokenActual.token())) {
+            match("prThis");
+        } else if (Arrays.asList("stringLiteral").contains(tokenActual.token())) {
+            match("stringLiteral");
+        } else if (Arrays.asList("idMetVal").contains(tokenActual.token())) {
+            match("idMetVal");
+            restoIdMetVal();
+        } else if (Arrays.asList("prNew").contains(tokenActual.token())) {
+            match("prNew");
+            restoNew();
+        } else if (Primeros.obtener("llamadaMetodoEstatico").contains(tokenActual.token())) {
+            llamadaMetodoEstatico();
+        } else if (Primeros.obtener("expresionParentizada").contains(tokenActual.token())) {
+            expresionParentizada();
+        } else {
+            throw new ErrorSintactico(tokenActual.lexema(), tokenActual.nroDeLinea());
+        }
     }
 
-    void restoIdMetVar() {
+    void restoIdMetVal() {
+        if (Primeros.obtener("argsActuales").contains(tokenActual.token())) {
+            argsActuales();
+        } else {
+            // epsilon
+        }
     }
 
     void restoNew() {
+        if (Primeros.tipoPrimitivo.contains(tokenActual.token())) {
+            tipoPrimitivo();
+            dimensionesConTamanio();
+        } else if (Arrays.asList("idGen").contains(tokenActual.token())) {
+            match("idGen");
+            dimensionesConTamanio();
+        } else if (Primeros.tipoReferencia.contains(tokenActual.token())) {
+            tipoReferencia();
+            restoTipoReferencia();
+        } else {
+            throw new ErrorSintactico(tokenActual.lexema(), tokenActual.nroDeLinea());
+        }
     }
 
     void restoTipoReferencia() {
+        if (Primeros.dimensionesConTamanio.contains(tokenActual.token())) {
+            dimensionesConTamanio();
+        } else if (Primeros.argsActuales.contains(tokenActual.token())) {
+            argsActuales();
+        } else {
+            throw new ErrorSintactico(tokenActual.lexema(), tokenActual.nroDeLinea());
+        }
     }
 
     void expresionParentizada() {
+        match("puParentesisAbre");
+        expresion();
+        match("puParentesisCierra");
     }
 
     void llamadaMetodoEstatico() {
+        match("idClase");
+        match("puPunto");
+        match("idMetVal");
+        argsActuales();
     }
 
     void dimensionesConTamanio() {
+        match("puCorcheteAbre");
+        expresion();
+        match("puCorcheteCierra");
+        restoDimensionesConTamanio();
+    }
+
+    void restoDimensionesConTamanio() {
+        if (Primeros.dimensionesConTamanio.contains(tokenActual.token())) {
+            dimensionesConTamanio();
+        } else {
+            // epsilon
+        }
     }
 
     void argsActuales() {
+        match("puParentesisAbre");
+        listaExpsOpcional();
+        match("puParentesisCierra");
     }
 
     void listaExpsOpcional() {
+        if (Primeros.listaExps.contains(tokenActual.token())) {
+            listaExps();
+        } else {
+            // epsilon
+        }
     }
 
     void listaExps() {
+        expresion();
+        restoListaExps();
+    }
+
+    void restoListaExps() {
+        if (Arrays.asList("puComa").contains(tokenActual.token())) {
+            match("puComa");
+            listaExps();
+        } else {
+            // epsilon
+        }
     }
 
     void accesoArreglo() {
+        match("puCorcheteAbre");
+        expresion();
+        match("puCorcheteCierra");
     }
 
 
     void match(String nombreToken) {
-        if (nombreToken.equals(tokenActual.lexema())) {
+        if (nombreToken.equals(tokenActual.token())) {
             tokenActual = analizadorLexico.proximoToken();
         } else {
             throw new ErrorSintactico(tokenActual.lexema(), tokenActual.nroDeLinea());
