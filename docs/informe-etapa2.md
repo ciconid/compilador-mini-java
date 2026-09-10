@@ -55,8 +55,8 @@
 | `<Operando>`                   | `<Primitivo>` \| `<Referencia>`                                                                                                                                                   |
 | `<Primitivo>`                  | `true` \| `false` \| `intLiteral` \| `charLiteral` \| `null`                                                                                                                      |
 | `<Referencia>`                 | `<Primario> <RestoReferencia>`                                                                                                                                                    |
-| `<RestoReferencia>`            | `. idMetVar <RestoReferenciaEncadenadas>` \| `<AccesoArreglo> <RestoReferencia>` \| `ϵ`                                                                                           |
-| `<RestoReferenciaEncadenadas>` | `<ArgsActuales> <RestoReferencia>` \| `<RestoReferencia>`                                                                                                                         |
+| `<RestoReferencia>`            | `. idMetVar <RestoReferenciaEncadenadas>` \| `<AccesoArreglo> <RestoReferencia>`                                                                                                  |
+| `<RestoReferenciaEncadenadas>` | `<ArgsActuales> <RestoReferencia>` \| `<RestoReferencia>` \| `ϵ`                                                                                                                  |
 | `<Primario>`                   | `this `\| `stringLiteral` \| `idMetVar <RestoIdMetVar> `\| `new <RestoNew> `\| `<LlamadaMetodoEstatico>` \| `<ExpresionParentizada>`                                              | 
 | `<RestoIdMetVar>`              | `ϵ` \| `<ArgsActuales>`                                                                                                                                                           |
 | `<RestoNew>`                   | `<TipoPrimitivo> <DimensionesConTamanio>` \| `idGen <DimensionesConTamanio>` \| `<TipoReferencia> <RestoTipoReferencia>`                                                          |

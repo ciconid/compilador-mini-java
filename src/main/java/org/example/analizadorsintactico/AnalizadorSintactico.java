@@ -119,7 +119,7 @@ public class AnalizadorSintactico {
             match("idMetVal");
             argsFormales();
             bloque();
-        } else if (Arrays.asList("PrPublic").contains(tokenActual.token())) {
+        } else if (Arrays.asList("prPublic").contains(tokenActual.token())) {
             match("prPublic");
             match("idClase");
             argsFormales();
@@ -252,7 +252,7 @@ public class AnalizadorSintactico {
 
     void argsFormales() {
         match("puParentesisAbre");
-        listaArgsFormales();
+        listaArgsFormalesOpcional();
         match("puParentesisCierra");
     }
 
@@ -265,12 +265,23 @@ public class AnalizadorSintactico {
     }
 
     void listaArgsFormales() {
+        argFormal();
+        restoListaArgsFormales();
     }
 
     void restoListaArgsFormales() {
+        if (Arrays.asList("puComa").contains(tokenActual.token())) {
+            match("puComa");
+            argFormal();
+            restoListaArgsFormales();
+        } else {
+            // epsilon
+        }
     }
 
     void argFormal() {
+        tipo();
+        match("idMetVal");
     }
 
     void bloque() {
@@ -492,7 +503,8 @@ public class AnalizadorSintactico {
             accesoArreglo();
             restoReferencia();
         } else {
-            // epsilon
+            // prueba de cambio de epsilon
+            throw new ErrorSintactico(tokenActual.lexema(), tokenActual.nroDeLinea());
         }
     }
 
@@ -503,7 +515,8 @@ public class AnalizadorSintactico {
         } else if (Primeros.obtener("restoReferencia").contains(tokenActual.token())) {
             restoReferencia();
         } else {
-            throw new ErrorSintactico(tokenActual.lexema(), tokenActual.nroDeLinea());
+            // prueba  de cambio de epsilon
+            // epsilon
         }
     }
 
