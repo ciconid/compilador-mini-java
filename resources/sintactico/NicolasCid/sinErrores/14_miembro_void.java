@@ -1,0 +1,4 @@
+class Saludador {
+    void saludar() {
+    }
+}

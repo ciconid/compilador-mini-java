@@ -1,0 +1,4 @@
+interface Primera {
+}
+class Segunda {
+}

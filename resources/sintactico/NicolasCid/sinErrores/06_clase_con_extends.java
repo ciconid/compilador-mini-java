@@ -1,0 +1,2 @@
+class Hijo extends Padre {
+}

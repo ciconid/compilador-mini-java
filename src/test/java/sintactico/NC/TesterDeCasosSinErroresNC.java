@@ -1,4 +1,4 @@
-package sintactico.GT;
+package sintactico.NC;
 
 import org.example.Main;
 import org.hamcrest.CoreMatchers;
@@ -9,21 +9,27 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
 
-import java.io.*;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.PrintStream;
 import java.util.ArrayList;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 
+
 @RunWith(Parameterized.class)
-public class TesterDeCasosConErroresGT {
+public class TesterDeCasosSinErroresNC {
+
+    private static final String msgExito = "[SinErrores]";
+    private static final String testFilesDirectoryPath = "resources/sintactico/NicolasCid/sinErrores/";
 
     //TODO: el tipo de esta variable init tiene que ser la clase que tiene el main
     private static final Main init = null;
 
     private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
     private final PrintStream originalOut = System.out;
-    private static final String testFilesDirectoryPath = "resources/sintactico/GiulianoTaormina/conErrores/";
     private boolean fullCompilerOuputPrintingInEachTest = true;
+
 
     @Before
     public void setUpClass() {
@@ -44,24 +50,25 @@ public class TesterDeCasosConErroresGT {
         }
         names.sort(String::compareTo);
         return names;
+
     }
 
     private String input;
 
-    public TesterDeCasosConErroresGT(String input) {
+    public TesterDeCasosSinErroresNC(String input) {
         this.input = input;
     }
 
 
     @Test
-    public void test1() {
-        probarFallo(input);
+    public void testIterado() {
+        probarExito(input);
     }
 
-    private void probarFallo(String name) {
-        String testCaseFilePath = testFilesDirectoryPath + name;
-        String errorCode = getErrorCode(testCaseFilePath);
-        String[] args = {testCaseFilePath};
+
+    void probarExito(String name) {
+        String path = testFilesDirectoryPath + name;
+        String[] args = {path};
         init.main(args);
 
         if (fullCompilerOuputPrintingInEachTest) {
@@ -69,20 +76,8 @@ public class TesterDeCasosConErroresGT {
             System.out.println(outContent.toString());
         }
 
-        assertThat("No se encontro el codigo: " + errorCode, outContent.toString(), CoreMatchers.containsString(errorCode));
-    }
+        assertThat("Mensaje Incorrecto en: " + path, outContent.toString(), CoreMatchers.containsString(msgExito));
 
-
-    String getErrorCode(String testCaseFilePath) {
-        String lineWithTheCode = null;
-        try {
-            lineWithTheCode = (new BufferedReader(new FileReader(testCaseFilePath))).readLine();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        String errorCode = lineWithTheCode.substring(3);
-        return errorCode;
     }
 
 

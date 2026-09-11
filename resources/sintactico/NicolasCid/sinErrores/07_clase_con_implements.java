@@ -1,0 +1,2 @@
+class Impl implements Contrato {
+}

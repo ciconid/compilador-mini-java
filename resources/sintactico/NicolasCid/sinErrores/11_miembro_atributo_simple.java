@@ -1,0 +1,3 @@
+class Persona {
+    int edad;
+}

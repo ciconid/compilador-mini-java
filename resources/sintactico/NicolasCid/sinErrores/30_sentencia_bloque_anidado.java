@@ -1,0 +1,7 @@
+class ConBloqueAnidado {
+    void metodo() {
+        {
+            ;
+        }
+    }
+}

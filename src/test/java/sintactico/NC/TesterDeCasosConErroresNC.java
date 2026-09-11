@@ -1,4 +1,4 @@
-package sintactico.GT;
+package sintactico.NC;
 
 import org.example.Main;
 import org.hamcrest.CoreMatchers;
@@ -15,14 +15,14 @@ import java.util.ArrayList;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 @RunWith(Parameterized.class)
-public class TesterDeCasosConErroresGT {
+public class TesterDeCasosConErroresNC {
 
     //TODO: el tipo de esta variable init tiene que ser la clase que tiene el main
     private static final Main init = null;
 
     private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
     private final PrintStream originalOut = System.out;
-    private static final String testFilesDirectoryPath = "resources/sintactico/GiulianoTaormina/conErrores/";
+    private static final String testFilesDirectoryPath = "resources/sintactico/NicolasCid/conErrores/";
     private boolean fullCompilerOuputPrintingInEachTest = true;
 
     @Before
@@ -48,7 +48,7 @@ public class TesterDeCasosConErroresGT {
 
     private String input;
 
-    public TesterDeCasosConErroresGT(String input) {
+    public TesterDeCasosConErroresNC(String input) {
         this.input = input;
     }
 

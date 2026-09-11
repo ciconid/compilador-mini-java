@@ -1,0 +1,4 @@
+class Punto {
+    public Punto() {
+    }
+}
