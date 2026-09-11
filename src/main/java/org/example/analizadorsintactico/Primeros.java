@@ -3,6 +3,7 @@ package org.example.analizadorsintactico;
 import java.util.Arrays;
 import java.util.List;
 
+@SuppressWarnings("ArraysAsListWithZeroOrOneArgument")
 public class Primeros {
 
     public static final List<String> clase = Arrays.asList("prClass");

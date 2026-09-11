@@ -5,6 +5,7 @@ import org.example.analizadorlexico.Token;
 
 import java.util.Arrays;
 
+@SuppressWarnings("ArraysAsListWithZeroOrOneArgument")
 public class AnalizadorSintactico {
     private AnalizadorLexico analizadorLexico;
     private Token tokenActual;
