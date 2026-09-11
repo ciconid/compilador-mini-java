@@ -21,10 +21,10 @@ public class AnalizadorSintactico {
     }
 
     void listaClases() {
-        if (Primeros.obtener("clase").contains(tokenActual.token())) {
+        if (Primeros.clase.contains(tokenActual.token())) {
             clase();
             listaClases();
-        } else if (Primeros.obtener("interfaz").contains(tokenActual.token())) {
+        } else if (Primeros.interfaz.contains(tokenActual.token())) {
             interfaz();
             listaClases();
         } else {
@@ -86,7 +86,7 @@ public class AnalizadorSintactico {
     }
 
     void listaMiembros() {
-        if (Primeros.obtener("miembro").contains(tokenActual.token())) {
+        if (Primeros.miembro.contains(tokenActual.token())) {
             miembro();
             listaMiembros();
         } else {
@@ -95,7 +95,7 @@ public class AnalizadorSintactico {
     }
 
     void listaMetodosInterfaz() {
-        if (Primeros.obtener("metodoInterfaz").contains(tokenActual.token())) {
+        if (Primeros.metodoInterfaz.contains(tokenActual.token())) {
             metodoInterfaz();
             listaMetodosInterfaz();
         } else {
@@ -104,7 +104,7 @@ public class AnalizadorSintactico {
     }
 
     void miembro() {
-        if (Primeros.obtener("tipo").contains(tokenActual.token())) {
+        if (Primeros.tipo.contains(tokenActual.token())) {
             tipo();
             match("idMetVal");
             restoMiembro();
@@ -177,7 +177,7 @@ public class AnalizadorSintactico {
     }
 
     void tipoMetodo() {
-        if (Primeros.obtener("tipo").contains(tokenActual.token())) {
+        if (Primeros.tipo.contains(tokenActual.token())) {
             tipo();
         } else if (Arrays.asList("prVoid").contains(tokenActual.token())) {
             match("prVoid");
@@ -192,9 +192,9 @@ public class AnalizadorSintactico {
     }
 
     void tipoBase() {
-        if (Primeros.obtener("tipoPrimitivo").contains(tokenActual.token())) {
+        if (Primeros.tipoPrimitivo.contains(tokenActual.token())) {
             tipoPrimitivo();
-        } else if (Primeros.obtener("tipoReferencia").contains(tokenActual.token())) {
+        } else if (Primeros.tipoReferencia.contains(tokenActual.token())) {
             tipoReferencia();
         } else if (Arrays.asList("idGen").contains(tokenActual.token())) {
             match("idGen");
@@ -257,7 +257,7 @@ public class AnalizadorSintactico {
     }
 
     void listaArgsFormalesOpcional() {
-        if (Primeros.obtener("listaArgsFormales").contains(tokenActual.token())) {
+        if (Primeros.listaArgsFormales.contains(tokenActual.token())) {
             listaArgsFormales();
         } else {
             // epsilon
@@ -291,7 +291,7 @@ public class AnalizadorSintactico {
     }
 
     void listaSentencias() {
-        if (Primeros.obtener("sentencia").contains(tokenActual.token())) {
+        if (Primeros.sentencia.contains(tokenActual.token())) {
             sentencia();
             listaSentencias();
         } else {
@@ -302,20 +302,20 @@ public class AnalizadorSintactico {
     void sentencia() {
         if (Arrays.asList("puPuntoYComa").contains(tokenActual.token())) {
             match("puPuntoYComa");
-        } else if (Primeros.obtener("asignacionYLlamada").contains(tokenActual.token())) {
+        } else if (Primeros.asignacionYLlamada.contains(tokenActual.token())) {
             asignacionYLlamada();
             match("puPuntoYComa");
-        } else if (Primeros.obtener("varLocal").contains(tokenActual.token())) {
+        } else if (Primeros.varLocal.contains(tokenActual.token())) {
             varLocal();
             match("puPuntoYComa");
-        } else if (Primeros.obtener("returnNT").contains(tokenActual.token())) {
+        } else if (Primeros.returnNT.contains(tokenActual.token())) {
             returnNT();
             match("puPuntoYComa");
-        } else if (Primeros.obtener("ifNT").contains(tokenActual.token())) {
+        } else if (Primeros.ifNT.contains(tokenActual.token())) {
             ifNT();
-        } else if (Primeros.obtener("whileNT").contains(tokenActual.token())) {
+        } else if (Primeros.whileNT.contains(tokenActual.token())) {
             whileNT();
-        } else if (Primeros.obtener("bloque").contains(tokenActual.token())) {
+        } else if (Primeros.bloque.contains(tokenActual.token())) {
             bloque();
         } else {
             throw new ErrorSintactico(tokenActual.lexema(), tokenActual.nroDeLinea());
@@ -339,7 +339,7 @@ public class AnalizadorSintactico {
     }
 
     void expresionOpcional() {
-        if (Primeros.obtener("expresion").contains(tokenActual.token())) {
+        if (Primeros.expresion.contains(tokenActual.token())) {
             expresion();
         } else {
             // epsilon
@@ -382,7 +382,7 @@ public class AnalizadorSintactico {
     }
 
     void restoExpresion() {
-        if (Primeros.obtener("operadorAsignacion").contains(tokenActual.token())) {
+        if (Primeros.operadorAsignacion.contains(tokenActual.token())) {
             operadorAsignacion();
             expresionCompuesta();
         } else {
@@ -400,7 +400,7 @@ public class AnalizadorSintactico {
     }
 
     void restoExpresionCompuesta() {
-        if (Primeros.obtener("operadorBinario").contains(tokenActual.token())) {
+        if (Primeros.operadorBinario.contains(tokenActual.token())) {
             operadorBinario();
             expresionCompuesta();
         } else {
@@ -441,10 +441,10 @@ public class AnalizadorSintactico {
     }
 
     void expresionBasica() {
-        if (Primeros.obtener("operadorUnario").contains(tokenActual.token())) {
+        if (Primeros.operadorUnario.contains(tokenActual.token())) {
             operadorUnario();
             operando();
-        } else if (Primeros.obtener("operando").contains(tokenActual.token())) {
+        } else if (Primeros.operando.contains(tokenActual.token())) {
             operando();
         } else {
             throw new ErrorSintactico(tokenActual.lexema(), tokenActual.nroDeLinea());
@@ -464,9 +464,9 @@ public class AnalizadorSintactico {
     }
 
     void operando() {
-        if (Primeros.obtener("primitivo").contains(tokenActual.token())) {
+        if (Primeros.primitivo.contains(tokenActual.token())) {
             primitivo();
-        } else if (Primeros.obtener("referencia").contains(tokenActual.token())) {
+        } else if (Primeros.referencia.contains(tokenActual.token())) {
             referencia();
         } else {
             throw new ErrorSintactico(tokenActual.lexema(), tokenActual.nroDeLinea());
@@ -499,7 +499,7 @@ public class AnalizadorSintactico {
             match("puPunto");
             match("idMetVal");
             restoReferenciaEncadenadas();
-        } else if (Primeros.obtener("accesoArreglo").contains(tokenActual.token())) {
+        } else if (Primeros.accesoArreglo.contains(tokenActual.token())) {
             accesoArreglo();
             restoReferencia();
         } else {
@@ -509,10 +509,10 @@ public class AnalizadorSintactico {
     }
 
     void restoReferenciaEncadenadas() {
-        if (Primeros.obtener("argsActuales").contains(tokenActual.token())) {
+        if (Primeros.argsActuales.contains(tokenActual.token())) {
             argsActuales();
             restoReferencia();
-        } else if (Primeros.obtener("restoReferencia").contains(tokenActual.token())) {
+        } else if (Primeros.restoReferencia.contains(tokenActual.token())) {
             restoReferencia();
         } else {
             // prueba  de cambio de epsilon
@@ -531,9 +531,9 @@ public class AnalizadorSintactico {
         } else if (Arrays.asList("prNew").contains(tokenActual.token())) {
             match("prNew");
             restoNew();
-        } else if (Primeros.obtener("llamadaMetodoEstatico").contains(tokenActual.token())) {
+        } else if (Primeros.llamadaMetodoEstatico.contains(tokenActual.token())) {
             llamadaMetodoEstatico();
-        } else if (Primeros.obtener("expresionParentizada").contains(tokenActual.token())) {
+        } else if (Primeros.expresionParentizada.contains(tokenActual.token())) {
             expresionParentizada();
         } else {
             throw new ErrorSintactico(tokenActual.lexema(), tokenActual.nroDeLinea());
@@ -541,7 +541,7 @@ public class AnalizadorSintactico {
     }
 
     void restoIdMetVal() {
-        if (Primeros.obtener("argsActuales").contains(tokenActual.token())) {
+        if (Primeros.argsActuales.contains(tokenActual.token())) {
             argsActuales();
         } else {
             // epsilon
