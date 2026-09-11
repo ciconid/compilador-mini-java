@@ -1,4 +1,12 @@
-## Producciones BNF
+# Informe - Etapa 2
+
+**Autor:** Nicolás Cid  
+**Materia:** Compiladores e Intérpretes
+
+
+---
+
+# Nueva Gramática y sus reglas de producción
 
     El no terminal de inicio es <Inicial> y las producciones de la Nueva Gramática de MiniJava son:
 
@@ -70,3 +78,52 @@
 | `<ListaExps>`                  | `<Expresion> <RestoListaExps>`                                                                                                                                                    |
 | `<RestoListaExps>`             | `, <ListaExps>` \| `ϵ`                                                                                                                                                            |
 | `<AccesoArreglo>`              | `[ <Expresion> ]`                                                                                                                                                                 |
+
+---
+
+# Instrucciones de Compilación y Uso
+
+## Requisitos previos
+
+- JDK 21 instalado
+- No requiere tener Gradle instalado previamente (el proyecto incluye el Gradle Wrapper)
+
+## Compilación
+
+Desde la raíz del proyecto, ejecutar:
+
+**Linux / macOS:**
+​```
+./gradlew jar
+​```
+
+**Windows:**
+​```
+gradlew.bat jar
+​```
+
+Esto genera el ejecutable en:
+​```
+build/libs/Compilador.jar
+​```
+
+## Uso
+
+Una vez compilado, el compilador se invoca desde la línea de comandos pasando como parámetro el archivo fuente de
+MiniJava. El comando es el mismo en Linux, macOS y Windows, ya que se ejecuta a través de `java`:
+
+​```
+java -jar build/libs/Compilador.jar programa1.java
+​```
+
+Donde `programa1.java` es el archivo fuente de MiniJava a compilar (se acepta cualquier extensión).
+
+
+
+
+
+---
+
+# Logros
+
+* Operadores Posfijos E2
