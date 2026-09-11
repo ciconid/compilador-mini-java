@@ -498,25 +498,21 @@ public class AnalizadorSintactico {
         if (Arrays.asList("puPunto").contains(tokenActual.token())) {
             match("puPunto");
             match("idMetVal");
-            restoReferenciaEncadenadas();
+            argsActualesOpcionales();
+            restoReferencia();
         } else if (Primeros.accesoArreglo.contains(tokenActual.token())) {
             accesoArreglo();
             restoReferencia();
         } else {
-            // prueba de cambio de epsilon
-            throw new ErrorSintactico(tokenActual.lexema(), tokenActual.nroDeLinea());
+            //epsilon
         }
     }
 
-    void restoReferenciaEncadenadas() {
+    void argsActualesOpcionales() {
         if (Primeros.argsActuales.contains(tokenActual.token())) {
             argsActuales();
-            restoReferencia();
-        } else if (Primeros.restoReferencia.contains(tokenActual.token())) {
-            restoReferencia();
         } else {
-            // prueba  de cambio de epsilon
-            // epsilon
+            //epsilon
         }
     }
 
