@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 @SuppressWarnings({"ArraysAsListWithZeroOrOneArgument", "StatementWithEmptyBody"})
 public class AnalizadorSintactico {
@@ -217,7 +216,14 @@ public class AnalizadorSintactico {
         } else if (Arrays.asList("idGen").contains(tokenActual.token())) {
             match("idGen");
         } else {
-            throw new ErrorSintactico(tokenActual.lexema(), tokenActual.nroDeLinea(), "TIPO-BASE");
+            List<String> tokens = new ArrayList<>(Primeros.tipoPrimitivo);
+            tokens.addAll(Primeros.tipoReferencia);
+            tokens.add("idGen");
+
+            String lexemasEsperados = tokens.stream()
+                    .map(TokensYLexemas::get)
+                    .collect(Collectors.joining(", "));
+            throw new ErrorSintactico(tokenActual.lexema(), tokenActual.nroDeLinea(), lexemasEsperados);
         }
     }
 
@@ -343,7 +349,19 @@ public class AnalizadorSintactico {
         } else if (Primeros.bloque.contains(tokenActual.token())) {
             bloque();
         } else {
-            throw new ErrorSintactico(tokenActual.lexema(), tokenActual.nroDeLinea(), "SENTEN");
+            List<String> tokens = new ArrayList<>();
+            tokens.add("puPuntoYComa");
+            tokens.addAll(Primeros.asignacionYLlamada);
+            tokens.addAll(Primeros.varLocal);
+            tokens.addAll(Primeros.returnNT);
+            tokens.addAll(Primeros.ifNT);
+            tokens.addAll(Primeros.whileNT);
+            tokens.addAll(Primeros.bloque);
+
+            String lexemasEsperados = tokens.stream()
+                    .map(TokensYLexemas::get)
+                    .collect(Collectors.joining(", "));
+            throw new ErrorSintactico(tokenActual.lexema(), tokenActual.nroDeLinea(), lexemasEsperados);
         }
     }
 
@@ -516,7 +534,7 @@ public class AnalizadorSintactico {
         } else if (Arrays.asList("prNull").contains(tokenActual.token())) {
             match("prNull");
         } else {
-            throw new ErrorSintactico(tokenActual.lexema(), tokenActual.nroDeLinea(), "PRIM");
+            throw new ErrorSintactico(tokenActual.lexema(), tokenActual.nroDeLinea(), "PRIMITIVO");
         }
     }
 
