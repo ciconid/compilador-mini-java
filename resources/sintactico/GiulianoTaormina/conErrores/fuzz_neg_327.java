@@ -1,0 +1,2 @@
+// [Error:[|2]
+interface P_6 { } class N8_ < C > extends Kn < Rh1 > { } class Qb implements Wc_ { } interface X_ < P > extends E__ { void h2 ( E q , [ ] [ ] t_W , char p , Hn u ) ; void b ( ) ; L m8a ( char [ ] l_ , YJ < U > m ) ; void j ( ) ; FL9 [ ] b ( ) ; }

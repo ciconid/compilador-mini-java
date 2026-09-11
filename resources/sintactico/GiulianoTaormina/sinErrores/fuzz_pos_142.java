@@ -1,0 +1,1 @@
+interface B_B4O extends H_ { }

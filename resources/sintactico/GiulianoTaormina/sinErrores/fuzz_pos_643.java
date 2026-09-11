@@ -1,0 +1,1 @@
+interface VJ extends B_I < J > { } class U__ extends Ud2q < JLY > { } interface X28_ { }

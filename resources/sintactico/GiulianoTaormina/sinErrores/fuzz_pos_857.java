@@ -1,0 +1,1 @@
+class X1 < H > { void b ( int ja ) { ; } } class RaooV { }

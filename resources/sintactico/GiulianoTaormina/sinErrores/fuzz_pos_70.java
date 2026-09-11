@@ -1,0 +1,1 @@
+interface O_5 < Q > extends S_ { }

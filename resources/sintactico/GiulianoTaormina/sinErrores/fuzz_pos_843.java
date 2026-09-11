@@ -1,0 +1,1 @@
+interface I_ < O > { void b ( int e ) ; } interface G71 extends Pa < L > { }

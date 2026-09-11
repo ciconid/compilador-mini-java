@@ -1,0 +1,2 @@
+// [Error:[|2]
+interface L_ extends Jkl < P > { Cs xJ9 ( PPpO9 < S_3g_P > [ ] [ ] p___7L_Obl , F3 zz_ , [ ] [ ] p ) ; Z g2t4 ( ) ; }

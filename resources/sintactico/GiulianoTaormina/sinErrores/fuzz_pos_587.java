@@ -1,0 +1,1 @@
+interface Sk extends Hu < M > { void q ( ) ; } class KE < W > extends XP5 < M5 > { }

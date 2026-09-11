@@ -1,0 +1,2 @@
+// [Error:[|2]
+interface Ev { void gtkY ( H [ ] [ ] l , K h4_ ) ; boolean k ( ) ; void u__ ( G6 p ) ; } interface W_5iL { void j ( B [ ] [ ] tg , int [ ] [ ] d ) ; [ ] m8 ( ) ; void c ( int y3 , N_ < G_ > [ ] [ ] [ ] [ ] j ) ; } interface N_ < H > { }

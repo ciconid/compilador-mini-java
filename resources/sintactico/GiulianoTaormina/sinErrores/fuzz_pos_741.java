@@ -1,0 +1,1 @@
+interface O_ { Ax < K > [ ] [ ] j ( ) ; void yo ( N [ ] [ ] i , int [ ] m , boolean y , char k ) ; YWu < V > e ( I x ) ; } interface Oh < C > { }

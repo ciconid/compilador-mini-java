@@ -1,0 +1,1 @@
+interface QT { void y72 ( ) ; }

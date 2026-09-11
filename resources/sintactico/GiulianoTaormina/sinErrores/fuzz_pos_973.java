@@ -1,0 +1,1 @@
+interface J_I < U > { Z_1 < U > r ( ) ; } class A_xm { }

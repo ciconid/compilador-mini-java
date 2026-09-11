@@ -1,0 +1,1 @@
+interface Vp5 < N > extends DmYw < Ly > { }

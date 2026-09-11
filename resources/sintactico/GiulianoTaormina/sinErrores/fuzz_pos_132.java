@@ -1,0 +1,1 @@
+interface V4 < H > { void s3 ( L1_ < W_ > [ ] y ) ; } class MF < T > { void y ( ) { } }

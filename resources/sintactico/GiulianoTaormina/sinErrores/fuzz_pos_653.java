@@ -1,0 +1,1 @@
+interface Jgy < Q > extends H6 { }

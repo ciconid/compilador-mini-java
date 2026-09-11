@@ -1,0 +1,1 @@
+interface Y_2 < M > { }

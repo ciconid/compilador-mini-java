@@ -1,0 +1,1 @@
+interface M0 < R > { }

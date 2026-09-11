@@ -1,0 +1,1 @@
+interface Vo < K > extends Np { void a_ ( ) ; } class Z8E__7 < V > extends B2 { }

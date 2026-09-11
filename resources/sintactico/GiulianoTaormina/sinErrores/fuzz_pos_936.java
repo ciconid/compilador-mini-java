@@ -1,0 +1,1 @@
+interface Cq__ < R > { }

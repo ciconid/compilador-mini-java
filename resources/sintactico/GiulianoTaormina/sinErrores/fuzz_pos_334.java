@@ -1,0 +1,1 @@
+interface Hn < B > { } class XR extends K_ < D > { }

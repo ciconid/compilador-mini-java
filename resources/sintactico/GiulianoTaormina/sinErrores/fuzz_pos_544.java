@@ -1,0 +1,1 @@
+class HX extends Il < E > { }

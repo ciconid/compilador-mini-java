@@ -1,0 +1,1 @@
+interface PId3 { }

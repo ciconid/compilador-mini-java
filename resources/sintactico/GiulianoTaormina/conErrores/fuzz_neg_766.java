@@ -1,0 +1,2 @@
+// [Error:!|2]
+class K_y < A > implements Y__ { static SL < HW_658 > q9H ( char [ ] y , boolean [ ] [ ] [ ] [ ] y ) { } void r ( ) { } void l ( ) { } } class H__M < A > extends H_8 { } interface Jw < V > extends V9_ < R > { void c5 ( char [ ] [ ] [ ] s , U [ ] [ ] y ) ; boolean [ ] yav ( int j ) ; void zRR4 ( ) ; } class P3 { static Q mn_808V ( ) { } int k ; } ! '%'

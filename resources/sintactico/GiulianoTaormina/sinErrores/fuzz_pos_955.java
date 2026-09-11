@@ -1,0 +1,1 @@
+class Hyn < T > { } class Er < O > { void s_ ( ) { } }

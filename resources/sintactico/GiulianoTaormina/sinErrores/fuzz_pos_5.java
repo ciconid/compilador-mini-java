@@ -1,0 +1,1 @@
+class K2ls { } class Qs3 < S > { }

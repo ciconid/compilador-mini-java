@@ -1,0 +1,2 @@
+// [Error:Kh|2]
+interface X5h_H_9_1ld_ extends Z5 { Z p_ ( ) ; } interface VV5 extends FZGk { } class O_l < N > extends CC < D > { static boolean a Kh { } public Z_ ( Bd < Q___ > [ ] [ ] k , O l ) { } }

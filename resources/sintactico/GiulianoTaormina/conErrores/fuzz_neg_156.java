@@ -1,0 +1,2 @@
+// [Error:-|2]
+- interface Qt_ extends Xf { } interface FM_ { } class Dh < O > extends Opmi < W > { } class AOr { } interface RrYh < D > { D [ ] [ ] [ ] e_h9 ( Lg2 a6__ ) ; } class Z_x0L_ { } interface W19 { V6G < O > [ ] [ ] td ( boolean h ) ; }

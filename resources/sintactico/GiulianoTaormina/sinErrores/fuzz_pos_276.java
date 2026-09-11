@@ -1,0 +1,1 @@
+class SM < F > extends Ma { }

@@ -1,0 +1,2 @@
+// [Error:)|2]
+interface X9 < L > { } interface E4 extends I_ { E_CB2_ [ ] y4r ( ) ; void o ( ) ; } interface Wv7 extends X_ < Zi > { char [ ] [ ] h24 ( P [ ] ) ; L7AI_ [ ] e ( char bY , boolean w ) ; }

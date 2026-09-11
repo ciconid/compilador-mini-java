@@ -1,0 +1,1 @@
+class JW implements O5 { }

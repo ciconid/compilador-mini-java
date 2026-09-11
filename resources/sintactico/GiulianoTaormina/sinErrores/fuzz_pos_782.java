@@ -1,0 +1,1 @@
+interface J0 extends Si_ { }

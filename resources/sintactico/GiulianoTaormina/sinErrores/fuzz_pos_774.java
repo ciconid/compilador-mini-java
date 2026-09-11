@@ -1,0 +1,1 @@
+interface C7 { int myy3 ( ) ; void omd ( C b ) ; O [ ] [ ] z ( int [ ] e ) ; }

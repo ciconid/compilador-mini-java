@@ -1,0 +1,1 @@
+interface F73 < O > { void z6p9 ( boolean ou ) ; }

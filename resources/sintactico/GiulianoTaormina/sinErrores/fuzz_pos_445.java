@@ -1,0 +1,1 @@
+interface Ark_ < T > { WP < Vt > [ ] [ ] z ( int c , G [ ] [ ] [ ] w_5 , M [ ] [ ] [ ] ke , L [ ] [ ] [ ] l ) ; }

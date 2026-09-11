@@ -1,0 +1,2 @@
+// [Error:c4|2]
+class C_ < H > extends WU < WAb > { void k ( boolean e ) { } } interface Qb < V > extends Sp { } interface E4 extends Z_o { void v7I ( M uS , Zs j , c4 , int v_0ulN ) ; boolean h_R87k ( ) ; }

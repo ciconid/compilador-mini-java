@@ -1,0 +1,2 @@
+// [Error:[|2]
+interface E0 extends OF < Vs > { void s ( FKC [ ] [ ] [ ] [ ] [ ] t5 , B9J7 [ ] [ ] a_ ) ; } class ZB < V > { static void f ( boolean u8a_l ) { } static U [ ] [ ] a4 ( ) { var r = ! y_ ( ) ; } static void d ( ) { } [ ] fb ; static N7 < W_ > [ ] u ( G [ ] m96E ) { } public ES ( ) { ; var m = null == ! ( false <= 39025 ) / ( + new int [ + T57 . nhK3__2W ( ) [ 'c' < + 35418 ] . h [ null ] . a__7 ] . uV [ + '\uu24d7' <= ! false = u ( ) [ g8 ] [ "" ] ] ) . f ( ) + ! v ; } S [ ] [ ] [ ] l_f ( R_0__d_ [ ] v ) { } }

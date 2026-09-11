@@ -1,0 +1,1 @@
+class I4 < B > implements V_yl < Ivs > { }

@@ -1,0 +1,1 @@
+class BE implements D646 < O > { }

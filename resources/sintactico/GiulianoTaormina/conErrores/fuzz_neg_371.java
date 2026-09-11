@@ -1,0 +1,2 @@
+// [Error:KFS|2]
+interface N_9MK_c < B > extends B_ < W > { int g_ ( ) ; } interface Nb < C > extends B7 { As < A > s62 ( ) ; I [ ] sm ( ) ; } interface W_H { } interface Wi extends R9 { char w ( Qy5 < V_R0eW > [ ] f7 ) ; } interface Q_ < G > { void u9H KFS j_ , K [ ] [ ] [ ] [ ] [ ] [ ] x , F__wbM2 d , T [ ] [ ] nG , LY8 < AK > k1 ; } class E_i < X > { }

@@ -1,0 +1,1 @@
+interface T_D < S > { }

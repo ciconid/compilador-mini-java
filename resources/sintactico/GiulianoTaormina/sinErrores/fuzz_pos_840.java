@@ -1,0 +1,1 @@
+class H4 implements N6 < W > { public Bn ( ) { } } interface G11 { }

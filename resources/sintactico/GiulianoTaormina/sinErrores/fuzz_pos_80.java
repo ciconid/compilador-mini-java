@@ -1,0 +1,1 @@
+interface R7 < X > { } class Wg < F > extends ZP8 { static char [ ] [ ] x4S ( ) { } }

@@ -1,0 +1,2 @@
+// [Error:(|2]
+interface A_C_ < X > extends Y8 { void f3 ( Sg qZ ) ; void v ( ) ; boolean p ( ) ; } interface B5_ { G_7 < S > [ ] h ( ) ; } ( + 'V' = NC__ . b8H4 ( ) != "\n" = 5238 ) interface ZX_ < B > { } class V_44 < X > implements Bz < C > { }

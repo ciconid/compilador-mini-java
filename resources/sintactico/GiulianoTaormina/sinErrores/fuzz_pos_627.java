@@ -1,0 +1,1 @@
+interface K0A < E > { } class Z4c < C > { } interface M7_ extends A63 { }

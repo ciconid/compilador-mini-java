@@ -1,0 +1,1 @@
+interface Hf { } interface Z8 { void m ( ) ; void rU ( ) ; }

@@ -1,0 +1,2 @@
+// [Error:A|2]
+class J_ < Z > extends Yy < Jo > { char o_ ; Y [ ] n ; } class L_B_ implements E__7R { } interface E_ { } class QR < A > extends D_ { } interface Pyg____k < Q > { U [ ] v ( ) ; void w ( ) ; void j ( X [ ] [ ] q , boolean [ ] [ ] w ) ; boolean [ ] r A [ ] [ ] [ ] ; }

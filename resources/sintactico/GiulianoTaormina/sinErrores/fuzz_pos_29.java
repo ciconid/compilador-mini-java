@@ -1,0 +1,1 @@
+interface EX_a extends RaC < O5 > { }

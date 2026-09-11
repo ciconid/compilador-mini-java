@@ -1,0 +1,2 @@
+// [Error:void|2]
+interface UG extends H9 < M > { void zww_ ( int iz3 ) ; T l ( B [ ] x5 , int [ ] i ) ; } interface B8 < R > { void t ( ) ; } void w ( Z9o [ ] [ ] u , char [ ] [ ] y7 , boolean [ ] j ) ; interface LB < K > { } interface IZ < H > extends E__ { } class Q_9h { Az < T > ww ( Q1 < R > x , boolean g ) { } Qmi [ ] b ; static Q [ ] n ( QN [ ] x ) { } } class Pl_ < F > implements I75 { HZ y ( ) { } }

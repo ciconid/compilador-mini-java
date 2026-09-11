@@ -1,0 +1,2 @@
+// [Error:;|2]
+interface Xrki < V > { boolean aZ ( M1 [ ] p , U [ ] n3 ) ; void e_ ( boolean ab6 , int [ ] [ ] [ ] [ ] x3 ) ; void z ( ) ; J_Q [ ] [ ] [ ] fF ( ) ; char [ ] [ ] [ ] [ ] [ ] [ ] k ; TN < B > z ( ) ; void xP_ ( ) ; }

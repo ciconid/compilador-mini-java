@@ -1,0 +1,1 @@
+class QG0 < K > extends A_ { } interface Y_1_ extends MB0Qa < K > { }

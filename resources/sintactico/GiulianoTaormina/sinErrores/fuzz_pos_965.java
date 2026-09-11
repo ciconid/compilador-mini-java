@@ -1,0 +1,1 @@
+class Zx implements X_ { } class L1 < C > implements Bg_ { void s ( ) { } }

@@ -1,0 +1,1 @@
+interface S1 extends UD < Da > { void b ( ) ; }

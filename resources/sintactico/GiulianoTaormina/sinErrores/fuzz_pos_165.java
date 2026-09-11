@@ -1,0 +1,1 @@
+class S9 implements Oi7C < Ud > { }

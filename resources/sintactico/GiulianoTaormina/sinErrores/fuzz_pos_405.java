@@ -1,0 +1,1 @@
+interface LP < U > extends Ma { }

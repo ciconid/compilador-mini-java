@@ -1,0 +1,2 @@
+// [Error:,|2]
+interface M2vSrL1u { } class CFW < J > extends OP4 { } interface C5 < C > extends EXM { } class CXi implements OGj7 { public OJ ( G_Q_ p , YMJ < H > h , , Lc0L [ ] k8 ) { } } class L4y_1 implements RXR { }

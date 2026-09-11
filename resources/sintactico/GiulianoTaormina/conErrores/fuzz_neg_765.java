@@ -1,0 +1,2 @@
+// [Error:[|2]
+interface W_7 extends Nxzy3e < A_ > { Io [ ] [ ] [ ] [ ] gm ( H b ) ; L_ u ( Y [ ] lr , char z_ ) ; S_F1eI < C8d6 > [ ] wH2Z_v5T3Q ( int l , K [ ] b__ , B [ ] c7_N9 , Kl < A__Q_Wb > z ) ; int e_ ( Oi < T > t , G h0p , V__ [ ] [ ] [ ] [ ] e , P [ ] [ ] [ ] [ ] [ ] [ ] [ ] i ) ; } class K63 extends Q5_i < I > { void be [ ] [ ] { } }

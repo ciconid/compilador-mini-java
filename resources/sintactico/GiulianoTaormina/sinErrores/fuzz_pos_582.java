@@ -1,0 +1,1 @@
+class Q7 < Y > extends My { }

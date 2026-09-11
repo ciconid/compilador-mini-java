@@ -1,0 +1,1 @@
+interface Vs_ { } interface Nor2 < H > { } class J1 < A > extends CS_ { void j ( ) { } }

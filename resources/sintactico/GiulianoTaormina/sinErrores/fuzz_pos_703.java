@@ -1,0 +1,1 @@
+class S_ extends G6__ { }

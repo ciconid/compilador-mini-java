@@ -1,0 +1,1 @@
+interface Y_ < U > { int [ ] [ ] q ( ) ; }

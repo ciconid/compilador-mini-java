@@ -1,0 +1,1 @@
+interface T_ < B > extends C_ { }

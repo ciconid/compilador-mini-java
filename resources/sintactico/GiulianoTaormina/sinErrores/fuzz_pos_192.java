@@ -1,0 +1,1 @@
+interface R_ < S > extends Al { } interface Sg8 { }

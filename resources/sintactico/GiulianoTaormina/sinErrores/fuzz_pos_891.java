@@ -1,0 +1,1 @@
+class N_ extends Rs_RF3 < B > { }

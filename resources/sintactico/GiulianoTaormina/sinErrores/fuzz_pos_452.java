@@ -1,0 +1,1 @@
+interface Y4F_ < B > { }

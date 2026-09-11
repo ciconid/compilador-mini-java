@@ -1,0 +1,1 @@
+interface X_ < K > { }

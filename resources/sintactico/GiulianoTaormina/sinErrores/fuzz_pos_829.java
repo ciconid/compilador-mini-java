@@ -1,0 +1,1 @@
+class H__ < O > extends Mk_ { }

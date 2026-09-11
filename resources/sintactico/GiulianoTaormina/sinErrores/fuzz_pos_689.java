@@ -1,0 +1,1 @@
+interface L_F extends Pc < I_x > { }

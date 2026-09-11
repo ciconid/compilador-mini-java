@@ -1,0 +1,2 @@
+// [Error:e|2]
+interface Nf < L > extends II < H > { } class V3 < P > implements Ea { } class InD < B > implements Vt < AbV > { WF0W [ ] [ ] t07 ; } class S_ < R > extends A_y { M sUme_6 ( TP6A < A > bA ) { } public J_o ( ) { } } class Wt { } class Woj < Y > { void q ( e , UiY < B > j , int b , K2 < C > [ ] lq ) { var h = WZ . z ( ) ; } }

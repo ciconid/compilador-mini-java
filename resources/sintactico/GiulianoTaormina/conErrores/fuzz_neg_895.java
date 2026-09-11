@@ -1,0 +1,2 @@
+// [Error:[|2]
+interface QY { L [ ] [ ] d2 ( ) ; } class YxNil extends N_AB < D45 > { void w_1 ( Md1 [ ] cl , int f , [ ] [ ] n , Qm < Le > w ) { } } class W6 implements VZ_4 { } class AC < P > implements FS < RS > { [ ] j_ ; } class DV < I > { }

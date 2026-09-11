@@ -1,0 +1,1 @@
+class L__qEp < Q > { }

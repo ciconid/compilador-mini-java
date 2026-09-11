@@ -1,0 +1,2 @@
+// [Error:i|2]
+class LV extends XVC { static B_ d i { } } interface V_ < S > { X5 < Y > [ ] g ( Okz_ < M > t , OX < IIK_N > [ ] [ ] t_ , boolean [ ] p_ , int g , int [ ] [ ] mm ) ; } interface F0 < B > { void xEW ( S [ ] uGY ) ; void j6b ( N [ ] [ ] [ ] t ) ; } class V_ { } interface I_ extends C3 < W4Ep > { }

@@ -1,0 +1,1 @@
+interface IT extends ZYkl < Q > { }

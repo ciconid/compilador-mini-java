@@ -1,0 +1,1 @@
+class W_ < U > implements GQ < Q6 > { }

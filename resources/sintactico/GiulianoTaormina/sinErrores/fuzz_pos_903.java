@@ -1,0 +1,1 @@
+class XG < K > { }

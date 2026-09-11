@@ -1,0 +1,1 @@
+interface S_g extends W6 { } class Co_ extends BDh7q { }

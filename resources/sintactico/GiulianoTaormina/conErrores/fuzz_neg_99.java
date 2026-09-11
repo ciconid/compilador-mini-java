@@ -1,0 +1,2 @@
+// [Error:boolean|2]
+class G_Sf__ < F > extends Vg { } class UW extends Om_29m { } interface L6 < F > extends B6 { void p1 ( boolean [ ] k , J [ ] [ ] [ ] if_ , boolean x ) ; } interface M0 < I > { } interface Py < S > { W s ( Hqd [ ] iR8 ) ; void t_ ( N [ ] [ ] z59 , J__ < R > f , I a , S n ) ; void y_6 ( ) ; } class N8_ < M > { } interface Eh0 < P > { void u_6__ ( ) ; } class T7aQ_8 extends VA { } boolean h ( E tur , VB < JuI > [ ] ad , E [ ] u , boolean u , H [ ] [ ] [ ] m ) ;

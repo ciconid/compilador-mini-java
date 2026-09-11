@@ -1,0 +1,1 @@
+class Qa extends C_ { }

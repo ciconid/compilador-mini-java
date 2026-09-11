@@ -1,0 +1,1 @@
+interface E_ < H > extends C6Q < R__ > { char fj ( ) ; void o ( ) ; }

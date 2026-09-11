@@ -1,0 +1,1 @@
+class MA_Y < I > implements GE < OyT > { }

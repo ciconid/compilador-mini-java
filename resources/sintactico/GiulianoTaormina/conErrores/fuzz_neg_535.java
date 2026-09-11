@@ -1,0 +1,2 @@
+// [Error:=|2]
+class XI implements JV0_ { void aU_ ( ) { } } class O5 extends LF_ { void = } class F8 < M > extends W_ < Gs_t > { } interface G9 extends VS { M3Wf [ ] w ( ) ; void ql ( int bT , char [ ] [ ] [ ] pl ) ; void oK ( ) ; boolean [ ] z ( C l ) ; } interface J__ < T > { } interface G_JO_ < A > extends E3tU_Q { void f ( ) ; L [ ] f ( boolean [ ] [ ] [ ] [ ] gB ) ; void vDh ( C2 tx66 , ESce_ s ) ; void x ( J sHw ) ; } class T__ < Y > extends UR { Gt [ ] u ( ) { return this . i ( false ) ; { } } }

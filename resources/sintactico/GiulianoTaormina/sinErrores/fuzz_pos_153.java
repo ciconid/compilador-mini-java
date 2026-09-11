@@ -1,0 +1,1 @@
+class Y2Gt { } interface S_Z_ extends S6_ { } interface WR25 extends RHg { }

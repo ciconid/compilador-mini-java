@@ -1,0 +1,1 @@
+interface QY < S > extends T_9 { }

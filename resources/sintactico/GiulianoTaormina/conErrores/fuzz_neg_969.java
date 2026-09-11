@@ -1,0 +1,2 @@
+// [Error:}|2]
+class Ei < L > { } interface Zi < S > extends V8M < O > { void q ( N_O [ ] [ ] hyu_ ) ; } interface O4 { void y ( ) ; void d ( U h , Dy_ < H_g4 > [ ] [ ] g ) ; } class F_F0 { public IO ( ) } class CN implements E_ < AD > { } interface FQ extends F_0_yc < N > { char z ( ) ; boolean [ ] [ ] [ ] a ( TJ_n [ ] [ ] j ) ; Vae uy ( ) ; }

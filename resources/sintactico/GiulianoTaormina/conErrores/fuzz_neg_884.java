@@ -1,0 +1,2 @@
+// [Error:true|2]
+class FW implements H2 { C c ( E [ ] o ) { } public Y1H__vD ( ) { } } interface VjNfR < W > extends V_x < F5 > { void q ( V [ ] h4 ) ; L20 [ ] tr ( ) ; void l3S ( ) ; int n2 ( ) ; void fv ( H lT , N r , boolean c7s ) ; void y ( UEs [ ] [ ] v , S t_ ) ; void m ( int c21 , R n3 , W e ) ; int [ ] [ ] y ( V a , G__bV < M > [ ] l31_ ) ; } class M_ { void true }

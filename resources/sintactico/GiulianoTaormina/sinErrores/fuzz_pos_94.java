@@ -1,0 +1,1 @@
+class K_ extends A9 { }

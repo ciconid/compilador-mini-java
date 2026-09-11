@@ -1,0 +1,1 @@
+interface T_2 < K > { } class Sm extends GF_ { }

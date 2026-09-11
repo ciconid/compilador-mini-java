@@ -1,0 +1,1 @@
+interface Wh < F > { void q ( ) ; }

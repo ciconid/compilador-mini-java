@@ -1,0 +1,2 @@
+// [Error:!|2]
+class R8 { static void ! null int [ ] [ ] [ ] h ( ) { } static J8u < X > u_9 ( ) { } } class V76d < B > extends Di < F > { } interface M_ { } class K5 < C > extends Oh { static void d9 ( ) { ; } } class Uf < D > implements Qz < FQ > { public NP ( JKK < O_ > [ ] l ) { ; } int [ ] [ ] [ ] s ; } interface MFN < F > { K oK ( H u , U2Q bm ) ; } interface G3_ < Q > extends LNeB_OYn { void z ( int c , boolean d ) ; } class N_ < Y > implements B_ < H > { }

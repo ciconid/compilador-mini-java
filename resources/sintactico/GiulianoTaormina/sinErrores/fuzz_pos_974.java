@@ -1,0 +1,1 @@
+interface C41 extends IS { }

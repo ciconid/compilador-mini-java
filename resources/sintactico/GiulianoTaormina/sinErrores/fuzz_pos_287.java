@@ -1,0 +1,1 @@
+interface Sw < O > { }

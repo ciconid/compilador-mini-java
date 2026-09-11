@@ -1,0 +1,1 @@
+interface FI < U > extends IP < Ft > { }

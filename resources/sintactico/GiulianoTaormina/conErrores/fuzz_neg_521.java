@@ -1,0 +1,2 @@
+// [Error:*|2]
+interface Bd { } class X_M < P > implements Iqo { static void tao ( ) { ; 38884 >= qb ( ! null || ! null && + this [ null = 08471 ] . x7z ( ) ) [ '\"' ] . aBU - o [ - '\uu765E' ] >= l ( ) . r_gR8 >= '\f' ; if ( ! 9266 >= ! true = ! 62289 ) ; else ; } J_An_ < V > [ ] c ( ) { * + new RGqYy_ < Q1L_h > ( ) / - new char [ null ] } } interface Uz < I > { int o_ ( int [ ] [ ] j_0 ) ; void h ( ) ; } interface P_ < P > { }

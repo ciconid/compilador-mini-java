@@ -1,0 +1,1 @@
+interface Y_m extends Q2 < Zm > { P7 < X > [ ] d_2 ( int e6 ) ; }

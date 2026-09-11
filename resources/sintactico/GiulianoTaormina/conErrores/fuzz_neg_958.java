@@ -1,0 +1,2 @@
+// [Error:boolean|2]
+interface C6_ extends V____ < G > { boolean [ ] x ( ) ; } class ZJ_ extends Pe_qB0 { } class QD { public EaV_ ( ) boolean n2z8 ( U0JRm c , JBM__w < V > h , int [ ] [ ] [ ] [ ] [ ] a7 ) { } } interface Pt extends V7_M < C > { } class OnNu_F extends NC { } class E4 implements DVh { public D6e ( ) { } void d1 ( W63 < D > [ ] kw_ ) { } } class N_77 { GB [ ] [ ] [ ] lSj ; }

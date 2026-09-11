@@ -1,0 +1,2 @@
+// [Error:i|2]
+class Gx extends I_ { boolean [ ] i ; void sb ( Y__Uz < Xq > fm ) { } static void j ( boolean e , U_N_ < H > [ ] f ) { } } class FE_3N < N > extends R__g { boolean [ ] [ ] mH2c5e ; } class W9__ < E > { } class Sq < U > implements DF < O5p > { static i ( ) { } void d ( J_T_ < Q8 > r0 ) { } I48_V < Rk4 > [ ] [ ] g ; Pq < O > [ ] x ( ) { } } interface U7 < C > { } interface Et < G > { } interface I3 extends Zf < P > { void p_ ( boolean [ ] i ) ; U_F < H > l73M ( ) ; }

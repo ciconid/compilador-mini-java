@@ -1,0 +1,2 @@
+// [Error:(|2]
+class G_ < G > { static void ( Z [ ] e , T u9 , S [ ] [ ] t ) { } public P6 ( ) { } } interface HFR_3c < R > { } class V_ extends E8 < PK > { } class V0v_94 extends D__u < K > { } interface U8 extends Dr { void w1KMx ( int [ ] [ ] [ ] g , R eB ) ; } interface HF < U > { }

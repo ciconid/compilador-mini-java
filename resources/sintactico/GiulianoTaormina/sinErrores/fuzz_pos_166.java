@@ -1,0 +1,1 @@
+class W3_B < K > { EAU < Yee > rG ; } interface V0 { }

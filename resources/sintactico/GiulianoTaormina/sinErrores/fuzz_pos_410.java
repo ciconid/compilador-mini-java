@@ -1,0 +1,1 @@
+interface V_ extends J4 < Y > { }

@@ -1,0 +1,1 @@
+interface Lw < M > extends H_ < F > { }

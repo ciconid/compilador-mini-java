@@ -1,0 +1,1 @@
+class Lf__ { void g ( ) { } }

@@ -1,0 +1,1 @@
+interface MQ extends JXa1jQ { }

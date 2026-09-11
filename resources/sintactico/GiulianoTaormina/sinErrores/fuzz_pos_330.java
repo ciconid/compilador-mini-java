@@ -1,0 +1,1 @@
+interface WUg < T > { }

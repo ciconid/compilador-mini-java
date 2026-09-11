@@ -1,0 +1,1 @@
+interface BsR extends D7 < X > { void wW8 ( ) ; }

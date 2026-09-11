@@ -1,0 +1,2 @@
+// [Error:J_|2]
+interface ReB2 < U > { W [ ] [ ] o ( ) ; void d_5 ( ) ; void cj ( C [ ] [ ] [ ] cS_O , int [ ] l6NY ) ; } class F_1L implements RN { } interface V8_ < P > { } class W5_i6t1 { } interface Dx < C > extends J4 < H > { } J_

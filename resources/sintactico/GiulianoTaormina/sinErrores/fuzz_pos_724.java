@@ -1,0 +1,1 @@
+class RL < R > { static void m ( B [ ] n ) { return + null = + 96252 < null ; } }

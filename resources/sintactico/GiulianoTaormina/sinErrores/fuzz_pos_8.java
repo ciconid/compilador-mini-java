@@ -1,0 +1,1 @@
+interface G6n < W > { }

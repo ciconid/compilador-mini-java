@@ -1,0 +1,2 @@
+// [Error:<|2]
+interface HW < I > extends M_ { void p ( E [ ] [ ] [ ] [ ] [ ] d_YA , Qs_4v [ ] j , boolean [ ] [ ] [ ] o , boolean [ ] d , U [ ] [ ] s ) ; } interface ET1 extends X1P { K i ( ) ; } class B__ extends < E6P > { }

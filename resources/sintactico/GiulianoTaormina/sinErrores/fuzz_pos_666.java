@@ -1,0 +1,1 @@
+interface G_y < X > { } class V2 { public L_ ( ) { ; } public Oq ( ) { } }

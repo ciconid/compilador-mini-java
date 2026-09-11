@@ -1,0 +1,1 @@
+class Z_ < D > extends LPB { }

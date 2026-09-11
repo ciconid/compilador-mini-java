@@ -1,0 +1,1 @@
+interface Q2_ < J > extends T_ < Y > { }

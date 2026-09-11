@@ -1,0 +1,1 @@
+interface S_ < L > { } class P_ < F > { static D_bei3 [ ] t ( C_ < D3 > dS_ ) { } }

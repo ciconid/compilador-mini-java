@@ -1,0 +1,1 @@
+interface V_ { } interface Ea_N extends Sm < C_0 > { }

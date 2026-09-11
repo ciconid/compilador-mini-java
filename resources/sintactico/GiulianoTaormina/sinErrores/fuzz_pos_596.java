@@ -1,0 +1,1 @@
+interface W8G < G > { }

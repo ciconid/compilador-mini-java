@@ -1,0 +1,2 @@
+// [Error:new|2]
+class S6W < I > extends Q_ < X > { static void new D5 ( ) . aI_ ( ) static void k ( int [ ] [ ] h , O d_g ) { } } class K_ < Q > extends F7 < Y > { static void p ( ) { if ( null > null ) ; else null == - '\uu8d7a' ; } }

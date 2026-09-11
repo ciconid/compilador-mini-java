@@ -1,0 +1,1 @@
+interface B_dYB extends P_ < Sd__NAe > { K s ( char vJ_ ) ; }

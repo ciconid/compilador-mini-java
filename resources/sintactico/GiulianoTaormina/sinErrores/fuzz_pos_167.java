@@ -1,0 +1,1 @@
+class W6 < Q > implements R5m { public I_a ( ) { } }

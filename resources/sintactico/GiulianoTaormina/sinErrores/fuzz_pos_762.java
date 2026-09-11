@@ -1,0 +1,1 @@
+interface Bb extends De6 { }

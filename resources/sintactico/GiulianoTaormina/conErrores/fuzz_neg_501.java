@@ -1,0 +1,2 @@
+// [Error:}|2]
+interface NE < I > { } interface Bn_ < B > { } interface Ed extends FI < T > { } class T9c { void fZ ( ) { var z = + this ; { } return + '\uuuuuDf26' ; cM ( ) [ null ] } void v4 ( ) { } }

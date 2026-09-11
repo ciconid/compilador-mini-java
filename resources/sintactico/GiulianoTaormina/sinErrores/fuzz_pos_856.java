@@ -1,0 +1,1 @@
+interface Yi extends I_ { } class I6v implements Gt < Gu_ > { }

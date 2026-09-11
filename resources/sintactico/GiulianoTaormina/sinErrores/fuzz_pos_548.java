@@ -1,0 +1,1 @@
+interface Xp { H [ ] c ( ) ; void uG ( ) ; } class Qg < B > implements I_ { }

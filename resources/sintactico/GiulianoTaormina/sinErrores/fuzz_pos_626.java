@@ -1,0 +1,1 @@
+interface O__8 < N > extends ZmR71 { }

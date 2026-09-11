@@ -1,0 +1,1 @@
+interface Q1_a7c { }

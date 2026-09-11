@@ -1,0 +1,1 @@
+class Q2 < W > implements R_2 { }

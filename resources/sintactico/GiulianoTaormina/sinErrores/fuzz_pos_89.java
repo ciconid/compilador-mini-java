@@ -1,0 +1,1 @@
+interface UaI6_VS < I > { I_ [ ] [ ] n2 ( ) ; }

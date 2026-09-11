@@ -1,0 +1,1 @@
+class PEt_981 < J > { } interface LW extends LX_9 { }

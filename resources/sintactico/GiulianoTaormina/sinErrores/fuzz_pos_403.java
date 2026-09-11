@@ -1,0 +1,1 @@
+interface R7_ < T > extends I_ { }

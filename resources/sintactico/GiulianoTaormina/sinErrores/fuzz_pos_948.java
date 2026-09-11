@@ -1,0 +1,1 @@
+interface Wk < A > extends HggzYaU_i < D > { void mC ( ) ; }

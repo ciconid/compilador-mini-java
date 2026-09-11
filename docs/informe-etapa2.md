@@ -7,7 +7,7 @@
 | `<Inicial>`                    | `<ListaClases> eof`                                                                                                                                                               |
 | `<ListaClases>`                | `<Clase> <ListaClases>` \| `<Interfaz> <ListaClases>` \| `ϵ`                                                                                                                      |
 | `<Clase>`                      | `class idClase <GenericidadOpcional> <HerenciaOpcional> { <ListaMiembros> }`                                                                                                      |
-| `<Interfaz>`                   | `interface idClase < <GenericidadOpcional> > <ExtensionOpcional> { <ListaMetodosInterfaz> }`                                                                                      |
+| `<Interfaz>`                   | `interface idClase  <GenericidadOpcional>  <ExtensionOpcional> { <ListaMetodosInterfaz> }`                                                                                        |
 | `<GenericidadOpcional>`        | `< idGen >` \| `ϵ`                                                                                                                                                                |
 | `<HerenciaOpcional>`           | `extends <TipoReferencia>` \| `implements <TipoReferencia>` \| `ϵ`                                                                                                                |
 | `<ExtensionOpcional>`          | `extends <TipoReferencia>` \| `ϵ`                                                                                                                                                 |

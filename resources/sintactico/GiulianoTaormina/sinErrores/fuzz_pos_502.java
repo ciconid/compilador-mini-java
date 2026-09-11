@@ -1,0 +1,1 @@
+class I2B extends LI_O { void fM_ ( ) { } } interface MN { } class WRd8 extends Bm8_6 < N > { }

@@ -1,0 +1,1 @@
+class KR < V > { Y a ; }

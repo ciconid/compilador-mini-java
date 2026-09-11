@@ -1,0 +1,2 @@
+// [Error:hm_|2]
+interface X5 { E tg ( ) ; M [ ] p ( hm_ ) ; } interface H4 { void z ( ) ; void w ( ) ; Z hO ( X y , J [ ] [ ] f , L__ y5TuIzh , boolean eO ) ; } interface EY < O > { void e ( boolean [ ] fiA , J7 < M > [ ] i , char s ) ; } interface O__e extends O__0 { }

@@ -1,0 +1,2 @@
+// [Error:,|2]
+class TiQ < U > { } interface Sm_ extends Y8_ < J2f > { void r__N ( ) ; } interface P_e < V > { } class ZU_ < L > extends Qv { char [ ] [ ] [ ] s ( F g0 , PsmCp < R40 > e , char i9_2H9 ) { var e = 'W' ; while ( + 8673948 ) { } } } class W8 < G > extends Rn { void u8 ( D , int r5 ) { } } interface V_4 < L > { }

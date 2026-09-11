@@ -1,0 +1,2 @@
+// [Error:;|2]
+class G42ME { } interface QM2 < Q > { O yw_3W ( boolean a , int kF ) ; } ; interface VCL extends Ep < TF_8 > { } class M_ extends MR85 < Wo > { } interface Ok < U > { } class G_ implements Q7 { } interface G7_ < P > extends YAg3 { } interface S9 { }

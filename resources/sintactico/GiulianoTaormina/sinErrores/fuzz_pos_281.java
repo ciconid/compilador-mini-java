@@ -1,0 +1,1 @@
+interface Js < F > { } interface F_ < B > extends C_x { }

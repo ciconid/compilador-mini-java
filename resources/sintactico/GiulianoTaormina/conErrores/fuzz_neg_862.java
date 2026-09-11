@@ -1,0 +1,2 @@
+// [Error:[|2]
+interface XU_ < X > { void z ( ) ; } class Uj implements PY < A_ > { } class R7 < Q > implements I_8Y { void hSslDP ( ) { } void fq ( ) { } } interface B_a { void v ( [ ] [ ] [ ] xT ) ; } interface S3_4G extends YUet__ < O > { }

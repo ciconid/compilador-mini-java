@@ -1,0 +1,1 @@
+class KS extends EZ < Q_ > { } class En extends M8 < N > { } interface I4 { }

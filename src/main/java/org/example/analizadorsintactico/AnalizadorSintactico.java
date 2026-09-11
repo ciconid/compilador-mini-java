@@ -5,9 +5,9 @@ import org.example.analizadorlexico.Token;
 
 import java.util.Arrays;
 
-@SuppressWarnings("ArraysAsListWithZeroOrOneArgument")
+@SuppressWarnings({"ArraysAsListWithZeroOrOneArgument", "StatementWithEmptyBody"})
 public class AnalizadorSintactico {
-    private AnalizadorLexico analizadorLexico;
+    private final AnalizadorLexico analizadorLexico;
     private Token tokenActual;
 
     public AnalizadorSintactico(AnalizadorLexico alex) {
@@ -46,9 +46,7 @@ public class AnalizadorSintactico {
     void interfaz() {
         match("prInterface");
         match("idClase");
-        match("opMenor");
         genericidadOpcional();
-        match("opMayor");
         extensionOpcional();
         match("puLlaveAbre");
         listaMetodosInterfaz();
@@ -78,7 +76,7 @@ public class AnalizadorSintactico {
     }
 
     void extensionOpcional() {
-        if (Arrays.asList("prEextends").contains(tokenActual.token())) {
+        if (Arrays.asList("prExtends").contains(tokenActual.token())) {
             match("prExtends");
             tipoReferencia();
         } else {
@@ -160,6 +158,7 @@ public class AnalizadorSintactico {
         tipoMetodo();
         match("idMetVal");
         argsFormales();
+        match("puPuntoYComa");
     }
 
     void constructor() {
@@ -637,6 +636,7 @@ public class AnalizadorSintactico {
         if (nombreToken.equals(tokenActual.token())) {
             tokenActual = analizadorLexico.proximoToken();
         } else {
+            System.out.println("Se esperaba " + nombreToken + " pero vino " + tokenActual.token());
             throw new ErrorSintactico(tokenActual.lexema(), tokenActual.nroDeLinea());
         }
     }

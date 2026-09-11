@@ -1,0 +1,2 @@
+// [Error:[|2]
+interface S_ < H > extends KV < Xw > { } interface V2 < K > extends QU0 < T_xh > { void lu4Z ( boolean [ ] x ) ; void c ( Ve < ZM > [ ] pUw ) ; Sp < Q > [ ] u ( [ ] [ ] [ ] [ ] or ) ; } class V_ < Y > implements F4CGG < UJ1_ > { } interface WZ < B > extends TZX { } class X_ extends BDxj { } interface H3a extends KIIDN < R > { }

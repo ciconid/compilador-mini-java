@@ -1,0 +1,2 @@
+// [Error:}|2]
+interface N_9MK_c < B > extends B_ < W > { int g_ ( ) ; } interface Nb < C > extends B7 { As < A > s62 ( ) ; I [ ] sm ( ) ; } interface W_H { } interface Wi extends R9 { Qy5 < V_R0eW > } interface Q_ < P > { } class E_i < X > { }

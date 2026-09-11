@@ -1,0 +1,1 @@
+interface Ok_c_O6Z extends FCY < VF8 > { }

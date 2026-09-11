@@ -1,0 +1,2 @@
+// [Error:PF|2]
+class U5 < G > implements J__t { } interface Dh { int [ ] mF ( ) ; V5_ < Lh > q_ ( char [ ] pbm ) ; void a_ ( boolean k ) ; void cY ( Jas_v e , Z [ ] l , R6 d , char [ ] x ) ; No_ < W > u ( char eF ) ; J22 < N2_ > p ( boolean tk_ ) ; void a ( ) ; } PF class FzE2 implements Y_ < RPSL > { } interface NVk < B > extends Vr7 { void d ( M y_U_x , N6_ [ ] pV , L tVH , int cc_6 ) ; }

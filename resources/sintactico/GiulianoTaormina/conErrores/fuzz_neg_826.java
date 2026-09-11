@@ -1,0 +1,2 @@
+// [Error:)|2]
+interface A_ { F_ d ( ) ; } interface I_ extends C_ { R [ ] p ( PNJwS9 ) ; }

@@ -1,0 +1,1 @@
+interface E92 < C > extends G_ { } interface ZTe extends J5 { }

@@ -1,0 +1,2 @@
+// [Error:{|2]
+interface SN { } interface K__ { } class B_ < P > implements B0EwPWO { } interface T_ < I > extends VW6 { } interface C8 { void sE ( boolean [ ] [ ] [ ] n , J_ < A > [ ] n ) ; } interface I37 < B > extends { F_ < M_ > ut ( Y g_ ) ; }

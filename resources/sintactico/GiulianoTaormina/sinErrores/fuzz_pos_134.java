@@ -1,0 +1,1 @@
+class F_1O_0_K_N < P > extends NL { }

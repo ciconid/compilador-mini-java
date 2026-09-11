@@ -1,0 +1,1 @@
+interface P_4i_ < W > extends F__ { char o ( ) ; char a ( ) ; }

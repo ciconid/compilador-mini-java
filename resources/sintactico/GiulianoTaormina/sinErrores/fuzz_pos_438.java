@@ -1,0 +1,1 @@
+class Xx3_PT60 { }

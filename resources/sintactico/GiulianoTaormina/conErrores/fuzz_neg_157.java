@@ -1,0 +1,2 @@
+// [Error:>|2]
+interface GM { char [ ] [ ] [ ] l ( char hoi ) ; } interface RL extends N_ < A_7K_zw_ > { } interface HT_ { } interface VyWE4 extends DU_ { ZMK < > [ ] g ( ) ; Q [ ] zf3 ( ) ; } interface Tv_8 { W4 < EN5_o > m ( ) ; }

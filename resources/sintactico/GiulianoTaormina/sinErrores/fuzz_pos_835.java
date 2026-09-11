@@ -1,0 +1,1 @@
+interface Z__ < B > extends Z_ { } interface Nh { int [ ] s ( ) ; }

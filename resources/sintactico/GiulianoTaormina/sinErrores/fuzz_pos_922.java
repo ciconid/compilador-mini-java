@@ -1,0 +1,1 @@
+interface WASE < S > { boolean [ ] [ ] f ( ) ; }

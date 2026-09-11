@@ -1,0 +1,1 @@
+interface G2 { L [ ] [ ] [ ] [ ] j ( int [ ] [ ] l_ , char [ ] [ ] [ ] [ ] [ ] [ ] c , int e_ , P125 v0 ) ; } class Zt { } class M_ < G > { public K_ ( G t4 ) { return ; } T n6 ; }

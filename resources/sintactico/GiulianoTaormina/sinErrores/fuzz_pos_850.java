@@ -1,0 +1,1 @@
+interface OO_ { char [ ] [ ] uw ( ) ; } interface Mf_ extends A2 { void g ( F_ f5V ) ; } interface R_ { }

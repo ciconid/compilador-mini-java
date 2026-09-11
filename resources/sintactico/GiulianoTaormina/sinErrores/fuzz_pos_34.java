@@ -1,0 +1,1 @@
+interface M7 < Q > { }

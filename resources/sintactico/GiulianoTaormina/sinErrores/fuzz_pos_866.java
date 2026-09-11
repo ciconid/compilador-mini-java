@@ -1,0 +1,1 @@
+class O0 extends TT { }

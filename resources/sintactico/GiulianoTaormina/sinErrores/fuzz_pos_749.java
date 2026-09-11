@@ -1,0 +1,1 @@
+class VF extends V0_ < K > { }

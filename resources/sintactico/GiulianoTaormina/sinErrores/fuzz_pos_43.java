@@ -1,0 +1,1 @@
+interface D__ < P > { }

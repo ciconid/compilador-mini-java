@@ -1,0 +1,1 @@
+class Bq { static void rd ( ) { } }

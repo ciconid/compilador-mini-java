@@ -1,0 +1,1 @@
+class R_ implements I_Hx < Y > { } interface V_J3G_Aq { }

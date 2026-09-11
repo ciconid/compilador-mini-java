@@ -1,0 +1,1 @@
+class Skzv < X > extends B61 { }

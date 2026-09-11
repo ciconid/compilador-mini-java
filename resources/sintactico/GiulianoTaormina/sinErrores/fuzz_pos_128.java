@@ -1,0 +1,1 @@
+interface WK < C > extends L5i < VZ > { } class T_ implements KL < R > { }
