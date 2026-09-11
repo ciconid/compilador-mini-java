@@ -3,7 +3,11 @@ package org.example.analizadorsintactico;
 import org.example.analizadorlexico.AnalizadorLexico;
 import org.example.analizadorlexico.Token;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @SuppressWarnings({"ArraysAsListWithZeroOrOneArgument", "StatementWithEmptyBody"})
 public class AnalizadorSintactico {
@@ -124,7 +128,15 @@ public class AnalizadorSintactico {
             argsFormales();
             bloque();
         } else {
-            throw new ErrorSintactico(tokenActual.lexema(), tokenActual.nroDeLinea());
+            List<String> tokens = new ArrayList<>(Primeros.tipo);
+            tokens.add("prStatic");
+            tokens.add("prVoid");
+            tokens.add("prPublic");
+
+            String lexemasEsperados = tokens.stream()
+                    .map(TokensYLexemas::get)
+                    .collect(Collectors.joining(", "));
+            throw new ErrorSintactico(tokenActual.lexema(), tokenActual.nroDeLinea(), lexemasEsperados);
         }
     }
 
@@ -135,7 +147,7 @@ public class AnalizadorSintactico {
             argsFormales();
             bloque();
         } else {
-            throw new ErrorSintactico(tokenActual.lexema(), tokenActual.nroDeLinea());
+            throw new ErrorSintactico(tokenActual.lexema(), tokenActual.nroDeLinea(), "; o (");
         }
     }
 
@@ -182,7 +194,13 @@ public class AnalizadorSintactico {
         } else if (Arrays.asList("prVoid").contains(tokenActual.token())) {
             match("prVoid");
         } else {
-            throw new ErrorSintactico(tokenActual.lexema(), tokenActual.nroDeLinea());
+            List<String> tokens = new ArrayList<>(Primeros.tipo);
+            tokens.add("prVoid");
+
+            String lexemasEsperados = tokens.stream()
+                    .map(TokensYLexemas::get)
+                    .collect(Collectors.joining(", "));
+            throw new ErrorSintactico(tokenActual.lexema(), tokenActual.nroDeLinea(), lexemasEsperados);
         }
     }
 
@@ -199,7 +217,7 @@ public class AnalizadorSintactico {
         } else if (Arrays.asList("idGen").contains(tokenActual.token())) {
             match("idGen");
         } else {
-            throw new ErrorSintactico(tokenActual.lexema(), tokenActual.nroDeLinea());
+            throw new ErrorSintactico(tokenActual.lexema(), tokenActual.nroDeLinea(), "TIPO-BASE");
         }
     }
 
@@ -226,7 +244,7 @@ public class AnalizadorSintactico {
         } else if (Arrays.asList("prInt").contains(tokenActual.token())) {
             match("prInt");
         } else {
-            throw new ErrorSintactico(tokenActual.lexema(), tokenActual.nroDeLinea());
+            throw new ErrorSintactico(tokenActual.lexema(), tokenActual.nroDeLinea(), "TIPO-PRIM");
         }
     }
 
@@ -246,7 +264,14 @@ public class AnalizadorSintactico {
         } else if (Arrays.asList("idClase").contains(tokenActual.token())) {
             match("idClase");
         } else {
-            throw new ErrorSintactico(tokenActual.lexema(), tokenActual.nroDeLinea());
+            List<String> tokens = new ArrayList<>();
+            tokens.add("idGen");
+            tokens.add("idClase");
+
+            String lexemasEsperados = tokens.stream()
+                    .map(TokensYLexemas::get)
+                    .collect(Collectors.joining(", "));
+            throw new ErrorSintactico(tokenActual.lexema(), tokenActual.nroDeLinea(), lexemasEsperados);
         }
     }
 
@@ -318,7 +343,7 @@ public class AnalizadorSintactico {
         } else if (Primeros.bloque.contains(tokenActual.token())) {
             bloque();
         } else {
-            throw new ErrorSintactico(tokenActual.lexema(), tokenActual.nroDeLinea());
+            throw new ErrorSintactico(tokenActual.lexema(), tokenActual.nroDeLinea(), "SENTEN");
         }
     }
 
@@ -436,7 +461,7 @@ public class AnalizadorSintactico {
         } else if (Arrays.asList("opModulo").contains(tokenActual.token())) {
             match("opModulo");
         } else {
-            throw new ErrorSintactico(tokenActual.lexema(), tokenActual.nroDeLinea());
+            throw new ErrorSintactico(tokenActual.lexema(), tokenActual.nroDeLinea(), "OP BIN");
         }
     }
 
@@ -447,7 +472,13 @@ public class AnalizadorSintactico {
         } else if (Primeros.operando.contains(tokenActual.token())) {
             operando();
         } else {
-            throw new ErrorSintactico(tokenActual.lexema(), tokenActual.nroDeLinea());
+            List<String> tokens = new ArrayList<>(Primeros.operadorUnario);
+            tokens.addAll(Primeros.operando);
+
+            String lexemasEsperados = tokens.stream()
+                    .map(TokensYLexemas::get)
+                    .collect(Collectors.joining(", "));
+            throw new ErrorSintactico(tokenActual.lexema(), tokenActual.nroDeLinea(), lexemasEsperados);
         }
     }
 
@@ -459,7 +490,7 @@ public class AnalizadorSintactico {
         } else if (Arrays.asList("opNegacion").contains(tokenActual.token())) {
             match("opNegacion");
         } else {
-            throw new ErrorSintactico(tokenActual.lexema(), tokenActual.nroDeLinea());
+            throw new ErrorSintactico(tokenActual.lexema(), tokenActual.nroDeLinea(), "OP UN");
         }
     }
 
@@ -469,7 +500,7 @@ public class AnalizadorSintactico {
         } else if (Primeros.referencia.contains(tokenActual.token())) {
             referencia();
         } else {
-            throw new ErrorSintactico(tokenActual.lexema(), tokenActual.nroDeLinea());
+            throw new ErrorSintactico(tokenActual.lexema(), tokenActual.nroDeLinea(), "OPERANDO");
         }
     }
 
@@ -485,7 +516,7 @@ public class AnalizadorSintactico {
         } else if (Arrays.asList("prNull").contains(tokenActual.token())) {
             match("prNull");
         } else {
-            throw new ErrorSintactico(tokenActual.lexema(), tokenActual.nroDeLinea());
+            throw new ErrorSintactico(tokenActual.lexema(), tokenActual.nroDeLinea(), "PRIM");
         }
     }
 
@@ -532,7 +563,7 @@ public class AnalizadorSintactico {
         } else if (Primeros.expresionParentizada.contains(tokenActual.token())) {
             expresionParentizada();
         } else {
-            throw new ErrorSintactico(tokenActual.lexema(), tokenActual.nroDeLinea());
+            throw new ErrorSintactico(tokenActual.lexema(), tokenActual.nroDeLinea(), "PRIMARIO");
         }
     }
 
@@ -555,7 +586,14 @@ public class AnalizadorSintactico {
             tipoReferencia();
             restoTipoReferencia();
         } else {
-            throw new ErrorSintactico(tokenActual.lexema(), tokenActual.nroDeLinea());
+            List<String> tokens = new ArrayList<>(Primeros.tipoPrimitivo);
+            tokens.add("idGen");
+            tokens.addAll(Primeros.tipoReferencia);
+
+            String lexemasEsperados = tokens.stream()
+                    .map(TokensYLexemas::get)
+                    .collect(Collectors.joining(", "));
+            throw new ErrorSintactico(tokenActual.lexema(), tokenActual.nroDeLinea(), lexemasEsperados);
         }
     }
 
@@ -565,7 +603,7 @@ public class AnalizadorSintactico {
         } else if (Primeros.argsActuales.contains(tokenActual.token())) {
             argsActuales();
         } else {
-            throw new ErrorSintactico(tokenActual.lexema(), tokenActual.nroDeLinea());
+            throw new ErrorSintactico(tokenActual.lexema(), tokenActual.nroDeLinea(), "RESTO TIPO REF");
         }
     }
 
@@ -636,8 +674,8 @@ public class AnalizadorSintactico {
         if (nombreToken.equals(tokenActual.token())) {
             tokenActual = analizadorLexico.proximoToken();
         } else {
-            System.out.println("Se esperaba " + nombreToken + " pero vino " + tokenActual.token());
-            throw new ErrorSintactico(tokenActual.lexema(), tokenActual.nroDeLinea());
+//            System.out.println("DEBUG: Se esperaba " + nombreToken + " pero vino " + tokenActual.token());
+            throw new ErrorSintactico(tokenActual.lexema(), tokenActual.nroDeLinea(), TokensYLexemas.get(nombreToken));
         }
     }
 }
