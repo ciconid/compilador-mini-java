@@ -1,19 +1,8 @@
-CON EPSILON
-if (Arrays.asList("").contains(tokenActual.token())) {
-
-        } else if (Arrays.asList("").contains(tokenActual.token())) {
-
-        } else {
-            // epsilon
-        }
-
-     SIN EPSILON
-
-if (Arrays.asList("").contains(tokenActual.token())) {
-
-    } else if (Arrays.asList("").contains(tokenActual.token())) {
-
-    } else {
-      throw new ErrorSintactico(tokenActual.lexema(), tokenActual.nroDeLinea());
-
-}
+OK miembro
+OK atributoOMetodo
+OK restoAOM
+OK atribtuo
+OK metodo
+OK metodostatic
+OK metodovoid
+OK constructor

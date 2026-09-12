@@ -11,6 +11,7 @@ public class Primeros {
     public static final List<String> miembro = Arrays.asList("prBoolean", "prChar", "prInt", "idClase", "idGen", "prStatic", "prVoid", "prPublic");
     public static final List<String> metodoInterfaz = Arrays.asList("prBoolean", "prChar", "prInt", "idClase", "idGen", "prVoid");
     public static final List<String> tipo = Arrays.asList("prBoolean", "prChar", "prInt", "idClase", "idGen");
+    public static final List<String> atributoOMetodo = Arrays.asList("prBoolean", "prChar", "prInt", "idClase", "idGen");
     public static final List<String> tipoPrimitivo = Arrays.asList("prBoolean", "prChar", "prInt");
     public static final List<String> tipoReferencia = Arrays.asList("idClase");
     public static final List<String> listaArgsFormales = Arrays.asList("prBoolean", "prChar", "prInt", "idClase", "idGen");

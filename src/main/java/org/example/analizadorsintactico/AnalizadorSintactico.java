@@ -106,28 +106,16 @@ public class AnalizadorSintactico {
     }
 
     void miembro() {
-        if (Primeros.tipo.contains(tokenActual.token())) {
-            tipo();
-            match("idMetVal");
-            restoMiembro();
+        if (Primeros.atributoOMetodo.contains(tokenActual.token())) {
+            atributoOMetodo();
         } else if (Arrays.asList("prStatic").contains(tokenActual.token())) {
-            match("prStatic");
-            tipoMetodo();
-            match("idMetVal");
-            argsFormales();
-            bloque();
+            metodoStatic();
         } else if (Arrays.asList("prVoid").contains(tokenActual.token())) {
-            match("prVoid");
-            match("idMetVal");
-            argsFormales();
-            bloque();
+            metodoVoid();
         } else if (Arrays.asList("prPublic").contains(tokenActual.token())) {
-            match("prPublic");
-            match("idClase");
-            argsFormales();
-            bloque();
+            constructor();
         } else {
-            List<String> tokens = new ArrayList<>(Primeros.tipo);
+            List<String> tokens = new ArrayList<>(Primeros.atributoOMetodo);
             tokens.add("prStatic");
             tokens.add("prVoid");
             tokens.add("prPublic");
@@ -137,6 +125,45 @@ public class AnalizadorSintactico {
                     .collect(Collectors.joining(", "));
             throw new ErrorSintactico(tokenActual.lexema(), tokenActual.nroDeLinea(), lexemasEsperados);
         }
+    }
+
+    void atributoOMetodo() {
+        tipo();
+        match("idMetVal");
+        restoAtributoOMetodo();
+    }
+
+    void restoAtributoOMetodo() {
+        if (Arrays.asList("puPuntoYComa").contains(tokenActual.token())) {
+            atributo();
+        } else if (Arrays.asList("puParentesisAbre").contains(tokenActual.token())) {
+            metodo();
+        } else {
+            List<String> tokens = new ArrayList<>();
+            tokens.add("puPuntoYComa");
+            tokens.add("puParentesisAbre");
+
+            String lexemasEsperados = tokens.stream()
+                    .map(TokensYLexemas::get)
+                    .collect(Collectors.joining(", "));
+            throw new ErrorSintactico(tokenActual.lexema(), tokenActual.nroDeLinea(), lexemasEsperados);
+        }
+    }
+
+
+    void metodoStatic() {
+        match("prStatic");
+        tipoMetodo();
+        match("idMetVal");
+        argsFormales();
+        bloque();
+    }
+
+    void metodoVoid() {
+        match("prVoid");
+        match("idMetVal");
+        argsFormales();
+        bloque();
     }
 
     void restoMiembro() {
@@ -152,15 +179,10 @@ public class AnalizadorSintactico {
 
 
     void atributo() {
-        tipo();
-        match("idMetVal");
         match("puPuntoYComa");
     }
 
     void metodo() {
-        modificadorOpcional();
-        tipoMetodo();
-        match("idMetVal");
         argsFormales();
         bloque();
     }
