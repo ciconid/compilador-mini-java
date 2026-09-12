@@ -12,6 +12,10 @@ public class Primeros {
     public static final List<String> metodoInterfaz = Arrays.asList("prBoolean", "prChar", "prInt", "idClase", "idGen", "prVoid");
     public static final List<String> tipo = Arrays.asList("prBoolean", "prChar", "prInt", "idClase", "idGen");
     public static final List<String> atributoOMetodo = Arrays.asList("prBoolean", "prChar", "prInt", "idClase", "idGen");
+    public static final List<String> atributo = Arrays.asList("puPuntoYComa", "opAsignacion");
+
+    public static final List<String> argsFormales = Arrays.asList("puParentesisAbre");
+    public static final List<String> metodo = Primeros.argsFormales;
     public static final List<String> tipoPrimitivo = Arrays.asList("prBoolean", "prChar", "prInt");
     public static final List<String> tipoReferencia = Arrays.asList("idClase");
     public static final List<String> listaArgsFormales = Arrays.asList("prBoolean", "prChar", "prInt", "idClase", "idGen");

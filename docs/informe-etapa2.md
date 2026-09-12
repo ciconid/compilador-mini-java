@@ -25,7 +25,7 @@
 | `<AtributoOMetodo`             | `<Tipo> idMetVar <RestoAtributoOMetodo>`                                                                                             |
 | `<RestoAtributoOMetodo>`       | `<Atributo>` \| `<Metodo>`                                                                                                           |
 | `<RestoMiembro>`               | `;` \| `<ArgsFormales> <Bloque>`                                                                                                     |
-| `<Atributo>`                   | `;`                                                                                                                                  |
+| `<Atributo>`                   | `;` \| `= <Expresion> ;`                                                                                                             |
 | `<Metodo>`                     | `<ArgsFormales> <Bloque>`                                                                                                            |
 | `<MetodoStatic>`               | `static <TipoMetodo> idMetVar <ArgsFormales> <Bloque>`                                                                               |
 | `<MetodoVoid>`                 | `void idMetVar <ArgsFormales> <Bloque>`                                                                                              |

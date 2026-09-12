@@ -134,14 +134,13 @@ public class AnalizadorSintactico {
     }
 
     void restoAtributoOMetodo() {
-        if (Arrays.asList("puPuntoYComa").contains(tokenActual.token())) {
+        if (Primeros.atributo.contains(tokenActual.token())) {
             atributo();
-        } else if (Arrays.asList("puParentesisAbre").contains(tokenActual.token())) {
+        } else if (Primeros.metodo.contains(tokenActual.token())) {
             metodo();
         } else {
-            List<String> tokens = new ArrayList<>();
-            tokens.add("puPuntoYComa");
-            tokens.add("puParentesisAbre");
+            List<String> tokens = new ArrayList<>(Primeros.atributo);
+            tokens.addAll(Primeros.metodo);
 
             String lexemasEsperados = tokens.stream()
                     .map(TokensYLexemas::get)
@@ -179,7 +178,16 @@ public class AnalizadorSintactico {
 
 
     void atributo() {
-        match("puPuntoYComa");
+        if (Arrays.asList("puPuntoYComa").contains(tokenActual.token())) {
+            match("puPuntoYComa");
+        } else if (Arrays.asList("opAsignacion").contains(tokenActual.token())) {
+            match("opAsignacion");
+            expresion();
+            match("puPuntoYComa");
+        } else {
+            throw new ErrorSintactico(tokenActual.lexema(), tokenActual.nroDeLinea(), "; o =");
+        }
+
     }
 
     void metodo() {
