@@ -1,26 +1,28 @@
-import org.example.Main;
-import org.hamcrest.CoreMatchers;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
-import org.junit.runners.Parameterized.Parameters;
+package lexico.TB;
 
 import java.io.*;
 import java.util.ArrayList;
 
+import org.example.Main;
+import org.example.MainEtapa1;
+import org.hamcrest.CoreMatchers;
+import org.junit.After;
+import org.junit.Test;
 import static org.hamcrest.MatcherAssert.assertThat;
+import org.junit.Before;
+import org.junit.runner.RunWith;
+import org.junit.runners.Parameterized;
+import org.junit.runners.Parameterized.Parameters;
 
 @RunWith(Parameterized.class)
-public class TesterDeCasosConErroresSS {
+public class TesterDeCasosConErroresTB {
 
     //TODO: el tipo de esta variable init tiene que ser la clase que tiene el main
-    private static final Main init = null;
+    private static final MainEtapa1 init = null;
 
     private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
     private final PrintStream originalOut = System.out;
-    private static final String testFilesDirectoryPath = "resources/SantiSalamanca/conErrores/";
+    private static final String testFilesDirectoryPath = "resources/lexico/TomBertotto/conErrores/";
     private boolean fullCompilerOuputPrintingInEachTest = true;
 
     @Before
@@ -46,7 +48,7 @@ public class TesterDeCasosConErroresSS {
 
     private String input;
 
-    public TesterDeCasosConErroresSS(String input){
+    public TesterDeCasosConErroresTB(String input){
         this.input = input;
     }
 

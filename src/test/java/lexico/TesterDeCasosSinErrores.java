@@ -1,29 +1,32 @@
-import org.example.Main;
-import org.hamcrest.CoreMatchers;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
+package lexico;
 
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import static org.hamcrest.MatcherAssert.assertThat;
 
+import org.example.Main;
+import org.example.MainEtapa1;
+import org.hamcrest.CoreMatchers;
+import org.junit.After;
+import org.junit.Test;
+import org.junit.Before;
+import org.junit.runner.RunWith;
+import org.junit.runners.Parameterized;
+
+import static org.hamcrest.MatcherAssert.assertThat;
 @RunWith(Parameterized.class)
-public class TesterDeCasosSinErroresSS {
+public class TesterDeCasosSinErrores {
 
     private static final String MSG_EXITO = "[SinErrores]";
-    private static final String TEST_FILES_DIRECTORY_PATH = "resources/SantiSalamanca/sinErrores/";
+    private static final String TEST_FILES_DIRECTORY_PATH = "resources/lexico/sinErrores/";
     private static final String EXPECTED_TOKEN_PREFIX = "//#";
 
     // TODO: Reemplazar Main por la clase del proyecto que declara:
     // public static void main(String[] args)
     // No es necesario crear una instancia de dicha clase.
-    private static final Main init = null;
+    private static final MainEtapa1 init = null;
 
     private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
     private final PrintStream originalOut = System.out;
@@ -33,7 +36,7 @@ public class TesterDeCasosSinErroresSS {
 
     private final String input;
 
-    public TesterDeCasosSinErroresSS(String input) {
+    public TesterDeCasosSinErrores(String input) {
         this.input = input;
     }
 

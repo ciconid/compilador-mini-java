@@ -1,8 +1,6 @@
 package org.example;
 
 import org.example.analizadorlexico.AnalizadorLexico;
-import org.example.analizadorlexico.ErrorLexico;
-import org.example.analizadorlexico.Token;
 import org.example.analizadorsintactico.AnalizadorSintactico;
 import org.example.analizadorsintactico.ErrorSintactico;
 import org.example.sourcemanager.SourceManagerImpl;

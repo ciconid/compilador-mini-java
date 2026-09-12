@@ -1,25 +1,29 @@
-import java.io.*;
-import java.util.ArrayList;
+package lexico.SS;
 
 import org.example.Main;
+import org.example.MainEtapa1;
 import org.hamcrest.CoreMatchers;
 import org.junit.After;
-import org.junit.Test;
-import static org.hamcrest.MatcherAssert.assertThat;
 import org.junit.Before;
+import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
 
+import java.io.*;
+import java.util.ArrayList;
+
+import static org.hamcrest.MatcherAssert.assertThat;
+
 @RunWith(Parameterized.class)
-public class TesterDeCasosConErroresTB {
+public class TesterDeCasosConErroresSS {
 
     //TODO: el tipo de esta variable init tiene que ser la clase que tiene el main
-    private static final Main init = null;
+    private static final MainEtapa1 init = null;
 
     private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
     private final PrintStream originalOut = System.out;
-    private static final String testFilesDirectoryPath = "resources/TomBertotto/conErrores/";
+    private static final String testFilesDirectoryPath = "resources/lexico/SantiSalamanca/conErrores/";
     private boolean fullCompilerOuputPrintingInEachTest = true;
 
     @Before
@@ -45,7 +49,7 @@ public class TesterDeCasosConErroresTB {
 
     private String input;
 
-    public TesterDeCasosConErroresTB(String input){
+    public TesterDeCasosConErroresSS(String input){
         this.input = input;
     }
 

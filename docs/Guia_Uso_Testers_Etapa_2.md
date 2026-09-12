@@ -10,8 +10,8 @@ Copiar los dos archivos de tester en el directorio de fuentes de prueba del proy
 
 ```text
 src/test/java/
-├── TesterDeCasosSinErrores.java
-└── TesterDeCasosConErrores.java
+├── lexico.TesterDeCasosSinErrores.java
+└── lexico.TesterDeCasosConErrores.java
 ```
 
 También se deben crear, en el directorio raíz del proyecto, las carpetas que contendrán los casos de prueba:
@@ -32,8 +32,8 @@ mi-proyecto/
 │   │       └── ... código del compilador ...
 │   └── test/
 │       └── java/
-│           ├── TesterDeCasosSinErrores.java
-│           └── TesterDeCasosConErrores.java
+│           ├── lexico.TesterDeCasosSinErrores.java
+│           └── lexico.TesterDeCasosConErrores.java
 └── resources/
     ├── sinErrores/
     └── conErrores/
@@ -52,7 +52,7 @@ package minijavaCompiler;
 su ubicación debe ser:
 
 ```text
-src/test/java/minijavaCompiler/TesterDeCasosSinErrores.java
+src/test/java/minijavaCompiler/lexico.TesterDeCasosSinErrores.java
 ```
 
 Si se prefiere ubicar ambos testers directamente en `src/test/java`, se debe quitar la línea `package ...;` de ambos archivos. También puede adaptarse el paquete para que coincida con el que se use en el proyecto.
@@ -114,7 +114,7 @@ Los archivos correctos se colocan en:
 resources/sinErrores/
 ```
 
-El `TesterDeCasosSinErrores` ejecuta el compilador sobre cada archivo de esa carpeta y verifica que la salida contenga:
+El `lexico.TesterDeCasosSinErrores` ejecuta el compilador sobre cada archivo de esa carpeta y verifica que la salida contenga:
 
 ```text
 [SinErrores]

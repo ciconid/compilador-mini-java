@@ -1,3 +1,5 @@
+package lexico.TB;
+
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -5,6 +7,7 @@ import java.util.List;
 
 
 import org.example.Main;
+import org.example.MainEtapa1;
 import org.hamcrest.CoreMatchers;
 import org.junit.After;
 import org.junit.Test;
@@ -17,13 +20,13 @@ import static org.hamcrest.MatcherAssert.assertThat;
 public class TesterDeCasosSinErroresTB {
 
     private static final String MSG_EXITO = "[SinErrores]";
-    private static final String TEST_FILES_DIRECTORY_PATH = "resources/TomBertotto/sinErrores/";
+    private static final String TEST_FILES_DIRECTORY_PATH = "resources/lexico/TomBertotto/sinErrores/";
     private static final String EXPECTED_TOKEN_PREFIX = "//#";
 
     // TODO: Reemplazar Main por la clase del proyecto que declara:
     // public static void main(String[] args)
     // No es necesario crear una instancia de dicha clase.
-    private static final Main init = null;
+    private static final MainEtapa1 init = null;
 
     private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
     private final PrintStream originalOut = System.out;
