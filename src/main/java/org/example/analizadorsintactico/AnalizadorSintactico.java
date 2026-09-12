@@ -250,7 +250,15 @@ public class AnalizadorSintactico {
         } else if (Arrays.asList("prInt").contains(tokenActual.token())) {
             match("prInt");
         } else {
-            throw new ErrorSintactico(tokenActual.lexema(), tokenActual.nroDeLinea(), "TIPO-PRIM");
+            List<String> tokens = new ArrayList<>();
+            tokens.add("iprBoolean");
+            tokens.add("prChar");
+            tokens.add("prInt");
+
+            String lexemasEsperados = tokens.stream()
+                    .map(TokensYLexemas::get)
+                    .collect(Collectors.joining(", "));
+            throw new ErrorSintactico(tokenActual.lexema(), tokenActual.nroDeLinea(), lexemasEsperados);
         }
     }
 
@@ -479,7 +487,7 @@ public class AnalizadorSintactico {
         } else if (Arrays.asList("opModulo").contains(tokenActual.token())) {
             match("opModulo");
         } else {
-            throw new ErrorSintactico(tokenActual.lexema(), tokenActual.nroDeLinea(), "OP BIN");
+            throw new ErrorSintactico(tokenActual.lexema(), tokenActual.nroDeLinea(), "NO ALCANZABLE - OP BINARIO");
         }
     }
 
@@ -508,7 +516,7 @@ public class AnalizadorSintactico {
         } else if (Arrays.asList("opNegacion").contains(tokenActual.token())) {
             match("opNegacion");
         } else {
-            throw new ErrorSintactico(tokenActual.lexema(), tokenActual.nroDeLinea(), "OP UN");
+            throw new ErrorSintactico(tokenActual.lexema(), tokenActual.nroDeLinea(), "NO ALCANZABLE - OPERADOR UNARIO");
         }
     }
 
@@ -518,7 +526,13 @@ public class AnalizadorSintactico {
         } else if (Primeros.referencia.contains(tokenActual.token())) {
             referencia();
         } else {
-            throw new ErrorSintactico(tokenActual.lexema(), tokenActual.nroDeLinea(), "OPERANDO");
+            List<String> tokens = new ArrayList<>(Primeros.primitivo);
+            tokens.addAll(Primeros.referencia);
+
+            String lexemasEsperados = tokens.stream()
+                    .map(TokensYLexemas::get)
+                    .collect(Collectors.joining(", "));
+            throw new ErrorSintactico(tokenActual.lexema(), tokenActual.nroDeLinea(), lexemasEsperados);
         }
     }
 
@@ -534,7 +548,7 @@ public class AnalizadorSintactico {
         } else if (Arrays.asList("prNull").contains(tokenActual.token())) {
             match("prNull");
         } else {
-            throw new ErrorSintactico(tokenActual.lexema(), tokenActual.nroDeLinea(), "PRIMITIVO");
+            throw new ErrorSintactico(tokenActual.lexema(), tokenActual.nroDeLinea(), "NO ALCANZABLE - PRIMITIVO");
         }
     }
 
@@ -581,7 +595,7 @@ public class AnalizadorSintactico {
         } else if (Primeros.expresionParentizada.contains(tokenActual.token())) {
             expresionParentizada();
         } else {
-            throw new ErrorSintactico(tokenActual.lexema(), tokenActual.nroDeLinea(), "PRIMARIO");
+            throw new ErrorSintactico(tokenActual.lexema(), tokenActual.nroDeLinea(), "NO ALCANZABLE - PRIMARIO");
         }
     }
 
@@ -621,7 +635,13 @@ public class AnalizadorSintactico {
         } else if (Primeros.argsActuales.contains(tokenActual.token())) {
             argsActuales();
         } else {
-            throw new ErrorSintactico(tokenActual.lexema(), tokenActual.nroDeLinea(), "RESTO TIPO REF");
+            List<String> tokens = new ArrayList<>(Primeros.dimensionesConTamanio);
+            tokens.addAll(Primeros.argsActuales);
+
+            String lexemasEsperados = tokens.stream()
+                    .map(TokensYLexemas::get)
+                    .collect(Collectors.joining(", "));
+            throw new ErrorSintactico(tokenActual.lexema(), tokenActual.nroDeLinea(), lexemasEsperados);
         }
     }
 

@@ -81,6 +81,18 @@
 
 ---
 
+# Decisiones de diseño, clases utilizadas, etc (agregar descripciones)
+
+# Clases
+### Utility 
+- Primeros
+- TokensYLexemas
+### Excepciones
+- Error Sintáctico
+
+
+
+---
 # Instrucciones de Compilación y Uso
 
 ## Requisitos previos
