@@ -129,7 +129,7 @@ public class AnalizadorSintactico {
 
     void atributoOMetodo() {
         tipo();
-        match("idMetVal");
+        match("idMetVar");
         restoAtributoOMetodo();
     }
 
@@ -153,14 +153,14 @@ public class AnalizadorSintactico {
     void metodoStatic() {
         match("prStatic");
         tipoMetodo();
-        match("idMetVal");
+        match("idMetVar");
         argsFormales();
         bloque();
     }
 
     void metodoVoid() {
         match("prVoid");
-        match("idMetVal");
+        match("idMetVar");
         argsFormales();
         bloque();
     }
@@ -197,7 +197,7 @@ public class AnalizadorSintactico {
 
     void metodoInterfaz() {
         tipoMetodo();
-        match("idMetVal");
+        match("idMetVar");
         argsFormales();
         match("puPuntoYComa");
     }
@@ -350,7 +350,7 @@ public class AnalizadorSintactico {
 
     void argFormal() {
         tipo();
-        match("idMetVal");
+        match("idMetVar");
     }
 
     void bloque() {
@@ -409,7 +409,7 @@ public class AnalizadorSintactico {
 
     void varLocal() {
         match("prVar");
-        match("idMetVal");
+        match("idMetVar");
         match("opAsignacion");
         expresionCompuesta();
     }
@@ -590,7 +590,7 @@ public class AnalizadorSintactico {
     void restoReferencia() {
         if (Arrays.asList("puPunto").contains(tokenActual.token())) {
             match("puPunto");
-            match("idMetVal");
+            match("idMetVar");
             argsActualesOpcionales();
             restoReferencia();
         } else if (Primeros.accesoArreglo.contains(tokenActual.token())) {
@@ -614,9 +614,9 @@ public class AnalizadorSintactico {
             match("prThis");
         } else if (Arrays.asList("stringLiteral").contains(tokenActual.token())) {
             match("stringLiteral");
-        } else if (Arrays.asList("idMetVal").contains(tokenActual.token())) {
-            match("idMetVal");
-            restoIdMetVal();
+        } else if (Arrays.asList("idMetVar").contains(tokenActual.token())) {
+            match("idMetVar");
+            restoidMetVar();
         } else if (Arrays.asList("prNew").contains(tokenActual.token())) {
             match("prNew");
             restoNew();
@@ -629,7 +629,7 @@ public class AnalizadorSintactico {
         }
     }
 
-    void restoIdMetVal() {
+    void restoidMetVar() {
         if (Primeros.argsActuales.contains(tokenActual.token())) {
             argsActuales();
         } else {
@@ -684,7 +684,7 @@ public class AnalizadorSintactico {
     void llamadaMetodoEstatico() {
         match("idClase");
         match("puPunto");
-        match("idMetVal");
+        match("idMetVar");
         argsActuales();
     }
 

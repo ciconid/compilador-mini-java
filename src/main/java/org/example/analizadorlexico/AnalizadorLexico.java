@@ -146,7 +146,7 @@ public class AnalizadorLexico {
                 case "public" -> crearToken("prPublic");
                 case "var" -> crearToken("prVar");
                 case "false" -> crearToken("prFalse");
-                default -> crearToken("idMetVal");
+                default -> crearToken("idMetVar");
             };
         }
     }
@@ -412,7 +412,7 @@ public class AnalizadorLexico {
 
     private Token e29() {
         int nroLinea = gestorDeFuente.getLineNumber();
-        if (caracterActual == '\''){
+        if (caracterActual == '\'') {
             actualizarLexema();
             actualizarCaracterActual();
             throw new ErrorLexico(lexema, nroLinea);

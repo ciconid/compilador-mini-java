@@ -19,27 +19,27 @@ public class Primeros {
     public static final List<String> tipoPrimitivo = Arrays.asList("prBoolean", "prChar", "prInt");
     public static final List<String> tipoReferencia = Arrays.asList("idClase");
     public static final List<String> listaArgsFormales = Arrays.asList("prBoolean", "prChar", "prInt", "idClase", "idGen");
-    public static final List<String> sentencia = Arrays.asList("puPuntoYComa", "opSuma", "opResta", "opNegacion", "prTrue", "prFalse", "intLiteral", "charLiteral", "prNull", "prThis", "stringLiteral", "idMetVal", "prNew", "idClase", "puParentesisAbre", "prVar", "prReturn", "prIf", "prWhile", "puLlaveAbre");
-    public static final List<String> asignacionYLlamada = Arrays.asList("opSuma", "opResta", "opNegacion", "prTrue", "prFalse", "intLiteral", "charLiteral", "prNull", "prThis", "stringLiteral", "idMetVal", "prNew", "idClase", "puParentesisAbre");
+    public static final List<String> sentencia = Arrays.asList("puPuntoYComa", "opSuma", "opResta", "opNegacion", "prTrue", "prFalse", "intLiteral", "charLiteral", "prNull", "prThis", "stringLiteral", "idMetVar", "prNew", "idClase", "puParentesisAbre", "prVar", "prReturn", "prIf", "prWhile", "puLlaveAbre");
+    public static final List<String> asignacionYLlamada = Arrays.asList("opSuma", "opResta", "opNegacion", "prTrue", "prFalse", "intLiteral", "charLiteral", "prNull", "prThis", "stringLiteral", "idMetVar", "prNew", "idClase", "puParentesisAbre");
     public static final List<String> varLocal = Arrays.asList("prVar");
     public static final List<String> returnNT = Arrays.asList("prReturn");
     public static final List<String> ifNT = Arrays.asList("prIf");
     public static final List<String> whileNT = Arrays.asList("prWhile");
     public static final List<String> bloque = Arrays.asList("puLlaveAbre");
-    public static final List<String> expresion = Arrays.asList("opSuma", "opResta", "opNegacion", "prTrue", "prFalse", "intLiteral", "charLiteral", "prNull", "prThis", "stringLiteral", "idMetVal", "prNew", "idClase", "puParentesisAbre");
+    public static final List<String> expresion = Arrays.asList("opSuma", "opResta", "opNegacion", "prTrue", "prFalse", "intLiteral", "charLiteral", "prNull", "prThis", "stringLiteral", "idMetVar", "prNew", "idClase", "puParentesisAbre");
     public static final List<String> operadorAsignacion = Arrays.asList("opAsignacion");
     public static final List<String> operadorBinario = Arrays.asList("opOr", "opAnd", "opIgualdad", "opDistinto", "opMenor", "opMayor", "opMenorIgual", "opMayorIgual", "opSuma", "opResta", "opMultiplicacion", "opDivision", "opModulo");
     public static final List<String> operadorUnario = Arrays.asList("opSuma", "opResta", "opNegacion");
-    public static final List<String> operando = Arrays.asList("prTrue", "prFalse", "intLiteral", "charLiteral", "prNull", "prThis", "stringLiteral", "idMetVal", "prNew", "idClase", "puParentesisAbre");
+    public static final List<String> operando = Arrays.asList("prTrue", "prFalse", "intLiteral", "charLiteral", "prNull", "prThis", "stringLiteral", "idMetVar", "prNew", "idClase", "puParentesisAbre");
     public static final List<String> primitivo = Arrays.asList("prTrue", "prFalse", "intLiteral", "charLiteral", "prNull");
-    public static final List<String> referencia = Arrays.asList("prThis", "stringLiteral", "idMetVal", "prNew", "idClase", "puParentesisAbre");
+    public static final List<String> referencia = Arrays.asList("prThis", "stringLiteral", "idMetVar", "prNew", "idClase", "puParentesisAbre");
     public static final List<String> accesoArreglo = Arrays.asList("puCorcheteAbre");
     public static final List<String> argsActuales = Arrays.asList("puParentesisAbre");
     public static final List<String> restoReferencia = Arrays.asList("puPunto", "puCorcheteAbre");
     public static final List<String> llamadaMetodoEstatico = Arrays.asList("idClase");
     public static final List<String> expresionParentizada = Arrays.asList("puParentesisAbre");
     public static final List<String> dimensionesConTamanio = Arrays.asList("puCorcheteAbre");
-    public static final List<String> listaExps = Arrays.asList("opSuma", "opResta", "opNegacion", "prTrue", "prFalse", "intLiteral", "charLiteral", "prNull", "prThis", "stringLiteral", "idMetVal", "prNew", "idClase", "puParentesisAbre");
+    public static final List<String> listaExps = Arrays.asList("opSuma", "opResta", "opNegacion", "prTrue", "prFalse", "intLiteral", "charLiteral", "prNull", "prThis", "stringLiteral", "idMetVar", "prNew", "idClase", "puParentesisAbre");
 
 
 }

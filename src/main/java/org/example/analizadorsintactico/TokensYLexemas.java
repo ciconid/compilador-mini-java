@@ -110,7 +110,7 @@ public class TokensYLexemas {
                 return "false";
 
             // Identificadores y literales (sin lexema fijo)
-            case "idMetVal":
+            case "idMetVar":
                 return "id de metodo o variable";
             case "idGen":
                 return "id generico";
