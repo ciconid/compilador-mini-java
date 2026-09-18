@@ -62,7 +62,9 @@
 | `<ExpresionCompuesta>`         | `<ExpresionBasica> <RestoExpresionCompuesta>`                                                                                        |
 | `<RestoExpresionCompuesta>`    | `<OperadorBinario> <ExpresionCompuesta>` \| `ϵ`                                                                                      |
 | `<OperadorBinario>`            | `\|\|` \| `&&` \| `==` \| `!=` \| `<` \| `>` \| `<=` \| `>=` \| `+` \| `-` \| `*` \| `/` \| `%`                                      |
-| `<ExpresionBasica>`            | `<OperadorUnario> <Operando>` \| `<Operando>`                                                                                        |
+| `<ExpresionBasica>`            | `<OperadorUnario> <Operando>` \| `<Operando> <OpcionalOperando>`                                                                     |
+| `<OpcionalOperando>`           | `ϵ` \| `<OperadorUnarioPosfijo>`                                                                                                     |
+| `<OperadorUnarioPosfijo>`      | `++` \| `--`                                                                                                                         |
 | `<OperadorUnario>`             | `+` \| `−` \| `!`                                                                                                                    |
 | `<Operando>`                   | `<Primitivo>` \| `<Referencia>`                                                                                                      |
 | `<Primitivo>`                  | `true` \| `false` \| `intLiteral` \| `charLiteral` \| `null`                                                                         |

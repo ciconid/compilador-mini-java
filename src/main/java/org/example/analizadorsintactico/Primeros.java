@@ -30,6 +30,7 @@ public class Primeros {
     public static final List<String> operadorAsignacion = Arrays.asList("opAsignacion");
     public static final List<String> operadorBinario = Arrays.asList("opOr", "opAnd", "opIgualdad", "opDistinto", "opMenor", "opMayor", "opMenorIgual", "opMayorIgual", "opSuma", "opResta", "opMultiplicacion", "opDivision", "opModulo");
     public static final List<String> operadorUnario = Arrays.asList("opSuma", "opResta", "opNegacion");
+    public static final List<String> operadorUnarioPosfijo = Arrays.asList("opIncremento", "opDecremento");
     public static final List<String> operando = Arrays.asList("prTrue", "prFalse", "intLiteral", "charLiteral", "prNull", "prThis", "stringLiteral", "idMetVar", "prNew", "idClase", "puParentesisAbre");
     public static final List<String> primitivo = Arrays.asList("prTrue", "prFalse", "intLiteral", "charLiteral", "prNull");
     public static final List<String> referencia = Arrays.asList("prThis", "stringLiteral", "idMetVar", "prNew", "idClase", "puParentesisAbre");

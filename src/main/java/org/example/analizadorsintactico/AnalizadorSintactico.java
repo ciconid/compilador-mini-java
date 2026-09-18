@@ -527,6 +527,7 @@ public class AnalizadorSintactico {
             operando();
         } else if (Primeros.operando.contains(tokenActual.token())) {
             operando();
+            opcionalOperando();
         } else {
             List<String> tokens = new ArrayList<>(Primeros.operadorUnario);
             tokens.addAll(Primeros.operando);
@@ -535,6 +536,24 @@ public class AnalizadorSintactico {
                     .map(TokensYLexemas::get)
                     .collect(Collectors.joining(", "));
             throw new ErrorSintactico(tokenActual.lexema(), tokenActual.nroDeLinea(), lexemasEsperados);
+        }
+    }
+
+    void opcionalOperando() {
+        if (Primeros.operadorUnarioPosfijo.contains(tokenActual.token())) {
+            operadorUnarioPosfijo();
+        } else {
+            //epsilon
+        }
+    }
+
+    void operadorUnarioPosfijo() {
+        if (Arrays.asList("opIncremento").contains(tokenActual.token())) {
+            match("opIncremento");
+        } else if (Arrays.asList("opDecremento").contains(tokenActual.token())) {
+            match("opDecremento");
+        } else {
+            throw new ErrorSintactico(tokenActual.lexema(), tokenActual.nroDeLinea(), "NO ALCANZABLE - OPERADOR UNARIO POSFIJO");
         }
     }
 
