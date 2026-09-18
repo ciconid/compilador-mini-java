@@ -22,7 +22,7 @@
 | `<ListaMiembros>`              | `<Miembro> <ListaMiembros>` \| `ϵ`                                                                                                   |
 | `<ListaMetodosInterfaz>`       | `<MetodoInterfaz> <ListaMetodosInterfaz>` \| `ϵ`                                                                                     |
 | `<Miembro>`                    | `<AtributoOMetodo>` \| `<MetodoStatic>` \| `<MetodoVoid>` \| `<Constructor>`                                                         |
-| `<AtributoOMetodo`             | `<Tipo> idMetVar <RestoAtributoOMetodo>`                                                                                             |
+| `<AtributoOMetodo>`            | `<Tipo> idMetVar <RestoAtributoOMetodo>`                                                                                             |
 | `<RestoAtributoOMetodo>`       | `<Atributo>` \| `<Metodo>`                                                                                                           |
 | `<RestoMiembro>`               | `;` \| `<ArgsFormales> <Bloque>`                                                                                                     |
 | `<Atributo>`                   | `;` \| `= <Expresion> ;`                                                                                                             |
