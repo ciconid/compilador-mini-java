@@ -1,1 +1,0 @@
-class U9 < I > extends RNe9 { static char l ( G mh ) { } }

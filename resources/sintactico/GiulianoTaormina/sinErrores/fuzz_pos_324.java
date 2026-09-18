@@ -1,1 +1,0 @@
-interface Vnh6 extends QN < Y6 > { void ip ( H wWql , char [ ] m2_ ) ; } interface FF_ < X > { }

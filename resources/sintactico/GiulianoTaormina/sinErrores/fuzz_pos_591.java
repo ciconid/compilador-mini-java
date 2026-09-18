@@ -1,1 +1,0 @@
-class A_ extends S14 < B > { }

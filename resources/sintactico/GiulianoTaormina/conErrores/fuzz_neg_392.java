@@ -1,2 +1,0 @@
-// [Error:(|2]
-class Y3 { void b ( E v , char [ ] [ ] i ) { return ! 'U' ; if ( ! 'M' * + ')' = '\uuu8b7e' >= - '8' * + false == 595 ) return this . z ( ) = - ( ! new B2 < U3_K_ > ( P_ . c8lqfGTu_91 ( ) = null ) . kt . y1 ) . r ( - new V [ - Ma . e_i7 ( ) % "" . er ] [ - true = this != b ( ) ] [ "\uu2E84\uuuuuuuuub6E9\uue3dA^t\f" < + null ] [ + true / + '\t' = ! p - ! Rr . h ( ) = n . g = "" ] [ - false ] . hS_c_wI . ( ) . j ( ) [ ! '\"' ] , ! null ) ; } DF iE ( ) { } } interface EYN extends Lv < E > { void f ( ) ; KP [ ] k ( B8 < T > [ ] [ ] [ ] j ) ; }

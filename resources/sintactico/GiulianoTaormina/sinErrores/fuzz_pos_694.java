@@ -1,1 +1,0 @@
-interface T3ki < B > { D [ ] f ( N [ ] [ ] e , boolean [ ] [ ] [ ] [ ] [ ] [ ] oP_ ) ; } interface COq < L > { } class EqW implements I1I < KQt_X_ > { }

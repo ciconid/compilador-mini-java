@@ -1,1 +1,0 @@
-interface B_l { } class SU < P > extends XF_Uo < Tx > { }

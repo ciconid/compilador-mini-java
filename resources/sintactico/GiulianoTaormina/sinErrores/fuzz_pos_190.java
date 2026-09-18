@@ -1,1 +1,0 @@
-interface N_ < M > extends N_ < T > { void d ( ) ; }

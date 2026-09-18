@@ -1,2 +1,0 @@
-// [Error:O|2]
-interface D_ < I > { void ld ( ) ; } interface Mb_ { } interface Jt < N > extends SRG { void p ( Nd < NH > d_L4e13_X , boolean [ ] p6 , T [ ] g , Vs mI9 ) ; } interface FM < Y > extends YU < W > { Vb < Sc8 > ni_ ( ) ; } O interface Q8 < W > { M8 d ( ) ; char r6_ ( ) ; } class U25 { static void b2 ( OJ [ ] n ) { } }

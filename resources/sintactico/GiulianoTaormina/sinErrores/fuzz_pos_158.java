@@ -1,1 +1,0 @@
-interface Sm { void i ( boolean [ ] [ ] d , K97 [ ] va ) ; } class II extends NY { }

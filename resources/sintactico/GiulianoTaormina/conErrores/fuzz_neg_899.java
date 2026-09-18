@@ -1,2 +1,0 @@
-// [Error:public|2]
-public N5 ( EW < T > [ ] [ ] [ ] [ ] s , ) { } interface E8_ { void m ( ) ; } interface ND extends Gy_ < Xq > { } class V33 { public TJt ( ) { } } interface EP { void aP37 ( ) ; void wvf2FAe ( ) ; A9 < P > s_ ( ) ; }

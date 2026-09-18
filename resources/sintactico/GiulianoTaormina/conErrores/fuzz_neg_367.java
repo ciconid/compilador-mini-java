@@ -1,2 +1,0 @@
-// [Error:;|2]
-interface PuT extends U7y < U1 > { } class Vy < O > { static void u_G ( boolean f_ , E vVC ) { var p__YK4 = false ; } void eV7 ( M_C < L > c ) { { } return null ; } } class YQ < V > { } class Y_w extends Q__k_C < W > { char [ ] n_ ( ) ; } interface Z_ extends Fq { } class KnU___P_5u < W > { } interface Fr < U > extends G4 < K_ > { }

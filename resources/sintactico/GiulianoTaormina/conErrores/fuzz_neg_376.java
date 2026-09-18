@@ -1,2 +1,0 @@
-// [Error:w1|2]
-interface C_Bq extends Ijoe < B9p > { void k ( Gm p ) ; } interface Io_7__ extends T_ { D i ( char q_0 ) ; int [ ] [ ] [ ] [ ] [ ] [ ] [ ] y04 ( D [ ] yv , P3 [ ] b , char [ ] [ ] [ ] [ ] [ ] k ) ; w1 ( ) ; B5 < X7ck > qG ( ) ; }

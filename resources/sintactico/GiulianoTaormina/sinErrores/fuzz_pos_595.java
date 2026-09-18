@@ -1,1 +1,0 @@
-class P_H_ { static void u8 ( ) { } }

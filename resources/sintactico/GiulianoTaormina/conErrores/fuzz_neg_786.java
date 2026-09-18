@@ -1,2 +1,0 @@
-// [Error:[|2]
-interface E0Ejd < M > { void h ( ) ; void iW ( int u ) ; void r ( L [ ] c ) ; void p91 ( C h , T e5 , U__ < O3 > o ) ; int m_ ( TE [ ] [ ] [ ] tx2 ) ; } interface J3v < R > extends VBL_ < Rh > { F g [ ] [ ] ; }

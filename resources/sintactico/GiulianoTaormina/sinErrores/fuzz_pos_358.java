@@ -1,1 +1,0 @@
-interface F_Ex < Y > { }

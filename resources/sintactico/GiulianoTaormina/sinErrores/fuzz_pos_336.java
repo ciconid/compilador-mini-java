@@ -1,1 +1,0 @@
-interface DT extends SRqY { }

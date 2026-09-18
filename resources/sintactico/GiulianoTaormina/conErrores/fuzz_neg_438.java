@@ -1,2 +1,0 @@
-// [Error:)|2]
-interface Uy extends DH { } interface ZR < S > { void yJny ( ) ; } class D_ < Q > implements A__ { } class ZD4 implements H4 < J > { public KQh ( S ) { { } } } class J_5 extends K2X6 { }

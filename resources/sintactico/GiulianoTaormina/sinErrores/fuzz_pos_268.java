@@ -1,1 +1,0 @@
-class P5 < Y > implements C_6 < N__S8 > { }

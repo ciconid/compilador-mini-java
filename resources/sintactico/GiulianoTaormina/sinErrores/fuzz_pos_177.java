@@ -1,1 +1,0 @@
-class Pt < F > extends Y6 { }

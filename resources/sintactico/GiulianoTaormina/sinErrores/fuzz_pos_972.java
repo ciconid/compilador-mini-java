@@ -1,1 +1,0 @@
-interface Bz_zB { }

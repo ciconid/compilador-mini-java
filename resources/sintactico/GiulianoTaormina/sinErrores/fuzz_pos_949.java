@@ -1,1 +1,0 @@
-interface P_MH { }

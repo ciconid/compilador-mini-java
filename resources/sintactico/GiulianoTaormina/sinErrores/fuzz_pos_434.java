@@ -1,1 +1,0 @@
-interface XB < S > { void b_d ( ) ; H_ t ( ) ; }

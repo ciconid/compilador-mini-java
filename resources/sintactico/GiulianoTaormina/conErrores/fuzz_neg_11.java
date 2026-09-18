@@ -1,2 +1,0 @@
-// [Error:[|2]
-class S9 { int [ ] b ( ) { } } [ ] interface BS0_ { void vb ( ) ; H [ ] [ ] g ( boolean [ ] [ ] [ ] [ ] [ ] [ ] [ ] [ ] [ ] [ ] [ ] deR ) ; X [ ] [ ] [ ] [ ] y ( ) ; void d ( boolean h4r , H_ m ) ; R [ ] [ ] p ( ) ; void e ( T v_ ) ; } interface W9V { }

@@ -1,1 +1,0 @@
-interface G_ < N > extends U_ < E > { } class BR extends As < Y5i > { }

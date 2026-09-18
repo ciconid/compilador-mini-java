@@ -1,2 +1,0 @@
-// [Error:h__|2]
-interface Y3 { h__ ( ) ; dYI ( ) ; } class X4 < Z > extends K__ { } interface N_K < J > { boolean [ ] u ( int [ ] n ) ; } class O6 < L > implements B0 < Mzz > { } interface FC < U > extends K_p < W_o > { } interface S_W < K > { }

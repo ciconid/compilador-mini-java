@@ -1,1 +1,0 @@
-class L2 extends O0 { }

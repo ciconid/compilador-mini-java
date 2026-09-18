@@ -1,1 +1,0 @@
-class VNP < M > implements Yy { }

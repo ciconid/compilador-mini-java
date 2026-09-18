@@ -1,2 +1,0 @@
-// [Error:f|2]
-class C9B < N > { } interface I_ extends L_48 < C > { L x ( P [ ] [ ] k ) ; } interface MS { void j9 ( ) ; A [ ] [ ] [ ] lU ( int [ ] [ ] [ ] pF ) ; } interface P_p { void r7z7t ( ) ; } class Kd_ { } class W6 < X > implements N4 < T > { } interface Sg < G > extends G7N { void f ( X [ ] [ ] b , BS < J > t5_14 ) ; } interface Zt4X < R > extends F6o { int [ ] yD ( Emo_ [ ] [ ] [ ] k ) ; } f class M6 < I > implements F6 { } interface Yu { } interface S_ < E > { boolean u ( ) ; }

@@ -1,1 +1,0 @@
-class Ynol3 extends LV_ < B > { }

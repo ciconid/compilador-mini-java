@@ -1,1 +1,0 @@
-class Q9_O extends Xj4a_K3_vM { }

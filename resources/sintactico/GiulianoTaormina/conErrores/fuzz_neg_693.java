@@ -1,2 +1,0 @@
-// [Error:)|2]
-class P_ { static boolean [ ] t ( char [ ] [ ] [ ] [ ] [ ] g_33_7_h ) { } char [ ] o ( ) { var s_ = - this [ - this = null + '%' = true ] > - ',' || Ak . d0__ ( ) . k ( ) [ ! null ] >= ! false > - this ; } public OiS6hQ_Wf ( Xg ) { } }

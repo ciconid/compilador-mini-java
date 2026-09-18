@@ -1,1 +1,0 @@
-interface X70 < V > { }

@@ -1,1 +1,0 @@
-class H_D < C > implements B7 < D > { }

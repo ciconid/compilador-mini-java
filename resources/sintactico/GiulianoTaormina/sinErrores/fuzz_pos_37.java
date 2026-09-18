@@ -1,1 +1,0 @@
-interface F8 < O > extends U_ { }

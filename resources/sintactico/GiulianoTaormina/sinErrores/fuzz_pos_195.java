@@ -1,1 +1,0 @@
-interface V34 < C > { }

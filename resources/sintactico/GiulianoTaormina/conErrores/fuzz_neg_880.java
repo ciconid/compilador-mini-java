@@ -1,2 +1,0 @@
-// [Error:<|2]
-class Y_8 implements KnY_ < W3d > { static void v ( ) { m ; } } interface O1 < Z > extends B6v < C > { } < Z > interface Vus < W > extends T_B < U > { N7_6 y ( I1bz < K > [ ] m , G_ < T > vC , X2 oN , W4 tm , M_ < Q > [ ] [ ] [ ] j , N_ < F > [ ] fL ) ; } interface G12_ { } interface Q_ extends UY < W > { int [ ] hNY ( ) ; void d ( ) ; void c ( ) ; }

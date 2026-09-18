@@ -1,1 +1,0 @@
-interface K_ < E > { void h ( ) ; } interface E_ < F > { }

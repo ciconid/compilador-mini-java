@@ -1,1 +1,0 @@
-class P07W4 < Q > extends R7 { }

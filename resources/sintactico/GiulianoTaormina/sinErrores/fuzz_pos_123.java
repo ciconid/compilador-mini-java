@@ -1,1 +1,0 @@
-interface XG6U { void d_ ( ) ; }

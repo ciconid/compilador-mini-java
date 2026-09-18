@@ -1,1 +1,0 @@
-interface LK { } class U_8 < I > implements D26 { }

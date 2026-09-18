@@ -1,2 +1,0 @@
-// [Error:<|2]
-class < U > extends K_ { } interface IQ_3_D1J5cf < M > extends V4QD { N h ( ) ; }

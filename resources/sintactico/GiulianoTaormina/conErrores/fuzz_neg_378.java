@@ -1,2 +1,0 @@
-// [Error:c|2]
-class DW { } interface IJS { } c interface R6 < C > { } interface Sr9_o extends Ky { void e ( ) ; } class Tw < M > { } class G5_ extends Au < Y > { static BsI_ [ ] [ ] c ( V8 lD_ ) { } public Cjh ( ) { + true == false ; } } interface K_a extends EXc_ { }

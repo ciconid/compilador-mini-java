@@ -1,1 +1,0 @@
-interface R4x_ < R > extends Pr7F { void k ( ) ; }

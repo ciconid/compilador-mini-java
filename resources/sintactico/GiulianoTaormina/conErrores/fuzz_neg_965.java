@@ -1,2 +1,0 @@
-// [Error:(|2]
-interface QV < C > extends Og < SlM_ > { void d ( ) ; ( J [ ] y_ ) } class Yk { } class Nf { } interface VV < G > extends T5U_ < E8c > { } interface G_ < C > extends Y_ < F > { void p ( ) ; P_S < Y > [ ] [ ] [ ] y_c ( ) ; void i ( Vg < N > l , A [ ] [ ] p4 , XR_2 [ ] t0 ) ; void zJ25_l_Q ( J [ ] [ ] [ ] [ ] [ ] [ ] [ ] f , boolean l , char [ ] jt__i_ ) ; }

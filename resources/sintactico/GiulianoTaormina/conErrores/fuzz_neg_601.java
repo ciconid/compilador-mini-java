@@ -1,2 +1,0 @@
-// [Error:<|2]
-class E_kvy < W > implements M_Ed { int [ ] [ ] s ; } interface LpL2 < G > extends OQ2 < B > { char [ ] [ ] c ( ) ; } class Lpa4_ < K > implements Yb { public HO ( ) { < ; } }

@@ -1,2 +1,0 @@
-// [Error:ZM|2]
-interface S_ < H > extends KV < Xw > { } ZM class V_ < Y > implements F4CGG < T_xh > { } interface WZ < B > extends TZX { } class X_ extends BDxj { } interface H3a extends KIIDN < R > { }

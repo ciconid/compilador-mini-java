@@ -1,1 +1,0 @@
-class Q06 < B > extends M47 { }

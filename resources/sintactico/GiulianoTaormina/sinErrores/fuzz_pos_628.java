@@ -1,1 +1,0 @@
-interface P_ < K > { void z ( T [ ] f ) ; }

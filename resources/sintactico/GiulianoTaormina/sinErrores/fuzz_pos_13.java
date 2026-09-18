@@ -1,1 +1,0 @@
-interface Ue extends D_i6_ { int [ ] k ( ) ; char fgVg5 ( Y [ ] [ ] dI , F k6M ) ; }

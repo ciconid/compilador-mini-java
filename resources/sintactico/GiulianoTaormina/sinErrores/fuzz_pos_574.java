@@ -1,1 +1,0 @@
-class Ds extends S__p4_ { }

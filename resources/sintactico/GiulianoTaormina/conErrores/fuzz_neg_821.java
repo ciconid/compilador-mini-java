@@ -1,2 +1,0 @@
-// [Error:>|2]
-interface P2 < V > extends T9 < S > { } class Ly < X > { } class Li < C > { public X8 ( ) { } void z5a ( Ej [ ] [ ] [ ] [ ] [ ] q9 ) { ; } void o4_y ( ) { } } interface MR < > extends D_d { }

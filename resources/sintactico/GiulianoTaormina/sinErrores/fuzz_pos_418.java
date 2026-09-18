@@ -1,1 +1,0 @@
-class Sm < S > extends KP < A1__G > { }

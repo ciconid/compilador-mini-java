@@ -1,0 +1,2 @@
+///[Error:int|2]
+class Clase { void m(int a int b) {} }

@@ -1,2 +1,0 @@
-// [Error:(|2]
-interface Ri5d6L < A > { P2 [ ] [ ] p ( boolean [ ] pj , boolean [ ] [ ] h , J [ ] a , Oz0 < P > i7 ) ; } interface I_ < H > { } class Oz < B > extends O_ < Z > { static void g ( ) { } } class Bl { S ( ) { this >= + ( + false ) [ '\uuuuuC966' ] ; } static void vQ_X ( Z [ ] [ ] h_Z ) { } }

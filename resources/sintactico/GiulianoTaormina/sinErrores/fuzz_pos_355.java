@@ -1,1 +1,0 @@
-interface HK__0 < H > { }

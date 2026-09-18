@@ -1,1 +1,0 @@
-interface M_q < F > { void k ( ) ; } class G77 < C > implements Dkd < YC_W_ > { }

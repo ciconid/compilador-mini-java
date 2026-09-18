@@ -1,2 +1,0 @@
-// [Error:I|2]
-interface K1 < X > extends AG { void e ( Y1 < Q > h ) ; void x I ; void spE ( boolean a ) ; U0 < Xp > [ ] n_e ( ) ; E [ ] t ( GT [ ] [ ] [ ] [ ] f0hkD8 ) ; void ee__ ( X x ) ; } class B4 { } interface R64B { void f_V_ ( ) ; } interface A76 < J > { } interface Jl_ < L > extends U31 { } class F4 < U > extends ZqXS < DP > { }

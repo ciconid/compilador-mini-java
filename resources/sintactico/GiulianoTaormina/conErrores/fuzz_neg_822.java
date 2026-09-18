@@ -1,2 +1,0 @@
-// [Error:}|2]
-class Ng < B > implements Ov { } class KP { } class E7Xx7 < M > { Ej < J > [ ] [ ] fE2 ; static void p6__q ( NW [ ] g ) { } public UU ( ) { } void f9 ( ) { } } interface FRC2 { char rWI008 }

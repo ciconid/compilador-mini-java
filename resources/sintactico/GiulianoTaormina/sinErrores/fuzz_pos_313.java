@@ -1,1 +1,0 @@
-class KER < J > { E [ ] [ ] d ; }

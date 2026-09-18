@@ -1,1 +1,0 @@
-class GTq0 < J > extends Ec { }

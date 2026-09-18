@@ -1,1 +1,0 @@
-class KDFrJt0 < M > { }

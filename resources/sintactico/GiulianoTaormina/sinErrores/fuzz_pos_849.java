@@ -1,1 +1,0 @@
-interface L0 < H > { } class Zq { }

@@ -1,1 +1,0 @@
-interface C__ < H > extends Sc_ < SC > { } interface EZ < A > extends N_ { }

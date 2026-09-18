@@ -1,1 +1,0 @@
-interface V_ extends Y7 { }

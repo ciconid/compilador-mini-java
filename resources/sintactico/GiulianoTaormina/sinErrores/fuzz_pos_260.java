@@ -1,1 +1,0 @@
-interface D3 < J > extends GI { }

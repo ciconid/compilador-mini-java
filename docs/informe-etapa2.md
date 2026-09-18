@@ -146,3 +146,4 @@ Donde `programa1.java` es el archivo fuente de MiniJava a compilar (se acepta cu
 # Logros
 
 * Operadores Posfijos E2
+* Atributos inicializados E2

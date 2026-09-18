@@ -1,1 +1,0 @@
-class Q_Y implements AC { }

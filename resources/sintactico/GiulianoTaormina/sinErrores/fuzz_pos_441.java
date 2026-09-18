@@ -1,1 +1,0 @@
-class Bd < L > { public C_s ( ) { } char g2u ; }

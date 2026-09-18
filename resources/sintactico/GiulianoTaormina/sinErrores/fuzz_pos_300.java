@@ -1,1 +1,0 @@
-class FP_ < Q > implements O_z { }

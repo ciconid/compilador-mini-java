@@ -1,1 +1,0 @@
-interface UvV_ < M > { void q97f ( ) ; void b ( ) ; void v ( char [ ] [ ] [ ] [ ] c ) ; }

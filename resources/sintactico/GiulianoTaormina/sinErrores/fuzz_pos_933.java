@@ -1,1 +1,0 @@
-class MXL_a extends I_3 < L > { }

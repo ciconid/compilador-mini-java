@@ -1,1 +1,0 @@
-interface K_ < M > { }

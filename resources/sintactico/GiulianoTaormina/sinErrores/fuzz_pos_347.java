@@ -1,1 +1,0 @@
-class E0_ < X > implements O_ { }

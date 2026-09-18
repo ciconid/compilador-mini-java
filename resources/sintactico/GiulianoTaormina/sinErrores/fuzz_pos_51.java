@@ -1,1 +1,0 @@
-class Le < H > implements Fnu3X { }

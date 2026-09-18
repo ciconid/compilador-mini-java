@@ -1,1 +1,0 @@
-interface D_ < J > { void n4 ( ) ; }

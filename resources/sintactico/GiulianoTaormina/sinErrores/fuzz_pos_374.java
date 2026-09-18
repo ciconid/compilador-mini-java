@@ -1,1 +1,0 @@
-interface Dz { } interface G1 extends Pg { void d ( ) ; }

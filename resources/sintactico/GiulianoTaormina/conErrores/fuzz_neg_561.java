@@ -1,2 +1,0 @@
-// [Error:[|2]
-class EY_x_ extends JF < U > { } interface Re_57 < Q > { void iyjW ( ) ; } interface VM < S > extends Q9 < V > { J5B < Z_6 > d ( char iz , B iSj6 ) ; } interface AYLL_ < F > extends E6 { } interface G1 < F > { } interface B_7 { boolean [ ] uf8 ( char [ ] [ ] [ ] [ ] r1R_d5 , [ ] [ ] [ ] [ ] [ ] l_ , W_8 < M > f , B_ < R > [ ] f ) ; void g7 ( ) ; void x ( ) ; }

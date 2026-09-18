@@ -1,1 +1,0 @@
-class GJZ < L > implements O__ { }

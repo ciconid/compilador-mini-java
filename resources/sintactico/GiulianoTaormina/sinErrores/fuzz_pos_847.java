@@ -1,1 +1,0 @@
-class A__W97 { int [ ] o ; public Nx ( I_lM pN ) { return ; } }

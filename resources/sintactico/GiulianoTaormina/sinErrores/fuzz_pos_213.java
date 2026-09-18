@@ -1,1 +1,0 @@
-interface P_ < J > { } interface U_ < I > extends Rhb { }

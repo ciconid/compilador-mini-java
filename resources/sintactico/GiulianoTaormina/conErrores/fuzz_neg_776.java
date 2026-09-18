@@ -1,2 +1,0 @@
-// [Error:wp|2]
-interface Y_5 extends N_at < H > { wp void us ( boolean iE ) ; void hD ( boolean zfT4 , A jh , H [ ] j , Y0 [ ] s4 , boolean [ ] a , S kT2 , D p , V [ ] [ ] ob_ ) ; int [ ] o ( ) ; void c8 ( ) ; }

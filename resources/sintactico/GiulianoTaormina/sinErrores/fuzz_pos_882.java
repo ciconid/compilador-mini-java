@@ -1,1 +1,0 @@
-interface P_ extends T0__LSd2D < L > { }

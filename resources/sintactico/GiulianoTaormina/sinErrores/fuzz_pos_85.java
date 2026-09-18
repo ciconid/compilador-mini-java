@@ -1,1 +1,0 @@
-class Y4BH < Y > extends KZ < NBu_ > { boolean p ; }

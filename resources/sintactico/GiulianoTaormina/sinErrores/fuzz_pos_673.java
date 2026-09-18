@@ -1,1 +1,0 @@
-interface B5_ < A > extends Fnd { } class E_ { }

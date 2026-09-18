@@ -1,1 +1,0 @@
-interface IJudR < C > extends DY__F { }

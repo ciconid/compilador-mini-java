@@ -1,1 +1,0 @@
-interface St { } class Z686 < F > { }

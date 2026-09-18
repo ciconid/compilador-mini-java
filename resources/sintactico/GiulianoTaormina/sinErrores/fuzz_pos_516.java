@@ -1,1 +1,0 @@
-interface I_ { } interface WP67 extends X_Q < E > { void vs7A ( ) ; }

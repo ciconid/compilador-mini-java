@@ -1,2 +1,0 @@
-// [Error:f|2]
-interface F8 { void p2 ( char [ ] wS , UK y , G v , boolean [ ] [ ] [ ] c , X9 < T > [ ] s , char [ ] nq , K2 < I_ > m7 , f ) ; } interface J3M extends GJK { } class E9 < O > { }

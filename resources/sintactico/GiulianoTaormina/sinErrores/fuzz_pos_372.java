@@ -1,1 +1,0 @@
-class H1 extends Ze < Ij > { void u_3 ( H n ) { } }

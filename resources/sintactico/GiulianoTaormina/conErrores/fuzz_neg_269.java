@@ -1,2 +1,0 @@
-// [Error:[|2]
-class Pm < P > extends EL < Z_ > { char [ ] j ( Z d ) { } void i ( CE6tU_s < K > [ ] [ ] l6Z ) { } public It___ ( [ ] ) { while ( - 011 / 'N' = 08909 = g . l <= - true ) var c = - 'g' ; } }

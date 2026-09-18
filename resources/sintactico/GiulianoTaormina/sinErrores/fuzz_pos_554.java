@@ -1,1 +1,0 @@
-class SFb2 < Y > { } class LR { public Dd ( boolean g ) { } } interface Mg < V > { void b ( ) ; } class L_M { public Jx ( ) { { return ; } } }

@@ -1,1 +1,0 @@
-class W_4_ < A > implements TA < BFNN > { }

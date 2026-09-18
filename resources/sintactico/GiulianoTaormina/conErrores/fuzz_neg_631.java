@@ -1,2 +1,0 @@
-// [Error:;|2]
-interface B9Mp < H > { } interface G_H < K > extends Za < Nl > { O0 < B > u_n ( Fe < K > [ ] [ ] [ ] tY ) ; } class E5 < R > extends D8 < X__N > { void v ( ) { } public CV ( ) { if ( - false ) false = ; ; } public FRT ( H [ ] [ ] [ ] iL ) { } static Y g ( ) { } } class U20 < D > implements Cc < X > { }

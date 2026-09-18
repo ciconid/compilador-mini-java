@@ -1,1 +1,0 @@
-interface N06 extends ES < Nz > { void x ( F_ f , U zt ) ; }

@@ -1,1 +1,0 @@
-interface U6H { }

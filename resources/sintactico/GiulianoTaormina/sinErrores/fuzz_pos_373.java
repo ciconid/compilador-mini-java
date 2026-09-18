@@ -1,1 +1,0 @@
-interface Ve extends Lx0i { void c ( A sA , boolean b ) ; }

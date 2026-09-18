@@ -1,1 +1,0 @@
-interface BP32_ extends B4 { }

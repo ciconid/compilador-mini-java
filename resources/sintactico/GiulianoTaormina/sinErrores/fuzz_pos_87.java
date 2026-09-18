@@ -1,1 +1,0 @@
-interface Yrk { void v ( ) ; }

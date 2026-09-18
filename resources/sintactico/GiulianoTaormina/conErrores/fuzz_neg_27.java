@@ -1,2 +1,0 @@
-// [Error:A_|2]
-class N_u_ implements Ut < N > { } class Dhg { int mHw ; M f_ ( A t4_ , GE_U__ [ ] [ ] [ ] oq ) { } } interface Hj { } class G_ < J > implements KG0_Pn { void m ( ) { } } A_ < UAM__r > interface GKyq { }

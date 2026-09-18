@@ -1,2 +1,0 @@
-// [Error:new|2]
-interface Q2 { } class JRv_ < L > implements UC < R7 > { void new int [ ! null ] [ T_ . a ( ) = e ( ) ] [ new O94 ( ) . d ( ) . t > ! new J_ ( ) <= - G6 . v_ ( ) . hTX0 ( ) = null = '\"' ] [ H_ . j5 ( ) >= - this % + ER . a ( ) / this == - this > ! "" < - null ] public TBu ( H vC , ZQ < U > [ ] [ ] l , G_11 [ ] [ ] [ ] [ ] hs , U t1 ) { return ; } void wL9_ ( K g ) { } }

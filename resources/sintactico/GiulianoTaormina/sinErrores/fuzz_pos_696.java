@@ -1,1 +1,0 @@
-interface L_ < D > extends Os_AR < DG > { void q ( boolean [ ] [ ] [ ] l ) ; }

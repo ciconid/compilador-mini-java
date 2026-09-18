@@ -1,2 +1,0 @@
-// [Error:true|2]
-interface W_ga extends L_ { } true interface X5 < K > extends U2 < W > { } class XDjLjv < O > extends R_N { } class V2q__RL < H > { public Lv ( boolean j_ ) { ; ; } } class IK7 < K > extends G_ { void n ( U_ < B > [ ] xwO ) { } }

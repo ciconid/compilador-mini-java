@@ -1,1 +1,0 @@
-interface RR1 extends I0_ { } class S0 < Y > extends L_ < N > { } class E_O { }

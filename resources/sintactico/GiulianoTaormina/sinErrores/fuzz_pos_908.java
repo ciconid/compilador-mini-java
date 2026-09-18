@@ -1,1 +1,0 @@
-interface S69b < C > { char [ ] [ ] [ ] [ ] r ( G u , int yR ) ; MC3M < Z > [ ] e ( ) ; D_ p ( ) ; void dI ( ) ; } interface Yr { }

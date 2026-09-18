@@ -1,1 +1,0 @@
-interface SC3 < D > { }

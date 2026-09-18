@@ -1,2 +1,0 @@
-// [Error:I|2]
-interface Go6U2_ { } class DZ_ extends VGU < QG > { } interface N__s { int [ ] zt_G0 ( ) ; A aN I y ( C9_ < I1 > x ) ; void x ( ) ; G h ( ) ; void d_ ( ) ; void eS_7 ( ) ; } interface O5t < G > { } interface G_105 < Z > { } interface Y8 < N > { } class Ge < D > { M [ ] v ; static void i ( ) { } public V03s ( Ew < W > lD_ ) { } } class LfAC implements Y4_ < P > { } class F_ < W > extends A0K < H > { }

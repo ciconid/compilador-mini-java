@@ -1,1 +1,0 @@
-interface An < L > extends XY < H_ > { }

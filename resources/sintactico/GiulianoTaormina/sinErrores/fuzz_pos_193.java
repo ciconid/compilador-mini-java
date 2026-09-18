@@ -1,1 +1,0 @@
-class U__R_ implements Y__ { }

@@ -1,2 +1,0 @@
-// [Error:yA|2]
-interface E_p { void n ( TY_ < M > v_ , L8u < I > [ ] c , int s_26 , J [ ] [ ] e__ ) ; void r9 ( ) ; B k__ ( IN z , yA , boolean [ ] [ ] [ ] z_ ) ; int d ( ) ; char s ( ) ; }

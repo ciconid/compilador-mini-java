@@ -1,1 +1,0 @@
-interface D6_ extends ND < P > { } interface B6 < M > { } class Od extends Vy < Fr > { }

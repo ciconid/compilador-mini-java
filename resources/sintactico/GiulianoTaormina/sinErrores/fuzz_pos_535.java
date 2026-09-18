@@ -1,1 +1,0 @@
-interface U7 < D > extends Me { void ra ( ) ; void x6r ( ) ; }

@@ -1,1 +1,0 @@
-interface A570 < F > extends D_ { }

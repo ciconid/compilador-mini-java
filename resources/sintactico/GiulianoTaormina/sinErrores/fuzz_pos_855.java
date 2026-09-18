@@ -1,1 +1,0 @@
-interface RQc < Y > extends Y___zT2 < B > { } class B_ < W > implements A6 { }

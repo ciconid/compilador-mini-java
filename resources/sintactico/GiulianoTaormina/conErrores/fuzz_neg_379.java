@@ -1,2 +1,0 @@
-// [Error:qW|2]
-interface EIqY { void kT_ ( R b_Q , J [ ] rxt9 ) ; G [ ] rB_ ( Ni n_8w , boolean z_ , G_0l [ ] [ ] [ ] h8y ) ; Z7 [ ] kP ( K [ ] [ ] [ ] t_F_K ) ; void fIg__ ( ) ; } interface R9 { } class Ej < U > implements Q_ { } interface J2 < S > { void n ( ) ; qW ( ) ; } class FR < I > extends Q7 { }

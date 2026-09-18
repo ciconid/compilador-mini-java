@@ -1,2 +1,0 @@
-// [Error:{|2]
-interface I_q extends { } class R_ < V > { } interface Vt < U > extends Xj_y < P > { R p6y0I ( ) ; } interface Tp < R > { } class GHVga extends Mnt { } class Y9 implements G_ { } interface TtD < L > { } interface S_ < Q > extends BMn < V > { void m ( G__ < S > f ) ; }

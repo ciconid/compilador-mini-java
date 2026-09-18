@@ -1,1 +1,0 @@
-interface S_ < L > { void j ( ) ; } interface Gb extends Fr < S8 > { } class Hm extends Ch < V > { }

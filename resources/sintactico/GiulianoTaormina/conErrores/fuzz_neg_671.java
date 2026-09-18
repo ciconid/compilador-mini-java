@@ -1,2 +1,0 @@
-// [Error:UO3|2]
-interface C_NO < F > extends EFP0 { void w ( W_ < S > f_6 ) ; void n ( ) ; Sx4_ z ( ) ; } interface Yz { void h8rM ( ) ; } class PW_ai extends O_ < Y > { void e ( int i6Vo ) { } } class E6 < J > extends NM < Qe > { } UO3

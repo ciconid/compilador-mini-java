@@ -1,1 +1,0 @@
-interface Y_615D < M > extends V8 { void urt ( ) ; }
