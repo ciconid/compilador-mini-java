@@ -41,8 +41,12 @@ public class Primeros {
     public static final List<String> expresionParentizada = Arrays.asList("puParentesisAbre");
 
     public static final List<String> restoTernario = Arrays.asList("puInterrogacion");
-    public static final List<String> dimensionesConTamanio = Arrays.asList("puCorcheteAbre");
+    public static final List<String> dimensionesConTamanio = Primeros.expresion;
+    public static final List<String> dimensionesSinTamanio = Arrays.asList("puCorcheteCierra");
     public static final List<String> listaExps = Arrays.asList("opSuma", "opResta", "opNegacion", "prTrue", "prFalse", "intLiteral", "charLiteral", "prNull", "prThis", "stringLiteral", "idMetVar", "prNew", "idClase", "puParentesisAbre");
-
+    public static final List<String> llaveAbre = Arrays.asList("puLlaveAbre");
+    public static final List<String> coma = Arrays.asList("puComa");
+    public static final List<String> corcheteAbre = Arrays.asList("puCorcheteAbre");
+    public static final List<String> dimensiones = Arrays.asList("puCorcheteAbre");
 
 }

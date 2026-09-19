@@ -648,10 +648,12 @@ public class AnalizadorSintactico {
     void restoNew() {
         if (Primeros.tipoPrimitivo.contains(tokenActual.token())) {
             tipoPrimitivo();
-            dimensionesConTamanio();
+            dimensiones();
+            inicializadorArreglo();
         } else if (Arrays.asList("idGen").contains(tokenActual.token())) {
             match("idGen");
-            dimensionesConTamanio();
+            dimensiones();
+            inicializadorArreglo();
         } else if (Primeros.tipoReferencia.contains(tokenActual.token())) {
             tipoReferencia();
             restoTipoReferencia();
@@ -668,8 +670,9 @@ public class AnalizadorSintactico {
     }
 
     void restoTipoReferencia() {
-        if (Primeros.dimensionesConTamanio.contains(tokenActual.token())) {
-            dimensionesConTamanio();
+        if (Primeros.dimensiones.contains(tokenActual.token())) {
+            dimensiones();
+            inicializadorArreglo();
         } else if (Primeros.argsActuales.contains(tokenActual.token())) {
             argsActuales();
         } else {
@@ -708,8 +711,28 @@ public class AnalizadorSintactico {
         argsActuales();
     }
 
-    void dimensionesConTamanio() {
+    void dimensiones() {
         match("puCorcheteAbre");
+        restoDimensiones();
+    }
+
+    void restoDimensiones() {
+        if (Primeros.dimensionesConTamanio.contains(tokenActual.token())) {
+            dimensionesConTamanio();
+        } else if (Primeros.dimensionesSinTamanio.contains(tokenActual.token())) {
+            dimensionesSinTamanio();
+        } else {
+            List<String> tokens = new ArrayList<>(Primeros.dimensionesConTamanio);
+            tokens.addAll(Primeros.dimensionesSinTamanio);
+
+            String lexemasEsperados = tokens.stream()
+                    .map(TokensYLexemas::get)
+                    .collect(Collectors.joining(", "));
+            throw new ErrorSintactico(tokenActual.lexema(), tokenActual.nroDeLinea(), lexemasEsperados);
+        }
+    }
+
+    void dimensionesConTamanio() {
         expresion();
         match("puCorcheteCierra");
         restoDimensionesConTamanio();
@@ -717,9 +740,54 @@ public class AnalizadorSintactico {
 
     void restoDimensionesConTamanio() {
         if (Primeros.dimensionesConTamanio.contains(tokenActual.token())) {
+            match("puCorcheteAbre");
             dimensionesConTamanio();
         } else {
             // epsilon
+        }
+    }
+
+    void dimensionesSinTamanio() {
+        match("puCorcheteCierra");
+        restoDimensionesSinTamanio();
+    }
+
+    void restoDimensionesSinTamanio() {
+        if (Primeros.corcheteAbre.contains(tokenActual.token())) {
+            match("puCorcheteAbre");
+            dimensionesSinTamanio();
+        } else {
+            //epsilon
+        }
+
+    }
+
+    void inicializadorArreglo() {
+        if (Primeros.llaveAbre.contains(tokenActual.token())) {
+            match("puLlaveAbre");
+            iniArregloExpresiones();
+            match("puLlaveCierra");
+        } else {
+            //epsilon
+        }
+    }
+
+    void iniArregloExpresiones() {
+        if (Primeros.expresion.contains(tokenActual.token())) {
+            expresion();
+            iniArregloExpresionesOpcionales();
+        } else {
+            //epsilon
+        }
+    }
+
+    void iniArregloExpresionesOpcionales() {
+        if (Primeros.coma.contains(tokenActual.token())) {
+            match("puComa");
+            expresion();
+            iniArregloExpresionesOpcionales();
+        } else {
+            //epsilon
         }
     }
 
