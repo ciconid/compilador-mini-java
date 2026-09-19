@@ -8,7 +8,7 @@
 
 # Nueva Gramática y sus reglas de producción
 
-Los No-Terminales en negrita son nuevos o contienen cambios respecto a la versión original de la grmática provista por
+Los No-Terminales en negrita son nuevos o contienen cambios respecto a la versión original de la gramática provista por
 la cátedra.
 
 El no terminal de inicio es <Inicial> y las producciones de la Nueva Gramática de MiniJava son:
