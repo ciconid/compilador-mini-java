@@ -49,7 +49,8 @@ Casos opcionales, según cómo esté definida la gramática:
 15. **Delimitadores equivocados:** `new int[] (1, 2)` y `new int[] [1, 2]`
 16. **Falta `;` al final de la sentencia:** `a = new int[] {1, 2}`
 17. **Inicializador sin cerrar hasta EOF:** `new int[] {1, 2` seguido del fin de archivo, sin `}` ni `;`.
-    El error se detecta en el token EOF: `[Error:|n]`
+    El error se detecta en el token EOF. En la implementación actual el lexema del EOF es `$` (ver
+    `e99` del AnalizadorLexico): `[Error:$|n]`
 18. **Basura después del inicializador:** `new int[] {1} new int[] {2};` (segundo inicializador sin
     operador binario que lo conecte)
 19. **Falta coma entre filas multidimensionales:** `new int[][] { new int[] {1} new int[] {2} }`
