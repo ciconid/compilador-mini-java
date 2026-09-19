@@ -165,17 +165,6 @@ public class AnalizadorSintactico {
         bloque();
     }
 
-    void restoMiembro() {
-        if (Arrays.asList("puPuntoYComa").contains(tokenActual.token())) {
-            match("puPuntoYComa");
-        } else if (Arrays.asList("puParentesisAbre").contains(tokenActual.token())) {
-            argsFormales();
-            bloque();
-        } else {
-            throw new ErrorSintactico(tokenActual.lexema(), tokenActual.nroDeLinea(), "; o (");
-        }
-    }
-
 
     void atributo() {
         if (Arrays.asList("puPuntoYComa").contains(tokenActual.token())) {
