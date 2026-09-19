@@ -75,7 +75,8 @@
 | `<RestoIdMetVar>`              | `ϵ` \| `<ArgsActuales>`                                                                                                              |
 | `<RestoNew>`                   | `<TipoPrimitivo> <DimensionesConTamanio>` \| `idGen <DimensionesConTamanio>` \| `<TipoReferencia> <RestoTipoReferencia>`             |
 | `<RestoTipoReferencia>`        | `<DimensionesConTamanio>` \| `<ArgsActuales>`                                                                                        |
-| `<ExpresionParentizada>`       | `( <Expresion> )`                                                                                                                    |
+| `<ExpresionParentizada>`       | `( <Expresion> ) <RestoTernario>`                                                                                                    |
+| `<RestoTernario>`              | `ϵ` \| `? <Expresion> : <Expresion>`                                                                                                 |
 | `<LlamadaMetodoEstatico>`      | `idClase . idMetVar <ArgsActuales>`                                                                                                  |
 | `<DimensionesConTamanio>`      | `[ <Expresion> ] <RestoDimensionesConTamanio>`                                                                                       |
 | `<RestoDimensionesConTamanio>` | `<DimensionesConTamanio>` \| `ϵ`                                                                                                     |

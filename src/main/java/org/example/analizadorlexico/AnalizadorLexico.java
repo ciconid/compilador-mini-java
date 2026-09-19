@@ -61,6 +61,7 @@ public class AnalizadorLexico {
                 case "," -> crearToken("puComa");
                 case "." -> crearToken("puPunto");
                 case ":" -> crearToken("puDosPuntos");
+                case "?" -> crearToken("puInterrogacion");
                 default -> throw new ErrorLexico(lexema, gestorDeFuente.getLineNumber());
             };
         } else if (caracterActual == '=') {
@@ -454,7 +455,7 @@ public class AnalizadorLexico {
 
     private boolean esSimboloPuntuacion(char c) {
         return switch (c) {
-            case '(', ')', '{', '}', '[', ']', ',', ';', '.', ':' -> true;
+            case '(', ')', '{', '}', '[', ']', ',', ';', '.', ':', '?' -> true;
             default -> false;
         };
     }

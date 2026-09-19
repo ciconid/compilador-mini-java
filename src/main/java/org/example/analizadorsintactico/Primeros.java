@@ -39,6 +39,8 @@ public class Primeros {
     public static final List<String> restoReferencia = Arrays.asList("puPunto", "puCorcheteAbre");
     public static final List<String> llamadaMetodoEstatico = Arrays.asList("idClase");
     public static final List<String> expresionParentizada = Arrays.asList("puParentesisAbre");
+
+    public static final List<String> restoTernario = Arrays.asList("puInterrogacion");
     public static final List<String> dimensionesConTamanio = Arrays.asList("puCorcheteAbre");
     public static final List<String> listaExps = Arrays.asList("opSuma", "opResta", "opNegacion", "prTrue", "prFalse", "intLiteral", "charLiteral", "prNull", "prThis", "stringLiteral", "idMetVar", "prNew", "idClase", "puParentesisAbre");
 

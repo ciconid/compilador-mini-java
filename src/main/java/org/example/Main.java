@@ -1,6 +1,7 @@
 package org.example;
 
 import org.example.analizadorlexico.AnalizadorLexico;
+import org.example.analizadorlexico.ErrorLexico;
 import org.example.analizadorsintactico.AnalizadorSintactico;
 import org.example.analizadorsintactico.ErrorSintactico;
 import org.example.sourcemanager.SourceManagerImpl;
@@ -33,6 +34,10 @@ public class Main {
             System.out.println("Error Sintactico en linea " + e.getNroLinea() + ": Se esperaba " + e.getLexemasEsperados() + ", pero se encontro \"" + e.getLexema() + "\"");
             System.out.println();
 
+            System.out.println("[Error:" + e.getLexema() + "|" + e.getNroLinea() + "]");
+            huboErrores = true;
+        } catch (ErrorLexico e) {
+            System.out.println("Error Lexico");
             System.out.println("[Error:" + e.getLexema() + "|" + e.getNroLinea() + "]");
             huboErrores = true;
         }

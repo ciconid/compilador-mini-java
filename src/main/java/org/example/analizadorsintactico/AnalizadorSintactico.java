@@ -698,6 +698,18 @@ public class AnalizadorSintactico {
         match("puParentesisAbre");
         expresion();
         match("puParentesisCierra");
+        restoTernario();
+    }
+
+    void restoTernario() {
+        if (Primeros.restoTernario.contains(tokenActual.token())) {
+            match("puInterrogacion");
+            expresion();
+            match("puDosPuntos");
+            expresion();
+        } else {
+            //epsilon
+        }
     }
 
     void llamadaMetodoEstatico() {
