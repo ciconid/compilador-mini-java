@@ -152,3 +152,4 @@ Donde `programa1.java` es el archivo fuente de MiniJava a compilar (se acepta cu
 
 * Operadores Posfijos E2
 * Atributos inicializados E2
+* Operador Ternario E2
