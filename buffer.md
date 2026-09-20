@@ -1,58 +1,34 @@
-# Casos de prueba: arreglos inicializados (análisis sintáctico)
+# Casos de prueba: Visibilidad Mejorada E2
 
-Total: **36 tests** (16 sinErrores + 20 conErrores)
+## Sin errores (14)
 
-## sinErrores (16)
+1. Atributo sin visibilidad: `int a;`
+2. Atributo `public`: `public int a;`
+3. Atributo `private`: `private int a;`
+4. Atributo con inicialización y visibilidad: `private int a = 5;`
+5. Método sin visibilidad: `int m() {}`
+6. Método `public` y `private` con tipo primitivo y con tipo clase
+7. Método static sin visibilidad, `public static` y `private static`
+8. Método void sin visibilidad, `public void` y `private void`
+9. Constructor sin visibilidad: `Clase() {}`
+10. Constructor `public` y `private`: `public Clase() {}`, `private Clase() {}`
+11. Constructor con argumentos y visibilidad
+12. Atributo/método de tipo clase sin visibilidad: `Clase a;` y `Clase m() {}` (conflicto con constructor `Clase()`)
+13. Clase con todos los miembros mezclados (con y sin visibilidad, en distinto orden)
+14. Clase vacía y clase con un solo miembro sin visibilidad
 
-1. **Vacío:** `new int[] {}`
-2. **Un elemento:** `new int[] {5}`
-3. **Varios literales:** `new int[] {1, 2, 3}`
-4. **Otros tipos primitivos:** `boolean`, `char`, con sus literales
-5. **Tipo clase:** `new String[] {"a", "b"}` y `new Persona[] {new Persona(), null}`
-6. **Elementos con operadores binarios:** `{x + 1, y * z - 2}`
-7. **Elementos con operadores unarios y paréntesis:** `{-x, !b, (a + b) * c}`
-8. **Elementos con llamadas y accesos encadenados:** `{f(3), obj.m().x}`
-9. **Multidimensional con `new` anidados:** `new int[][] { new int[] {1}, new int[] {2, 3} }`
-10. **Multidimensional con filas vacías:** `new int[][] { new int[] {}, new int[] {} }`
-11. **En declaración de atributo de clase:** `int[] a = new int[] {1, 2};` dentro del cuerpo de la clase
-    (la gramática no admite declaraciones locales tipadas: las locales son solo `var`)
-12. **Con `var` local:** `var a = new int[] {1, 2};`
-13. **En asignación posterior:** `a = new int[] {1, 2};`
-14. **Como argumento de llamada o en `return`:** `f(new int[] {1, 2})`, `return new int[] {1};`
-15. **Como sentencia por sí solo:** `new int[] {1, 2};`
-16. **Varios en un mismo método:** varias inicializaciones seguidas, incluso dentro de `if` o `while`
+## Con errores (13)
 
-Casos opcionales, según cómo esté definida la gramática:
-
-- Acceso inmediato: `new int[] {1, 2}[0]`, `new int[] {1, 2}.length`
-- Elementos que sean expresiones de asignación, p. ej. `new int[] {a = 5}`. Nota: la asignación
-  anidada ya es válida según la gramática actual (el elemento es una `<Expresion>`), por lo que
-  rechazarla implicaría cambiar la gramática, no agregar un test.
-- Elementos con ternario o posfijo: `new int[] {c ? 1 : 2}`, `new int[] {a++}`
-
-## conErrores (20)
-
-1. **Falta `}` de cierre:** `new int[] {1, 2;`
-2. **Falta `{` de apertura:** `new int[] 1, 2};`
-3. **Forma abreviada en declaración de atributo:** `int[] a = {1, 2};` dentro del cuerpo de la clase
-4. **Forma abreviada en asignación:** `a = {1, 2};`
-5. **Coma final:** `{1, 2,}` (solo si el lenguaje no la admite)
-6. **Coma inicial:** `{, 1, 2}`
-7. **Comas consecutivas:** `{1,, 2}`
-8. **Falta coma entre elementos:** `{1 2}`
-9. **Expresión incompleta como elemento:** `{1 +, 2}`
-10. **Tamaño e inicializador juntos:** `new int[3] {1, 2, 3}`
-11. **Falta `]`:** `new int[ {1, 2}`
-12. **Falta el tipo:** `new [] {1, 2}`
-13. **Faltan los corchetes:** `new int {1, 2}`
-14. **Inicializador anidado sin `new`:** `new int[][] { {1, 2}, {3} }`
-15. **Delimitadores equivocados:** `new int[] (1, 2)` y `new int[] [1, 2]`
-16. **Falta `;` al final de la sentencia:** `a = new int[] {1, 2}`
-17. **Inicializador sin cerrar hasta EOF:** `new int[] {1, 2` seguido del fin de archivo, sin `}` ni `;`.
-    El error se detecta en el token EOF. En la implementación actual el lexema del EOF es `$` (ver
-    `e99` del AnalizadorLexico): `[Error:$|n]`
-18. **Basura después del inicializador:** `new int[] {1} new int[] {2};` (segundo inicializador sin
-    operador binario que lo conecte)
-19. **Falta coma entre filas multidimensionales:** `new int[][] { new int[] {1} new int[] {2} }`
-20. **Corchetes vacíos sin inicializador:** `new int[]` sin tamaño ni `{`. El `[]` vacío debe exigir
-    el inicializador; si va seguido de cualquier otra cosa, es error.
+1. Visibilidad duplicada: `public public int a;`
+2. Visibilidad contradictoria: `public private int a;`
+3. Visibilidad después del tipo: `int public a;`
+4. Visibilidad después de `static`: `static public int m() {}`
+5. Visibilidad después de `void`: `void public m() {}`
+6. Visibilidad después de `idClase` en constructor: `Clase public () {}`
+7. Visibilidad sin miembro a continuación: `public }`
+8. Visibilidad seguida solo de `;`: `private ;`
+9. Visibilidad usada como nombre: `int public;`
+10. Palabra similar mal escrita (`publik`, `privat`) como visibilidad
+11. `protected` (no soportado): `protected int a;`
+12. Visibilidad en variable local dentro de un bloque: `{ public int x; }`
+13. Visibilidad en método de interfaz (si el enunciado no lo permite): `interface I { public int m(); }`
