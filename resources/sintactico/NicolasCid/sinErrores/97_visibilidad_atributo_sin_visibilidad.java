@@ -1,0 +1,3 @@
+class Clase {
+    int a;
+}

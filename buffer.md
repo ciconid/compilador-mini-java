@@ -1,6 +1,6 @@
 # Casos de prueba: Visibilidad Mejorada E2
 
-## Sin errores (14)
+## Sin errores (16)
 
 1. Atributo sin visibilidad: `int a;`
 2. Atributo `public`: `public int a;`
@@ -14,10 +14,12 @@
 10. Constructor `public` y `private`: `public Clase() {}`, `private Clase() {}`
 11. Constructor con argumentos y visibilidad
 12. Atributo/método de tipo clase sin visibilidad: `Clase a;` y `Clase m() {}` (conflicto con constructor `Clase()`)
-13. Clase con todos los miembros mezclados (con y sin visibilidad, en distinto orden)
-14. Clase vacía y clase con un solo miembro sin visibilidad
+13. Visibilidad + static + void combinados: `public static void m() {}` y `private static void m() {}`
+14. Clase con constructor y método de tipo clase con visibilidad: `public Clase() {}` y `private Clase m() {}` juntos (desambiguación constructor vs. método bajo el nuevo lookahead)
+15. Clase con todos los miembros mezclados (con y sin visibilidad, en distinto orden)
+16. Clase vacía y clase con un solo miembro sin visibilidad
 
-## Con errores (13)
+## Con errores (14)
 
 1. Visibilidad duplicada: `public public int a;`
 2. Visibilidad contradictoria: `public private int a;`
@@ -27,8 +29,9 @@
 6. Visibilidad después de `idClase` en constructor: `Clase public () {}`
 7. Visibilidad sin miembro a continuación: `public }`
 8. Visibilidad seguida solo de `;`: `private ;`
-9. Visibilidad usada como nombre: `int public;`
-10. Palabra similar mal escrita (`publik`, `privat`) como visibilidad
-11. `protected` (no soportado): `protected int a;`
-12. Visibilidad en variable local dentro de un bloque: `{ public int x; }`
-13. Visibilidad en método de interfaz (si el enunciado no lo permite): `interface I { public int m(); }`
+9. Palabra parecida no reservada como visibilidad: `publik int a;` (también `privat`, `protected`)
+10. Keyword `private` usado como nombre: `int private;` (reserva del nuevo keyword)
+11. Visibilidad en variable local dentro de un bloque: `{ public int x; }`
+12. Visibilidad en método de interfaz (el feature no aplica a interfaces): `interface I { public int m(); }`
+13. Visibilidad duplicada en constructor: `public public Clase() {}`
+14. Visibilidad en argumento formal: `int m(public int x) {}`
