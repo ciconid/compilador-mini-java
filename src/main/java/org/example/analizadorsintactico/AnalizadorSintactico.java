@@ -151,12 +151,13 @@ public class AnalizadorSintactico {
     void restoAtrMetCon() {
         if (Primeros.constructor.contains(tokenActual.token())) {
             constructor();
-        } else if (Arrays.asList("idMetVar").contains(tokenActual.token())) {
+        } else if (Primeros.restoAtrMetCon.contains(tokenActual.token())) {
+            tipoGenericoOpcional();
             match("idMetVar");
             restoAtributoOMetodo();
         } else {
             List<String> tokens = new ArrayList<>(Primeros.constructor);
-            tokens.add("idMetVar");
+            tokens.addAll(Primeros.restoAtrMetCon);
 
             String lexemasEsperados = tokens.stream()
                     .map(TokensYLexemas::get)
