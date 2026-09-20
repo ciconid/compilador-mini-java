@@ -145,6 +145,7 @@ public class AnalizadorLexico {
                 case "true" -> crearToken("prTrue");
                 case "static" -> crearToken("prStatic");
                 case "public" -> crearToken("prPublic");
+                case "private" -> crearToken("prPrivate");
                 case "var" -> crearToken("prVar");
                 case "false" -> crearToken("prFalse");
                 default -> crearToken("idMetVar");
