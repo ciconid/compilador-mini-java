@@ -8,10 +8,11 @@ public class Primeros {
 
     public static final List<String> clase = Arrays.asList("prClass");
     public static final List<String> interfaz = Arrays.asList("prInterface");
-    public static final List<String> miembro = Arrays.asList("prBoolean", "prChar", "prInt", "idClase", "idGen", "prStatic", "prVoid", "prPublic");
+    public static final List<String> miembro = Arrays.asList("prBoolean", "prChar", "prInt", "idClase", "idGen", "prStatic", "prVoid", "prPublic", "prPrivate");
     public static final List<String> metodoInterfaz = Arrays.asList("prBoolean", "prChar", "prInt", "idClase", "idGen", "prVoid");
     public static final List<String> tipo = Arrays.asList("prBoolean", "prChar", "prInt", "idClase", "idGen");
-    public static final List<String> atributoOMetodo = Arrays.asList("prBoolean", "prChar", "prInt", "idClase", "idGen");
+    public static final List<String> atributoOMetodo = Arrays.asList("prBoolean", "prChar", "prInt", "idGen");
+    public static final List<String> atributoOMetodoOConstructor = Arrays.asList("idClase");
     public static final List<String> atributo = Arrays.asList("puPuntoYComa", "opAsignacion");
 
     public static final List<String> argsFormales = Arrays.asList("puParentesisAbre");
@@ -48,5 +49,8 @@ public class Primeros {
     public static final List<String> coma = Arrays.asList("puComa");
     public static final List<String> corcheteAbre = Arrays.asList("puCorcheteAbre");
     public static final List<String> dimensiones = Arrays.asList("puCorcheteAbre");
+    public static final List<String> prPublic = Arrays.asList("prPublic");
+    public static final List<String> prPrivate = Arrays.asList("prPrivate");
+    public static final List<String> constructor = Primeros.argsFormales;
 
 }
