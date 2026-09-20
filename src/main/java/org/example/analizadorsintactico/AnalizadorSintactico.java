@@ -649,11 +649,9 @@ public class AnalizadorSintactico {
         if (Primeros.tipoPrimitivo.contains(tokenActual.token())) {
             tipoPrimitivo();
             dimensiones();
-            inicializadorArreglo();
         } else if (Arrays.asList("idGen").contains(tokenActual.token())) {
             match("idGen");
             dimensiones();
-            inicializadorArreglo();
         } else if (Primeros.tipoReferencia.contains(tokenActual.token())) {
             tipoReferencia();
             restoTipoReferencia();
@@ -672,7 +670,6 @@ public class AnalizadorSintactico {
     void restoTipoReferencia() {
         if (Primeros.dimensiones.contains(tokenActual.token())) {
             dimensiones();
-            inicializadorArreglo();
         } else if (Primeros.argsActuales.contains(tokenActual.token())) {
             argsActuales();
         } else {
@@ -721,6 +718,7 @@ public class AnalizadorSintactico {
             dimensionesConTamanio();
         } else if (Primeros.dimensionesSinTamanio.contains(tokenActual.token())) {
             dimensionesSinTamanio();
+            inicializadorArreglo();
         } else {
             List<String> tokens = new ArrayList<>(Primeros.dimensionesConTamanio);
             tokens.addAll(Primeros.dimensionesSinTamanio);
@@ -739,7 +737,7 @@ public class AnalizadorSintactico {
     }
 
     void restoDimensionesConTamanio() {
-        if (Primeros.dimensionesConTamanio.contains(tokenActual.token())) {
+        if (Primeros.corcheteAbre.contains(tokenActual.token())) {
             match("puCorcheteAbre");
             dimensionesConTamanio();
         } else {
@@ -763,13 +761,9 @@ public class AnalizadorSintactico {
     }
 
     void inicializadorArreglo() {
-        if (Primeros.llaveAbre.contains(tokenActual.token())) {
-            match("puLlaveAbre");
-            iniArregloExpresiones();
-            match("puLlaveCierra");
-        } else {
-            //epsilon
-        }
+        match("puLlaveAbre");
+        iniArregloExpresiones();
+        match("puLlaveCierra");
     }
 
     void iniArregloExpresiones() {
