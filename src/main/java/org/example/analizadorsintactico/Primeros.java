@@ -53,5 +53,5 @@ public class Primeros {
     public static final List<String> prPrivate = Arrays.asList("prPrivate");
     public static final List<String> constructor = Primeros.argsFormales;
 
-    public static final List<String> restoAtrMetCon = Arrays.asList("idMetVar", "opMenor");
+    public static final List<String> restoAtrMetCon = Arrays.asList("idMetVar", "opMenor", "puCorcheteAbre");
 }

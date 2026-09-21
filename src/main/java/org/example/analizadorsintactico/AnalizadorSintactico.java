@@ -153,6 +153,7 @@ public class AnalizadorSintactico {
             constructor();
         } else if (Primeros.restoAtrMetCon.contains(tokenActual.token())) {
             tipoGenericoOpcional();
+            dimensionesOpcionales();
             match("idMetVar");
             restoAtributoOMetodo();
         } else {
@@ -169,18 +170,22 @@ public class AnalizadorSintactico {
     void atributoOMetodo() {
         if (Arrays.asList("prBoolean").contains(tokenActual.token())) {
             match("prBoolean");
+            dimensionesOpcionales();
             match("idMetVar");
             restoAtributoOMetodo();
         } else if (Arrays.asList("prChar").contains(tokenActual.token())) {
             match("prChar");
+            dimensionesOpcionales();
             match("idMetVar");
             restoAtributoOMetodo();
         } else if (Arrays.asList("prInt").contains(tokenActual.token())) {
             match("prInt");
+            dimensionesOpcionales();
             match("idMetVar");
             restoAtributoOMetodo();
         } else if (Arrays.asList("idGen").contains(tokenActual.token())) {
             match("idGen");
+            dimensionesOpcionales();
             match("idMetVar");
             restoAtributoOMetodo();
         } else {
