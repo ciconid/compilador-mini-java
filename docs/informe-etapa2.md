@@ -101,9 +101,7 @@ El no terminal de inicio es **<Inicial\>** y las producciones de la Nueva Gramá
 
 ---
 
-# Decisiones de diseño, clases utilizadas, etc (agregar descripciones)
-
-# Clases
+# Clases nuevas
 
 ### Utility
 
@@ -153,6 +151,10 @@ java -jar build/libs/Compilador.jar programa1.java
 
 Donde `programa1.java` es el archivo fuente de MiniJava a compilar (se acepta cualquier extensión).
 
+## Etapas anteriores
+
+La clase Main siempre hará referencia a la etapa actual. Se mantienen los Mains de etapas anteriores, con nombres
+descriptivos, en caso de que sea necesario recrear su ejecución (e.g.: MainEtapa1).
 
 
 
@@ -165,3 +167,4 @@ Donde `programa1.java` es el archivo fuente de MiniJava a compilar (se acepta cu
 * Atributos inicializados E2
 * Operador Ternario E2
 * Inicializacion de Arreglos E2
+* Visibilidad Mejorada E2
