@@ -1,6 +1,5 @@
 package lexico.SS;
 
-import org.example.Main;
 import org.example.MainEtapa1;
 import org.hamcrest.CoreMatchers;
 import org.junit.After;
@@ -84,7 +83,7 @@ public class TesterDeCasosSinErroresSS {
         String path = TEST_FILES_DIRECTORY_PATH + name;
         List<TokenEsperado> tokensEsperados = leerTokensEsperados(path);
 
-        init.main(new String[] { path });
+        init.main(new String[]{path});
 
         String salida = outContent.toString();
 

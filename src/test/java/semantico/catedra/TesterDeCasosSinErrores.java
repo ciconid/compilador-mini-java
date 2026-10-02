@@ -1,10 +1,11 @@
-package minijavaCompiler;
+package semantico.catedra;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.PrintStream;
 import java.util.ArrayList;
 
+import org.example.Main;
 import org.hamcrest.CoreMatchers;
 import org.junit.After;
 import org.junit.Test;

@@ -1,6 +1,6 @@
 package sintactico.TB;
 
-import org.example.Main;
+import org.example.MainEtapa2;
 import org.hamcrest.CoreMatchers;
 import org.junit.After;
 import org.junit.Before;
@@ -18,7 +18,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 public class TesterDeCasosConErroresTB {
 
     //TODO: el tipo de esta variable init tiene que ser la clase que tiene el main
-    private static final Main init = null;
+    private static final MainEtapa2 init = null;
 
     private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
     private final PrintStream originalOut = System.out;

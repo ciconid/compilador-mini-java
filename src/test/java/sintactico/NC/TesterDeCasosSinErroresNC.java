@@ -1,6 +1,6 @@
 package sintactico.NC;
 
-import org.example.Main;
+import org.example.MainEtapa2;
 import org.hamcrest.CoreMatchers;
 import org.junit.After;
 import org.junit.Before;
@@ -24,7 +24,7 @@ public class TesterDeCasosSinErroresNC {
     private static final String testFilesDirectoryPath = "resources/sintactico/NicolasCid/sinErrores/";
 
     //TODO: el tipo de esta variable init tiene que ser la clase que tiene el main
-    private static final Main init = null;
+    private static final MainEtapa2 init = null;
 
     private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
     private final PrintStream originalOut = System.out;

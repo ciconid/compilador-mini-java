@@ -3,12 +3,13 @@ package lexico.TB;
 import java.io.*;
 import java.util.ArrayList;
 
-import org.example.Main;
 import org.example.MainEtapa1;
 import org.hamcrest.CoreMatchers;
 import org.junit.After;
 import org.junit.Test;
+
 import static org.hamcrest.MatcherAssert.assertThat;
+
 import org.junit.Before;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
@@ -26,12 +27,12 @@ public class TesterDeCasosConErroresTB {
     private boolean fullCompilerOuputPrintingInEachTest = true;
 
     @Before
-    public  void setUpClass() {
+    public void setUpClass() {
         System.setOut(new PrintStream(outContent));
     }
 
     @After
-    public  void tearDownClass() {
+    public void tearDownClass() {
         System.setOut(originalOut);
     }
 
@@ -39,7 +40,7 @@ public class TesterDeCasosConErroresTB {
     public static Iterable<? extends Object> data() {
         File folder = new File(testFilesDirectoryPath);
         ArrayList<String> names = new ArrayList();
-        for(File f: folder.listFiles()){
+        for (File f : folder.listFiles()) {
             names.add(f.getName());
         }
         names.sort(String::compareTo);
@@ -48,7 +49,7 @@ public class TesterDeCasosConErroresTB {
 
     private String input;
 
-    public TesterDeCasosConErroresTB(String input){
+    public TesterDeCasosConErroresTB(String input) {
         this.input = input;
     }
 
@@ -59,21 +60,21 @@ public class TesterDeCasosConErroresTB {
     }
 
     private void probarFallo(String name) {
-        String testCaseFilePath = testFilesDirectoryPath+name;
+        String testCaseFilePath = testFilesDirectoryPath + name;
         String errorCode = getErrorCode(testCaseFilePath);
         String[] args = {testCaseFilePath};
         init.main(args);
 
-        if(fullCompilerOuputPrintingInEachTest){
+        if (fullCompilerOuputPrintingInEachTest) {
             System.setOut(originalOut);
             System.out.println(outContent.toString());
         }
 
-        assertThat("No se encontro el codigo: " + errorCode,  outContent.toString(), CoreMatchers.containsString(errorCode));
+        assertThat("No se encontro el codigo: " + errorCode, outContent.toString(), CoreMatchers.containsString(errorCode));
     }
 
 
-    String getErrorCode(String testCaseFilePath)  {
+    String getErrorCode(String testCaseFilePath) {
         String lineWithTheCode = null;
         try {
             lineWithTheCode = (new BufferedReader(new FileReader(testCaseFilePath))).readLine();
@@ -84,15 +85,6 @@ public class TesterDeCasosConErroresTB {
         String errorCode = lineWithTheCode.substring(3);
         return errorCode;
     }
-
-
-
-
-
-
-
-
-
 
 
 }

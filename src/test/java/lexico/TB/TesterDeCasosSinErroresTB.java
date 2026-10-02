@@ -6,7 +6,6 @@ import java.util.Collections;
 import java.util.List;
 
 
-import org.example.Main;
 import org.example.MainEtapa1;
 import org.hamcrest.CoreMatchers;
 import org.junit.After;
@@ -16,6 +15,7 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 
 import static org.hamcrest.MatcherAssert.assertThat;
+
 @RunWith(Parameterized.class)
 public class TesterDeCasosSinErroresTB {
 
@@ -84,7 +84,7 @@ public class TesterDeCasosSinErroresTB {
         String path = TEST_FILES_DIRECTORY_PATH + name;
         List<TokenEsperado> tokensEsperados = leerTokensEsperados(path);
 
-        init.main(new String[] { path });
+        init.main(new String[]{path});
 
         String salida = outContent.toString();
 

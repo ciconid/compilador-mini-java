@@ -1,6 +1,5 @@
 package lexico.SS;
 
-import org.example.Main;
 import org.example.MainEtapa1;
 import org.hamcrest.CoreMatchers;
 import org.junit.After;
@@ -27,12 +26,12 @@ public class TesterDeCasosConErroresSS {
     private boolean fullCompilerOuputPrintingInEachTest = true;
 
     @Before
-    public  void setUpClass() {
+    public void setUpClass() {
         System.setOut(new PrintStream(outContent));
     }
 
     @After
-    public  void tearDownClass() {
+    public void tearDownClass() {
         System.setOut(originalOut);
     }
 
@@ -40,7 +39,7 @@ public class TesterDeCasosConErroresSS {
     public static Iterable<? extends Object> data() {
         File folder = new File(testFilesDirectoryPath);
         ArrayList<String> names = new ArrayList();
-        for(File f: folder.listFiles()){
+        for (File f : folder.listFiles()) {
             names.add(f.getName());
         }
         names.sort(String::compareTo);
@@ -49,7 +48,7 @@ public class TesterDeCasosConErroresSS {
 
     private String input;
 
-    public TesterDeCasosConErroresSS(String input){
+    public TesterDeCasosConErroresSS(String input) {
         this.input = input;
     }
 
@@ -60,21 +59,21 @@ public class TesterDeCasosConErroresSS {
     }
 
     private void probarFallo(String name) {
-        String testCaseFilePath = testFilesDirectoryPath+name;
+        String testCaseFilePath = testFilesDirectoryPath + name;
         String errorCode = getErrorCode(testCaseFilePath);
         String[] args = {testCaseFilePath};
         init.main(args);
 
-        if(fullCompilerOuputPrintingInEachTest){
+        if (fullCompilerOuputPrintingInEachTest) {
             System.setOut(originalOut);
             System.out.println(outContent.toString());
         }
 
-        assertThat("No se encontro el codigo: " + errorCode,  outContent.toString(), CoreMatchers.containsString(errorCode));
+        assertThat("No se encontro el codigo: " + errorCode, outContent.toString(), CoreMatchers.containsString(errorCode));
     }
 
 
-    String getErrorCode(String testCaseFilePath)  {
+    String getErrorCode(String testCaseFilePath) {
         String lineWithTheCode = null;
         try {
             lineWithTheCode = (new BufferedReader(new FileReader(testCaseFilePath))).readLine();
@@ -85,15 +84,6 @@ public class TesterDeCasosConErroresSS {
         String errorCode = lineWithTheCode.substring(3);
         return errorCode;
     }
-
-
-
-
-
-
-
-
-
 
 
 }

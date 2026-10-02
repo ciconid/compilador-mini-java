@@ -1,8 +1,9 @@
-package test.java;
+package semantico.catedra;
 
 import java.io.*;
 import java.util.ArrayList;
 
+import org.example.Main;
 import org.hamcrest.CoreMatchers;
 import org.junit.After;
 import org.junit.Test;
