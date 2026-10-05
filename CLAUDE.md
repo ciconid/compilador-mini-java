@@ -13,6 +13,8 @@ MiniJava compiler in Java 21 for a university compilers course, built in stages 
 - Ask for clarification instead of making assumptions.
 - Check `docs/` for specifications and reference material.
 - Don't ask whether to create a plan; you'll be prompted when one is needed.
+- Don't compile or run tests unless the user explicitly asks.
+- Avoid writing code comments unless they're truly necessary.
 
 ## Commands
 

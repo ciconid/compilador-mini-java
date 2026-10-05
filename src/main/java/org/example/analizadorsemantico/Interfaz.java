@@ -1,5 +1,11 @@
 package org.example.analizadorsemantico;
 
+import org.example.analizadorlexico.Token;
+
 public class Interfaz extends ClaseOInterfaz {
-    protected Interfaz superInterfaz;
+    protected TipoReferencia superInterfaz;
+
+    public Interfaz(Token token) {
+        super(token);
+    }
 }
