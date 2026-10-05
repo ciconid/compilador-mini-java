@@ -385,7 +385,7 @@ public class AnalizadorSintactico {
         if (Arrays.asList("idGen").contains(tokenActual.token())) {
             return new TipoParametro(match("idGen"));
         } else if (Arrays.asList("idClase").contains(tokenActual.token())) {
-            return new TipoReferencia(match("idClase"), null);
+            return tipoReferencia();
         } else {
             List<String> tokens = new ArrayList<>();
             tokens.add("idGen");
@@ -743,8 +743,8 @@ public class AnalizadorSintactico {
             match("idGen");
             dimensiones();
         } else if (Primeros.tipoReferencia.contains(tokenActual.token())) {
-            tipoReferencia();
-            restoTipoReferencia();
+            match("idClase");
+            restoNewClase();
         } else {
             List<String> tokens = new ArrayList<>(Primeros.tipoPrimitivo);
             tokens.add("idGen");
@@ -754,6 +754,26 @@ public class AnalizadorSintactico {
                     .map(TokensYLexemas::get)
                     .collect(Collectors.joining(", "));
             throw new ErrorSintactico(tokenActual.lexema(), tokenActual.nroDeLinea(), lexemasEsperados);
+        }
+    }
+
+    void restoNewClase() {
+        if (Arrays.asList("opMenor").contains(tokenActual.token())) {
+            match("opMenor");
+            restoNewGenerico();
+        } else {
+            restoTipoReferencia();
+        }
+    }
+
+    void restoNewGenerico() {
+        if (Arrays.asList("opMayor").contains(tokenActual.token())) {
+            match("opMayor");
+            argsActuales();
+        } else {
+            instanciadoOParametrico();
+            match("opMayor");
+            restoTipoReferencia();
         }
     }
 

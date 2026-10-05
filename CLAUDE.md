@@ -15,6 +15,7 @@ MiniJava compiler in Java 21 for a university compilers course, built in stages 
 - Don't ask whether to create a plan; you'll be prompted when one is needed.
 - Don't compile or run tests unless the user explicitly asks.
 - Avoid writing code comments unless they're truly necessary.
+- Write the test cases for a feature (and get the user's approval) before implementing it.
 
 ## Commands
 
