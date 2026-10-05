@@ -877,8 +877,8 @@ public class AnalizadorSintactico {
     }
 
     void iniArregloExpresiones() {
-        if (Primeros.expresion.contains(tokenActual.token())) {
-            expresion();
+        if (Primeros.expresion.contains(tokenActual.token()) || Primeros.llaveAbre.contains(tokenActual.token())) {
+            elementoArreglo();
             iniArregloExpresionesOpcionales();
         } else {
             //epsilon
@@ -888,10 +888,18 @@ public class AnalizadorSintactico {
     void iniArregloExpresionesOpcionales() {
         if (Primeros.coma.contains(tokenActual.token())) {
             match("puComa");
-            expresion();
+            elementoArreglo();
             iniArregloExpresionesOpcionales();
         } else {
             //epsilon
+        }
+    }
+
+    void elementoArreglo() {
+        if (Primeros.llaveAbre.contains(tokenActual.token())) {
+            inicializadorArreglo();
+        } else {
+            expresion();
         }
     }
 
