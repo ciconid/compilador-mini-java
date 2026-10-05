@@ -2,6 +2,8 @@ package org.example;
 
 import org.example.analizadorlexico.AnalizadorLexico;
 import org.example.analizadorlexico.ErrorLexico;
+import org.example.analizadorsemantico.ErrorSemantico;
+import org.example.analizadorsemantico.TablaDeSimbolos;
 import org.example.analizadorsintactico.AnalizadorSintactico;
 import org.example.analizadorsintactico.ErrorSintactico;
 import org.example.sourcemanager.SourceManagerImpl;
@@ -27,6 +29,8 @@ public class MainEtapa2 {
             throw new RuntimeException(e);
         }
 
+        TablaDeSimbolos.ts = new TablaDeSimbolos();
+
         AnalizadorLexico analizadorLexico = new AnalizadorLexico(sourceManager);
         try {
             AnalizadorSintactico analizadorSintactico = new AnalizadorSintactico(analizadorLexico);
@@ -40,6 +44,7 @@ public class MainEtapa2 {
             System.out.println("Error Lexico");
             System.out.println("[Error:" + e.getLexema() + "|" + e.getNroLinea() + "]");
             huboErrores = true;
+        } catch (ErrorSemantico e) {
         }
 
         try {

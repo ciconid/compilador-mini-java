@@ -2,6 +2,7 @@ package org.example.analizadorsintactico;
 
 import org.example.analizadorlexico.AnalizadorLexico;
 import org.example.analizadorlexico.Token;
+import org.example.analizadorsemantico.*;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -38,7 +39,8 @@ public class AnalizadorSintactico {
 
     void clase() {
         match("prClass");
-        match("idClase");
+        Token nombre = match("idClase");
+        TablaDeSimbolos.ts.agregarClaseOInterfaz(new Clase(nombre));
         genericidadOpcional();
         herenciaOpcional();
         match("puLlaveAbre");
@@ -48,7 +50,8 @@ public class AnalizadorSintactico {
 
     void interfaz() {
         match("prInterface");
-        match("idClase");
+        Token nombre = match("idClase");
+        TablaDeSimbolos.ts.agregarClaseOInterfaz(new Interfaz(nombre));
         genericidadOpcional();
         extensionOpcional();
         match("puLlaveAbre");
@@ -59,7 +62,7 @@ public class AnalizadorSintactico {
     void genericidadOpcional() {
         if (Arrays.asList("opMenor").contains(tokenActual.token())) {
             match("opMenor");
-            match("idGen");
+            TablaDeSimbolos.ts.setParametroGenerico(match("idGen"));
             match("opMayor");
         } else {
             // epsilon
@@ -69,10 +72,10 @@ public class AnalizadorSintactico {
     void herenciaOpcional() {
         if (Arrays.asList("prExtends").contains(tokenActual.token())) {
             match("prExtends");
-            tipoReferencia();
+            TablaDeSimbolos.ts.setSuperclase(tipoReferencia());
         } else if (Arrays.asList("prImplements").contains(tokenActual.token())) {
             match("prImplements");
-            tipoReferencia();
+            TablaDeSimbolos.ts.setInterfazImplementada(tipoReferencia());
         } else {
             // epsilon
         }
@@ -81,7 +84,7 @@ public class AnalizadorSintactico {
     void extensionOpcional() {
         if (Arrays.asList("prExtends").contains(tokenActual.token())) {
             match("prExtends");
-            tipoReferencia();
+            TablaDeSimbolos.ts.setSuperInterfaz(tipoReferencia());
         } else {
             // epsilon
         }
@@ -144,18 +147,18 @@ public class AnalizadorSintactico {
     }
 
     void atributoOMetodoOConstructor() {
-        match("idClase");
-        restoAtrMetCon();
+        Token idClase = match("idClase");
+        restoAtrMetCon(idClase);
     }
 
-    void restoAtrMetCon() {
+    void restoAtrMetCon(Token idClase) {
         if (Primeros.constructor.contains(tokenActual.token())) {
-            constructor();
+            constructor(idClase);
         } else if (Primeros.restoAtrMetCon.contains(tokenActual.token())) {
-            tipoGenericoOpcional();
-            dimensionesOpcionales();
-            match("idMetVar");
-            restoAtributoOMetodo();
+            TipoReferencia tipoReferencia = new TipoReferencia(idClase, tipoGenericoOpcional());
+            Tipo tipo = conDimensiones(tipoReferencia, dimensionesOpcionales());
+            Token nombre = match("idMetVar");
+            restoAtributoOMetodo(nombre, tipo);
         } else {
             List<String> tokens = new ArrayList<>(Primeros.constructor);
             tokens.addAll(Primeros.restoAtrMetCon);
@@ -170,24 +173,24 @@ public class AnalizadorSintactico {
     void atributoOMetodo() {
         if (Arrays.asList("prBoolean").contains(tokenActual.token())) {
             match("prBoolean");
-            dimensionesOpcionales();
-            match("idMetVar");
-            restoAtributoOMetodo();
+            Tipo tipo = conDimensiones(new TipoBoolean(), dimensionesOpcionales());
+            Token nombre = match("idMetVar");
+            restoAtributoOMetodo(nombre, tipo);
         } else if (Arrays.asList("prChar").contains(tokenActual.token())) {
             match("prChar");
-            dimensionesOpcionales();
-            match("idMetVar");
-            restoAtributoOMetodo();
+            Tipo tipo = conDimensiones(new TipoChar(), dimensionesOpcionales());
+            Token nombre = match("idMetVar");
+            restoAtributoOMetodo(nombre, tipo);
         } else if (Arrays.asList("prInt").contains(tokenActual.token())) {
             match("prInt");
-            dimensionesOpcionales();
-            match("idMetVar");
-            restoAtributoOMetodo();
+            Tipo tipo = conDimensiones(new TipoInt(), dimensionesOpcionales());
+            Token nombre = match("idMetVar");
+            restoAtributoOMetodo(nombre, tipo);
         } else if (Arrays.asList("idGen").contains(tokenActual.token())) {
-            match("idGen");
-            dimensionesOpcionales();
-            match("idMetVar");
-            restoAtributoOMetodo();
+            Token idGen = match("idGen");
+            Tipo tipo = conDimensiones(new TipoParametro(idGen), dimensionesOpcionales());
+            Token nombre = match("idMetVar");
+            restoAtributoOMetodo(nombre, tipo);
         } else {
             List<String> tokens = new ArrayList<>();
             tokens.add("prBoolean");
@@ -202,11 +205,11 @@ public class AnalizadorSintactico {
         }
     }
 
-    void restoAtributoOMetodo() {
+    void restoAtributoOMetodo(Token nombre, Tipo tipo) {
         if (Primeros.atributo.contains(tokenActual.token())) {
-            atributo();
+            atributo(nombre, tipo);
         } else if (Primeros.metodo.contains(tokenActual.token())) {
-            metodo();
+            metodo(nombre, tipo);
         } else {
             List<String> tokens = new ArrayList<>(Primeros.atributo);
             tokens.addAll(Primeros.metodo);
@@ -221,21 +224,24 @@ public class AnalizadorSintactico {
 
     void metodoStatic() {
         match("prStatic");
-        tipoMetodo();
-        match("idMetVar");
-        argsFormales();
+        Tipo tipoRetorno = tipoMetodo();
+        Metodo metodo = new Metodo(match("idMetVar"), true, tipoRetorno);
+        argsFormales(metodo);
+        TablaDeSimbolos.ts.agregarMetodo(metodo);
         bloque();
     }
 
     void metodoVoid() {
         match("prVoid");
-        match("idMetVar");
-        argsFormales();
+        Metodo metodo = new Metodo(match("idMetVar"), false, new TipoVoid());
+        argsFormales(metodo);
+        TablaDeSimbolos.ts.agregarMetodo(metodo);
         bloque();
     }
 
 
-    void atributo() {
+    void atributo(Token nombre, Tipo tipo) {
+        TablaDeSimbolos.ts.agregarAtributo(new Atributo(nombre, tipo));
         if (Arrays.asList("puPuntoYComa").contains(tokenActual.token())) {
             match("puPuntoYComa");
         } else if (Arrays.asList("opAsignacion").contains(tokenActual.token())) {
@@ -248,20 +254,25 @@ public class AnalizadorSintactico {
 
     }
 
-    void metodo() {
-        argsFormales();
+    void metodo(Token nombre, Tipo tipoRetorno) {
+        Metodo metodo = new Metodo(nombre, false, tipoRetorno);
+        argsFormales(metodo);
+        TablaDeSimbolos.ts.agregarMetodo(metodo);
         bloque();
     }
 
     void metodoInterfaz() {
-        tipoMetodo();
-        match("idMetVar");
-        argsFormales();
+        Tipo tipoRetorno = tipoMetodo();
+        Metodo metodo = new Metodo(match("idMetVar"), false, tipoRetorno);
+        argsFormales(metodo);
+        TablaDeSimbolos.ts.agregarMetodo(metodo);
         match("puPuntoYComa");
     }
 
-    void constructor() {
-        argsFormales();
+    void constructor(Token nombre) {
+        Constructor constructor = new Constructor(nombre);
+        argsFormales(constructor);
+        TablaDeSimbolos.ts.agregarConstructor(constructor);
         bloque();
     }
 
@@ -273,11 +284,12 @@ public class AnalizadorSintactico {
         }
     }
 
-    void tipoMetodo() {
+    Tipo tipoMetodo() {
         if (Primeros.tipo.contains(tokenActual.token())) {
-            tipo();
+            return tipo();
         } else if (Arrays.asList("prVoid").contains(tokenActual.token())) {
             match("prVoid");
+            return new TipoVoid();
         } else {
             List<String> tokens = new ArrayList<>(Primeros.tipo);
             tokens.add("prVoid");
@@ -289,18 +301,25 @@ public class AnalizadorSintactico {
         }
     }
 
-    void tipo() {
-        tipoBase();
-        dimensionesOpcionales();
+    Tipo tipo() {
+        Tipo tipoBase = tipoBase();
+        return conDimensiones(tipoBase, dimensionesOpcionales());
     }
 
-    void tipoBase() {
+    Tipo conDimensiones(Tipo tipoBase, int dimensiones) {
+        if (dimensiones == 0) {
+            return tipoBase;
+        }
+        return new TipoArreglo(tipoBase, dimensiones);
+    }
+
+    Tipo tipoBase() {
         if (Primeros.tipoPrimitivo.contains(tokenActual.token())) {
-            tipoPrimitivo();
+            return tipoPrimitivo();
         } else if (Primeros.tipoReferencia.contains(tokenActual.token())) {
-            tipoReferencia();
+            return tipoReferencia();
         } else if (Arrays.asList("idGen").contains(tokenActual.token())) {
-            match("idGen");
+            return new TipoParametro(match("idGen"));
         } else {
             List<String> tokens = new ArrayList<>(Primeros.tipoPrimitivo);
             tokens.addAll(Primeros.tipoReferencia);
@@ -313,28 +332,31 @@ public class AnalizadorSintactico {
         }
     }
 
-    void dimensionesOpcionales() {
+    int dimensionesOpcionales() {
         if (Arrays.asList("puCorcheteAbre").contains(tokenActual.token())) {
             match("puCorcheteAbre");
             match("puCorcheteCierra");
-            dimensionesOpcionales();
+            return 1 + dimensionesOpcionales();
         } else {
-            // epsilon
+            return 0;
         }
     }
 
-    void tipoReferencia() {
-        match("idClase");
-        tipoGenericoOpcional();
+    TipoReferencia tipoReferencia() {
+        Token nombre = match("idClase");
+        return new TipoReferencia(nombre, tipoGenericoOpcional());
     }
 
-    void tipoPrimitivo() {
+    Tipo tipoPrimitivo() {
         if (Arrays.asList("prBoolean").contains(tokenActual.token())) {
             match("prBoolean");
+            return new TipoBoolean();
         } else if (Arrays.asList("prChar").contains(tokenActual.token())) {
             match("prChar");
+            return new TipoChar();
         } else if (Arrays.asList("prInt").contains(tokenActual.token())) {
             match("prInt");
+            return new TipoInt();
         } else {
             List<String> tokens = new ArrayList<>();
             tokens.add("iprBoolean");
@@ -348,21 +370,22 @@ public class AnalizadorSintactico {
         }
     }
 
-    void tipoGenericoOpcional() {
+    Tipo tipoGenericoOpcional() {
         if (Arrays.asList("opMenor").contains(tokenActual.token())) {
             match("opMenor");
-            instanciadoOParametrico();
+            Tipo argumento = instanciadoOParametrico();
             match("opMayor");
+            return argumento;
         } else {
-            // epsilon
+            return null;
         }
     }
 
-    void instanciadoOParametrico() {
+    Tipo instanciadoOParametrico() {
         if (Arrays.asList("idGen").contains(tokenActual.token())) {
-            match("idGen");
+            return new TipoParametro(match("idGen"));
         } else if (Arrays.asList("idClase").contains(tokenActual.token())) {
-            match("idClase");
+            return new TipoReferencia(match("idClase"), null);
         } else {
             List<String> tokens = new ArrayList<>();
             tokens.add("idGen");
@@ -375,38 +398,38 @@ public class AnalizadorSintactico {
         }
     }
 
-    void argsFormales() {
+    void argsFormales(Unidad unidad) {
         match("puParentesisAbre");
-        listaArgsFormalesOpcional();
+        listaArgsFormalesOpcional(unidad);
         match("puParentesisCierra");
     }
 
-    void listaArgsFormalesOpcional() {
+    void listaArgsFormalesOpcional(Unidad unidad) {
         if (Primeros.listaArgsFormales.contains(tokenActual.token())) {
-            listaArgsFormales();
+            listaArgsFormales(unidad);
         } else {
             // epsilon
         }
     }
 
-    void listaArgsFormales() {
-        argFormal();
-        restoListaArgsFormales();
+    void listaArgsFormales(Unidad unidad) {
+        argFormal(unidad);
+        restoListaArgsFormales(unidad);
     }
 
-    void restoListaArgsFormales() {
+    void restoListaArgsFormales(Unidad unidad) {
         if (Arrays.asList("puComa").contains(tokenActual.token())) {
             match("puComa");
-            argFormal();
-            restoListaArgsFormales();
+            argFormal(unidad);
+            restoListaArgsFormales(unidad);
         } else {
             // epsilon
         }
     }
 
-    void argFormal() {
-        tipo();
-        match("idMetVar");
+    void argFormal(Unidad unidad) {
+        Tipo tipo = tipo();
+        unidad.agregarParametro(match("idMetVar"), tipo);
     }
 
     void bloque() {
@@ -887,9 +910,11 @@ public class AnalizadorSintactico {
     }
 
 
-    void match(String nombreToken) {
+    Token match(String nombreToken) {
         if (nombreToken.equals(tokenActual.token())) {
+            Token tokenConsumido = tokenActual;
             tokenActual = analizadorLexico.proximoToken();
+            return tokenConsumido;
         } else {
 //            System.out.println("DEBUG: Se esperaba " + nombreToken + " pero vino " + tokenActual.token());
             throw new ErrorSintactico(tokenActual.lexema(), tokenActual.nroDeLinea(), TokensYLexemas.get(nombreToken));

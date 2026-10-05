@@ -2,14 +2,9 @@ package org.example.analizadorsemantico;
 
 import org.example.analizadorlexico.Token;
 
-import java.util.ArrayList;
-import java.util.List;
-
-public class Constructor extends EntidadDeclarable {
-    protected List<Parametro> parametrosOrdenados;
+public class Constructor extends Unidad {
 
     public Constructor(Token token) {
         super(token);
-        parametrosOrdenados = new ArrayList<>();
     }
 }

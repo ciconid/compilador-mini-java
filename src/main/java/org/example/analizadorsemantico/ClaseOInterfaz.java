@@ -15,4 +15,12 @@ public abstract class ClaseOInterfaz extends EntidadDeclarable {
         nombre = token.lexema();
         metodos = new LinkedHashMap<>();
     }
+
+    void agregarMetodo(Metodo metodo) {
+        if (metodos.containsKey(metodo.getClave())) {
+            throw new ErrorSemantico(metodo.token, "El metodo " + metodo.nombre + " con " + metodo.aridad()
+                    + " parametros ya esta declarado en " + nombre);
+        }
+        metodos.put(metodo.getClave(), metodo);
+    }
 }
