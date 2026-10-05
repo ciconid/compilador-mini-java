@@ -66,4 +66,57 @@ public class Clase extends ClaseOInterfaz {
             constructor.estaBienDeclarado(this);
         }
     }
+
+    void consolidar() {
+        if (consolidado) {
+            return;
+        }
+        Map<String, Metodo> metodosPropios = metodos;
+        if (superclase != null) {
+            Clase padre = (Clase) superclase.getReferenciada();
+            padre.consolidar();
+            heredarAtributos(padre);
+            heredarMetodos(padre, superclase);
+        }
+        if (interfazImplementada != null) {
+            chequearContratoInterfaz(metodosPropios);
+        }
+        if (constructores.isEmpty()) {
+            constructores.put(0, new Constructor(new Token("idClase", nombre, token.nroDeLinea())));
+        }
+        consolidado = true;
+    }
+
+    private void heredarAtributos(Clase padre) {
+        String parametro = parametroAInstanciar(padre, superclase);
+        Map<String, Atributo> consolidados = new LinkedHashMap<>();
+        for (Atributo atributoPadre : padre.atributos.values()) {
+            consolidados.put(atributoPadre.nombre, atributoPadre.instanciar(parametro, superclase.argumentoGenerico));
+        }
+        for (Atributo propio : atributos.values()) {
+            if (consolidados.containsKey(propio.nombre)) {
+                throw new ErrorSemantico(propio.token, "El atributo " + propio.nombre
+                        + " ya esta declarado en un ancestro de la clase " + nombre);
+            }
+            consolidados.put(propio.nombre, propio);
+        }
+        atributos = consolidados;
+    }
+
+    private void chequearContratoInterfaz(Map<String, Metodo> metodosPropios) {
+        Interfaz interfaz = (Interfaz) interfazImplementada.getReferenciada();
+        interfaz.consolidar();
+        String parametro = parametroAInstanciar(interfaz, interfazImplementada);
+        for (Metodo metodoInterfaz : interfaz.metodos.values()) {
+            Metodo requerido = metodoInterfaz.instanciar(parametro, interfazImplementada.argumentoGenerico);
+            Metodo implementacion = metodos.get(requerido.getClave());
+            if (implementacion != null && !implementacion.esEstatico && implementacion.mismaSignatura(requerido)) {
+                continue;
+            }
+            Metodo propio = metodosPropios.get(requerido.getClave());
+            Token tokenError = propio != null ? propio.token : token;
+            throw new ErrorSemantico(tokenError, "La clase " + nombre + " no implementa correctamente el metodo "
+                    + requerido.nombre + " de la interfaz " + interfaz.nombre);
+        }
+    }
 }

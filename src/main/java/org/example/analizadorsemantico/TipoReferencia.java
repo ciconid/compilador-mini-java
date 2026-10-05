@@ -29,4 +29,21 @@ public class TipoReferencia extends Tipo {
             argumentoGenerico.estaBienDeclarado(contexto);
         }
     }
+
+    Tipo instanciar(String parametro, Tipo argumento) {
+        if (argumentoGenerico == null) {
+            return this;
+        }
+        return new TipoReferencia(token, argumentoGenerico.instanciar(parametro, argumento));
+    }
+
+    boolean esIgual(Tipo otro) {
+        if (!(otro instanceof TipoReferencia referencia) || !referencia.nombre.equals(nombre)) {
+            return false;
+        }
+        if (argumentoGenerico == null) {
+            return referencia.argumentoGenerico == null;
+        }
+        return argumentoGenerico.esIgual(referencia.argumentoGenerico);
+    }
 }

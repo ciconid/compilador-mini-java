@@ -20,6 +20,9 @@ public class TablaDeSimbolos {
         for (ClaseOInterfaz claseOInterfaz : clasesOInterfaces.values()) {
             claseOInterfaz.estaBienDeclarado();
         }
+        for (ClaseOInterfaz claseOInterfaz : clasesOInterfaces.values()) {
+            claseOInterfaz.consolidar();
+        }
     }
 
     ClaseOInterfaz getClaseOInterfaz(String nombre) {

@@ -23,4 +23,27 @@ public class Metodo extends Unidad {
         tipoRetorno.estaBienDeclarado(contexto);
         super.estaBienDeclarado(contexto);
     }
+
+    Metodo instanciar(String parametro, Tipo argumento) {
+        if (parametro == null) {
+            return this;
+        }
+        Metodo copia = new Metodo(token, esEstatico, tipoRetorno.instanciar(parametro, argumento));
+        for (Parametro p : parametrosOrdenados) {
+            copia.agregarParametro(p.token, p.tipo.instanciar(parametro, argumento));
+        }
+        return copia;
+    }
+
+    boolean mismaSignatura(Metodo otro) {
+        if (!tipoRetorno.esIgual(otro.tipoRetorno) || aridad() != otro.aridad()) {
+            return false;
+        }
+        for (int i = 0; i < aridad(); i++) {
+            if (!parametrosOrdenados.get(i).tipo.esIgual(otro.parametrosOrdenados.get(i).tipo)) {
+                return false;
+            }
+        }
+        return true;
+    }
 }

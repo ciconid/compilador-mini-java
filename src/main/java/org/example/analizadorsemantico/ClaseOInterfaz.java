@@ -11,6 +11,7 @@ public abstract class ClaseOInterfaz extends EntidadDeclarable {
     protected String nombre;
     protected String parametroGenericoOpcional;
     protected Map<String, Metodo> metodos;
+    protected boolean consolidado;
 
     public ClaseOInterfaz(Token token) {
         super(token);
@@ -48,6 +49,48 @@ public abstract class ClaseOInterfaz extends EntidadDeclarable {
                 return;
             }
             padre = ancestro.getPadre();
+        }
+    }
+
+    abstract void consolidar();
+
+    protected String parametroAInstanciar(ClaseOInterfaz padre, TipoReferencia referenciaAlPadre) {
+        if (padre.parametroGenericoOpcional != null && referenciaAlPadre.argumentoGenerico != null) {
+            return padre.parametroGenericoOpcional;
+        }
+        return null;
+    }
+
+    protected void heredarMetodos(ClaseOInterfaz padre, TipoReferencia referenciaAlPadre) {
+        String parametro = parametroAInstanciar(padre, referenciaAlPadre);
+        Map<String, Metodo> consolidados = new LinkedHashMap<>();
+        for (Metodo metodoPadre : padre.metodos.values()) {
+            Metodo heredado = metodoPadre.instanciar(parametro, referenciaAlPadre.argumentoGenerico);
+            Metodo propio = metodos.get(heredado.getClave());
+            if (propio == null) {
+                consolidados.put(heredado.getClave(), heredado);
+            } else {
+                chequearRedefinicion(heredado, propio);
+                consolidados.put(propio.getClave(), propio);
+            }
+        }
+        for (Metodo propio : metodos.values()) {
+            consolidados.putIfAbsent(propio.getClave(), propio);
+        }
+        metodos = consolidados;
+    }
+
+    private void chequearRedefinicion(Metodo heredado, Metodo propio) {
+        if (heredado.esEstatico) {
+            throw new ErrorSemantico(propio.token, "El metodo " + propio.nombre
+                    + " no puede redefinir un metodo estatico heredado");
+        }
+        if (propio.esEstatico) {
+            throw new ErrorSemantico(propio.token, "El metodo estatico " + propio.nombre
+                    + " no puede tener la misma clave que un metodo de instancia heredado");
+        }
+        if (!propio.mismaSignatura(heredado)) {
+            throw new ErrorSemantico(propio.token, "El metodo " + propio.nombre + " esta mal redefinido");
         }
     }
 }

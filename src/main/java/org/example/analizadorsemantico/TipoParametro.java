@@ -17,4 +17,12 @@ public class TipoParametro extends Tipo {
                     + contexto.nombre);
         }
     }
+
+    Tipo instanciar(String parametro, Tipo argumento) {
+        return nombre.equals(parametro) ? argumento : this;
+    }
+
+    boolean esIgual(Tipo otro) {
+        return otro instanceof TipoParametro tipoParametro && tipoParametro.nombre.equals(nombre);
+    }
 }

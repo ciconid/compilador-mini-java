@@ -23,4 +23,16 @@ public class Interfaz extends ClaseOInterfaz {
         chequearHerenciaCircular();
         chequearMetodos();
     }
+
+    void consolidar() {
+        if (consolidado) {
+            return;
+        }
+        if (superInterfaz != null) {
+            Interfaz padre = (Interfaz) superInterfaz.getReferenciada();
+            padre.consolidar();
+            heredarMetodos(padre, superInterfaz);
+        }
+        consolidado = true;
+    }
 }

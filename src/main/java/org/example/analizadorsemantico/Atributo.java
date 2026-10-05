@@ -15,4 +15,11 @@ public class Atributo extends EntidadDeclarable {
     void estaBienDeclarado(ClaseOInterfaz contexto) {
         tipo.estaBienDeclarado(contexto);
     }
+
+    Atributo instanciar(String parametro, Tipo argumento) {
+        if (parametro == null) {
+            return this;
+        }
+        return new Atributo(token, tipo.instanciar(parametro, argumento));
+    }
 }
