@@ -8,4 +8,8 @@ public class TipoArreglo extends Tipo {
         this.tipoBase = tipoBase;
         this.dimensiones = dimensiones;
     }
+
+    void estaBienDeclarado(ClaseOInterfaz contexto) {
+        tipoBase.estaBienDeclarado(contexto);
+    }
 }

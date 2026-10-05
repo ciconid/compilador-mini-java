@@ -16,6 +16,16 @@ public class TablaDeSimbolos {
         cargarPredefinidas();
     }
 
+    public void chequeoDeclaraciones() {
+        for (ClaseOInterfaz claseOInterfaz : clasesOInterfaces.values()) {
+            claseOInterfaz.estaBienDeclarado();
+        }
+    }
+
+    ClaseOInterfaz getClaseOInterfaz(String nombre) {
+        return clasesOInterfaces.get(nombre);
+    }
+
     public void agregarClaseOInterfaz(ClaseOInterfaz claseOInterfaz) {
         if (clasesOInterfaces.containsKey(claseOInterfaz.nombre)) {
             throw new ErrorSemantico(claseOInterfaz.token, "La clase o interfaz " + claseOInterfaz.nombre

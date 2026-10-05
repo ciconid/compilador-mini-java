@@ -11,4 +11,8 @@ public class Atributo extends EntidadDeclarable {
         nombre = token.lexema();
         this.tipo = tipo;
     }
+
+    void estaBienDeclarado(ClaseOInterfaz contexto) {
+        tipo.estaBienDeclarado(contexto);
+    }
 }

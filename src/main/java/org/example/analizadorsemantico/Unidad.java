@@ -25,4 +25,10 @@ public abstract class Unidad extends EntidadDeclarable {
     public int aridad() {
         return parametrosOrdenados.size();
     }
+
+    void estaBienDeclarado(ClaseOInterfaz contexto) {
+        for (Parametro parametro : parametrosOrdenados) {
+            parametro.tipo.estaBienDeclarado(contexto);
+        }
+    }
 }

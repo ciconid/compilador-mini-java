@@ -38,4 +38,32 @@ public class Clase extends ClaseOInterfaz {
         }
         constructores.put(constructor.aridad(), constructor);
     }
+
+    TipoReferencia getPadre() {
+        return superclase;
+    }
+
+    void estaBienDeclarado() {
+        if (superclase != null) {
+            superclase.estaBienDeclarado(this);
+            if (!(superclase.getReferenciada() instanceof Clase)) {
+                throw new ErrorSemantico(superclase.token, superclase.nombre + " no es una clase");
+            }
+        }
+        if (interfazImplementada != null) {
+            interfazImplementada.estaBienDeclarado(this);
+            if (!(interfazImplementada.getReferenciada() instanceof Interfaz)) {
+                throw new ErrorSemantico(interfazImplementada.token, interfazImplementada.nombre
+                        + " no es una interfaz");
+            }
+        }
+        chequearHerenciaCircular();
+        for (Atributo atributo : atributos.values()) {
+            atributo.estaBienDeclarado(this);
+        }
+        chequearMetodos();
+        for (Constructor constructor : constructores.values()) {
+            constructor.estaBienDeclarado(this);
+        }
+    }
 }

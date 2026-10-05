@@ -17,4 +17,10 @@ public class Metodo extends Unidad {
     public String getClave() {
         return nombre + "/" + aridad();
     }
+
+    @Override
+    void estaBienDeclarado(ClaseOInterfaz contexto) {
+        tipoRetorno.estaBienDeclarado(contexto);
+        super.estaBienDeclarado(contexto);
+    }
 }

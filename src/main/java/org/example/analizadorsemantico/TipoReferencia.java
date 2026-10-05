@@ -12,4 +12,21 @@ public class TipoReferencia extends Tipo {
         nombre = token.lexema();
         this.argumentoGenerico = argumentoGenerico;
     }
+
+    ClaseOInterfaz getReferenciada() {
+        return TablaDeSimbolos.ts.getClaseOInterfaz(nombre);
+    }
+
+    void estaBienDeclarado(ClaseOInterfaz contexto) {
+        ClaseOInterfaz referenciada = getReferenciada();
+        if (referenciada == null) {
+            throw new ErrorSemantico(token, "La clase o interfaz " + nombre + " no esta declarada");
+        }
+        if (argumentoGenerico != null) {
+            if (referenciada.parametroGenericoOpcional == null) {
+                throw new ErrorSemantico(token, nombre + " no es generica");
+            }
+            argumentoGenerico.estaBienDeclarado(contexto);
+        }
+    }
 }

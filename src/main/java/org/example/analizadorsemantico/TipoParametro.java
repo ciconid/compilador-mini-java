@@ -10,4 +10,11 @@ public class TipoParametro extends Tipo {
         this.token = token;
         nombre = token.lexema();
     }
+
+    void estaBienDeclarado(ClaseOInterfaz contexto) {
+        if (!nombre.equals(contexto.parametroGenericoOpcional)) {
+            throw new ErrorSemantico(token, "El parametro de tipo " + nombre + " no esta declarado en "
+                    + contexto.nombre);
+        }
+    }
 }
