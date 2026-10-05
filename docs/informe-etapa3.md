@@ -14,3 +14,4 @@
 
 * Genericidad Avanzada E2
 * Inicializacion de Arreglos E2 (corregido)
+* Operador Ternario E2 (corregido)

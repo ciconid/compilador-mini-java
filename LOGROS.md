@@ -4,23 +4,14 @@ De más fácil a más difícil, según el estado actual del proyecto.
 
 No se implementan: Entrega Anticipada, Imbatibilidad y Kudos. Dependen de cuándo se entrega y de cómo corrige la cátedra.
 
-## 1. Corrección: Operador Ternario E2
-
-La cátedra marcó como error `var x = a ? : c;`.
-
-- **Causa:** `restoTernario()` solo se llama desde `expresionParentizada()`. El `?` se acepta únicamente después de `(...)`: `(a) ? b : c` pasa, pero `a ? b : c` falla en el `?`.
-- **Arreglo:** mover `restoTernario()` al final de `expresionCompuesta()`. Así el ternario se aplica a cualquier expresión, incluido `var x = ...`, porque `varLocal` usa `expresionCompuesta()`.
-- **Ojo:** al ejemplo de la imagen le falta la expresión del medio. En Java, `a ? : c` es un error, que tiene que aparecer en el `:` y no en el `?`.
-- **Riesgo:** los casos de ternario existentes (56–63) pueden cambiar el token donde esperan el error.
-
-## 2. Genericidad Avanzada E3
+## 1. Genericidad Avanzada E3
 
 Se trata de chequear tipos genéricos anidados, como `Caja<Caja<String>>`.
 
 - **Con Genericidad Avanzada E2 hecho, es casi todo casos de prueba.** El parser ya arma un `TipoReferencia` dentro de otro y lo carga en la TS. Además, `estaBienDeclarado`, `instanciar` y `esIgual` ya son recursivos sobre `argumentoGenerico`.
 - **Puede requerir correcciones** si algún caso revela un bug.
 
-## 3. Sobrecarga!: `sealed` y `final`
+## 2. Sobrecarga!: `sealed` y `final`
 
 - **Léxico y parser:** palabras reservadas nuevas, modificadores en clases, interfaces y métodos, y dos flags en las entidades.
 - **Chequeos:** entran fácil en lo que ya existe:
@@ -28,20 +19,20 @@ Se trata de chequear tipos genéricos anidados, como `Caja<Caja<String>>`.
   - redefinir un método `final`: en `chequearRedefinicion`
 - **Riesgo:** `sealed` "como en Java" implica `permits` y que cada subclase sea `final`, `sealed` o `non-sealed`. Además, `non-sealed` lleva un guion, lo que complica el léxico. Si la cátedra pide todo eso, el logro crece. Hay que confirmar el alcance antes de empezar.
 
-## 4. Herencia Múltiple de interfaces
+## 3. Herencia Múltiple de interfaces
 
 - **Estructura:** `superInterfaz` e `interfazImplementada` pasan a ser listas, y el parser tiene que aceptar `extends I1, I2` e `implements I1, I2`.
 - **Ciclos:** `chequearHerenciaCircular` asume una cadena con un solo padre. Hay que convertirlo en una búsqueda sobre un grafo.
 - **Herencia de métodos:** `heredarMetodos` tiene que heredar de varios padres y resolver conflictos de diamante, por ejemplo la misma clave con distinto retorno en dos interfaces.
 - **Contrato:** el chequeo del contrato tiene que recorrer varias interfaces.
 
-## 5. Multi-Detección de Errores
+## 4. Multi-Detección de Errores
 
 - **Es un cambio transversal.** Todo el diseño asume que el análisis corta en el primer error (18 `throw new ErrorSemantico`). Habría que juntar los errores en una lista, recuperarse en cada declaración y, cuando hay nombres repetidos, descartar las dos entidades.
 - **La consolidación se vuelve frágil.** `consolidar()` hace casts del tipo `(Clase) superclase.getReferenciada()` que asumen que la segunda pasada no encontró errores. Con recuperación, las entidades inválidas se tienen que saltear para no provocar errores en cascada o excepciones.
 - **Interacción con el orden:** si se hace después de los demás logros, también hay que adaptar su código. Si se hace antes, todo logro nuevo tiene que escribirse pensando en la recuperación.
 
-## 6. Métodos Genéricos: el más difícil
+## 5. Métodos Genéricos: el más difícil
 
 - **Sintaxis:** `<T> T m(T x)` hace que un miembro pueda empezar con `<`. Eso cambia los conjuntos de primeros de la gramática LL(1).
 - **Alcance de los parámetros de tipo:** hoy el contexto de validación es solo la clase (`estaBienDeclarado(ClaseOInterfaz contexto)`), y pasaría a ser la clase más el método.
