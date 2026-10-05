@@ -62,5 +62,6 @@ descriptivos, en caso de que sea necesario recrear su ejecución (e.g.: MainEtap
 
 ### Etapa 3
 
+* Entrega Anticipada E3
 * Genericidad Avanzada E3
 * Herencia Multiple E3
