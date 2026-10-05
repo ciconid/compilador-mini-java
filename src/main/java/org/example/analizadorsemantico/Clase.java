@@ -2,18 +2,21 @@ package org.example.analizadorsemantico;
 
 import org.example.analizadorlexico.Token;
 
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 
 public class Clase extends ClaseOInterfaz {
     protected TipoReferencia superclase;
-    protected TipoReferencia interfazImplementada;
+    protected List<TipoReferencia> interfacesImplementadas;
     protected Map<String, Atributo> atributos;
     protected Map<Integer, Constructor> constructores;
 
     public Clase(Token token) {
         super(token);
         superclase = new TipoReferencia(new Token("idClase", "Object", 0), null);
+        interfacesImplementadas = new ArrayList<>();
         atributos = new LinkedHashMap<>();
         constructores = new LinkedHashMap<>();
     }
@@ -39,8 +42,8 @@ public class Clase extends ClaseOInterfaz {
         constructores.put(constructor.aridad(), constructor);
     }
 
-    TipoReferencia getPadre() {
-        return superclase;
+    List<TipoReferencia> getPadres() {
+        return superclase == null ? List.of() : List.of(superclase);
     }
 
     void estaBienDeclarado() {
@@ -50,13 +53,7 @@ public class Clase extends ClaseOInterfaz {
                 throw new ErrorSemantico(superclase.token, superclase.nombre + " no es una clase");
             }
         }
-        if (interfazImplementada != null) {
-            interfazImplementada.estaBienDeclarado(this);
-            if (!(interfazImplementada.getReferenciada() instanceof Interfaz)) {
-                throw new ErrorSemantico(interfazImplementada.token, interfazImplementada.nombre
-                        + " no es una interfaz");
-            }
-        }
+        chequearListaDeInterfaces(interfacesImplementadas);
         chequearHerenciaCircular();
         for (Atributo atributo : atributos.values()) {
             atributo.estaBienDeclarado(this);
@@ -76,10 +73,10 @@ public class Clase extends ClaseOInterfaz {
             Clase padre = (Clase) superclase.getReferenciada();
             padre.consolidar();
             heredarAtributos(padre);
-            heredarMetodos(padre, superclase);
+            heredarMetodos(List.of(superclase));
         }
-        if (interfazImplementada != null) {
-            chequearContratoInterfaz(metodosPropios);
+        for (TipoReferencia interfazImplementada : interfacesImplementadas) {
+            chequearContratoInterfaz(interfazImplementada, metodosPropios);
         }
         if (constructores.isEmpty()) {
             constructores.put(0, new Constructor(new Token("idClase", nombre, token.nroDeLinea())));
@@ -103,7 +100,7 @@ public class Clase extends ClaseOInterfaz {
         atributos = consolidados;
     }
 
-    private void chequearContratoInterfaz(Map<String, Metodo> metodosPropios) {
+    private void chequearContratoInterfaz(TipoReferencia interfazImplementada, Map<String, Metodo> metodosPropios) {
         Interfaz interfaz = (Interfaz) interfazImplementada.getReferenciada();
         interfaz.consolidar();
         String parametro = parametroAInstanciar(interfaz, interfazImplementada);

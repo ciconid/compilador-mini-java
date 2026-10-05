@@ -3,6 +3,7 @@ package org.example.analizadorsemantico;
 import org.example.analizadorlexico.Token;
 
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 
 public class TablaDeSimbolos {
@@ -46,12 +47,12 @@ public class TablaDeSimbolos {
         ((Clase) claseActual).superclase = superclase;
     }
 
-    public void setInterfazImplementada(TipoReferencia interfaz) {
-        ((Clase) claseActual).interfazImplementada = interfaz;
+    public void setInterfacesImplementadas(List<TipoReferencia> interfaces) {
+        ((Clase) claseActual).interfacesImplementadas = interfaces;
     }
 
-    public void setSuperInterfaz(TipoReferencia superInterfaz) {
-        ((Interfaz) claseActual).superInterfaz = superInterfaz;
+    public void setSuperInterfaces(List<TipoReferencia> superInterfaces) {
+        ((Interfaz) claseActual).superInterfaces = superInterfaces;
     }
 
     public void agregarAtributo(Atributo atributo) {

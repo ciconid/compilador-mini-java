@@ -2,24 +2,23 @@ package org.example.analizadorsemantico;
 
 import org.example.analizadorlexico.Token;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Interfaz extends ClaseOInterfaz {
-    protected TipoReferencia superInterfaz;
+    protected List<TipoReferencia> superInterfaces;
 
     public Interfaz(Token token) {
         super(token);
+        superInterfaces = new ArrayList<>();
     }
 
-    TipoReferencia getPadre() {
-        return superInterfaz;
+    List<TipoReferencia> getPadres() {
+        return superInterfaces;
     }
 
     void estaBienDeclarado() {
-        if (superInterfaz != null) {
-            superInterfaz.estaBienDeclarado(this);
-            if (!(superInterfaz.getReferenciada() instanceof Interfaz)) {
-                throw new ErrorSemantico(superInterfaz.token, superInterfaz.nombre + " no es una interfaz");
-            }
-        }
+        chequearListaDeInterfaces(superInterfaces);
         chequearHerenciaCircular();
         chequearMetodos();
     }
@@ -28,11 +27,10 @@ public class Interfaz extends ClaseOInterfaz {
         if (consolidado) {
             return;
         }
-        if (superInterfaz != null) {
-            Interfaz padre = (Interfaz) superInterfaz.getReferenciada();
-            padre.consolidar();
-            heredarMetodos(padre, superInterfaz);
+        for (TipoReferencia superInterfaz : superInterfaces) {
+            superInterfaz.getReferenciada().consolidar();
         }
+        heredarMetodos(superInterfaces);
         consolidado = true;
     }
 }

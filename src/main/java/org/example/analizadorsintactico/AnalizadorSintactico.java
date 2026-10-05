@@ -73,9 +73,19 @@ public class AnalizadorSintactico {
         if (Arrays.asList("prExtends").contains(tokenActual.token())) {
             match("prExtends");
             TablaDeSimbolos.ts.setSuperclase(tipoReferencia());
+            implementsOpcional();
         } else if (Arrays.asList("prImplements").contains(tokenActual.token())) {
             match("prImplements");
-            TablaDeSimbolos.ts.setInterfazImplementada(tipoReferencia());
+            TablaDeSimbolos.ts.setInterfacesImplementadas(listaTiposReferencia());
+        } else {
+            // epsilon
+        }
+    }
+
+    void implementsOpcional() {
+        if (Arrays.asList("prImplements").contains(tokenActual.token())) {
+            match("prImplements");
+            TablaDeSimbolos.ts.setInterfacesImplementadas(listaTiposReferencia());
         } else {
             // epsilon
         }
@@ -84,7 +94,24 @@ public class AnalizadorSintactico {
     void extensionOpcional() {
         if (Arrays.asList("prExtends").contains(tokenActual.token())) {
             match("prExtends");
-            TablaDeSimbolos.ts.setSuperInterfaz(tipoReferencia());
+            TablaDeSimbolos.ts.setSuperInterfaces(listaTiposReferencia());
+        } else {
+            // epsilon
+        }
+    }
+
+    List<TipoReferencia> listaTiposReferencia() {
+        List<TipoReferencia> tiposReferencia = new ArrayList<>();
+        tiposReferencia.add(tipoReferencia());
+        restoListaTiposReferencia(tiposReferencia);
+        return tiposReferencia;
+    }
+
+    void restoListaTiposReferencia(List<TipoReferencia> tiposReferencia) {
+        if (Arrays.asList("puComa").contains(tokenActual.token())) {
+            match("puComa");
+            tiposReferencia.add(tipoReferencia());
+            restoListaTiposReferencia(tiposReferencia);
         } else {
             // epsilon
         }

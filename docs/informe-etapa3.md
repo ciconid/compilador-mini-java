@@ -16,3 +16,4 @@
 * Inicializacion de Arreglos E2 (corregido)
 * Operador Ternario E2 (corregido)
 * Genericidad Avanzada E3
+* Herencia Multiple E3

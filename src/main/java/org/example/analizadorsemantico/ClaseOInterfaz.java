@@ -4,6 +4,7 @@ import org.example.analizadorlexico.Token;
 
 import java.util.HashSet;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -29,7 +30,7 @@ public abstract class ClaseOInterfaz extends EntidadDeclarable {
 
     abstract void estaBienDeclarado();
 
-    abstract TipoReferencia getPadre();
+    abstract List<TipoReferencia> getPadres();
 
     protected void chequearMetodos() {
         for (Metodo metodo : metodos.values()) {
@@ -37,18 +38,33 @@ public abstract class ClaseOInterfaz extends EntidadDeclarable {
         }
     }
 
+    protected void chequearListaDeInterfaces(List<TipoReferencia> interfaces) {
+        Set<String> nombres = new HashSet<>();
+        for (TipoReferencia interfaz : interfaces) {
+            interfaz.estaBienDeclarado(this);
+            if (!(interfaz.getReferenciada() instanceof Interfaz)) {
+                throw new ErrorSemantico(interfaz.token, interfaz.nombre + " no es una interfaz");
+            }
+            if (!nombres.add(interfaz.nombre)) {
+                throw new ErrorSemantico(interfaz.token, "La interfaz " + interfaz.nombre + " esta repetida en "
+                        + nombre);
+            }
+        }
+    }
+
     protected void chequearHerenciaCircular() {
-        Set<ClaseOInterfaz> visitados = new HashSet<>();
-        TipoReferencia padre = getPadre();
-        while (padre != null) {
+        buscarCiclo(this, new HashSet<>());
+    }
+
+    private void buscarCiclo(ClaseOInterfaz actual, Set<ClaseOInterfaz> visitados) {
+        for (TipoReferencia padre : actual.getPadres()) {
             ClaseOInterfaz ancestro = padre.getReferenciada();
             if (ancestro == this) {
                 throw new ErrorSemantico(token, "Herencia circular en " + nombre);
             }
-            if (ancestro == null || !visitados.add(ancestro)) {
-                return;
+            if (ancestro != null && visitados.add(ancestro)) {
+                buscarCiclo(ancestro, visitados);
             }
-            padre = ancestro.getPadre();
         }
     }
 
@@ -61,11 +77,24 @@ public abstract class ClaseOInterfaz extends EntidadDeclarable {
         return null;
     }
 
-    protected void heredarMetodos(ClaseOInterfaz padre, TipoReferencia referenciaAlPadre) {
-        String parametro = parametroAInstanciar(padre, referenciaAlPadre);
+    protected void heredarMetodos(List<TipoReferencia> referenciasAPadres) {
+        Map<String, Metodo> heredados = new LinkedHashMap<>();
+        for (TipoReferencia referenciaAlPadre : referenciasAPadres) {
+            ClaseOInterfaz padre = referenciaAlPadre.getReferenciada();
+            String parametro = parametroAInstanciar(padre, referenciaAlPadre);
+            for (Metodo metodoPadre : padre.metodos.values()) {
+                Metodo heredado = metodoPadre.instanciar(parametro, referenciaAlPadre.argumentoGenerico);
+                Metodo previo = heredados.get(heredado.getClave());
+                if (previo == null) {
+                    heredados.put(heredado.getClave(), heredado);
+                } else if (previo.esEstatico != heredado.esEstatico || !previo.mismaSignatura(heredado)) {
+                    throw new ErrorSemantico(token, nombre + " hereda versiones incompatibles del metodo "
+                            + heredado.nombre);
+                }
+            }
+        }
         Map<String, Metodo> consolidados = new LinkedHashMap<>();
-        for (Metodo metodoPadre : padre.metodos.values()) {
-            Metodo heredado = metodoPadre.instanciar(parametro, referenciaAlPadre.argumentoGenerico);
+        for (Metodo heredado : heredados.values()) {
             Metodo propio = metodos.get(heredado.getClave());
             if (propio == null) {
                 consolidados.put(heredado.getClave(), heredado);
