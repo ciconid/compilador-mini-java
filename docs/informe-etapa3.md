@@ -25,6 +25,8 @@ El ícono junto al nombre de cada clase indica su tipo:
 - `C`: clase concreta.
 - `A`: clase abstracta. Sus métodos abstractos se muestran en cursiva.
 
+Los miembros subrayados son estáticos (e.g.: `ts` en `TablaDeSimbolos`).
+
 ![Diagrama de clases de la tabla de símbolos](diagrama.png)
 
 # Instrucciones de Compilación y Uso

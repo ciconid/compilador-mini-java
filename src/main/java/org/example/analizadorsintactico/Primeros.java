@@ -8,7 +8,8 @@ public class Primeros {
 
     public static final List<String> clase = Arrays.asList("prClass");
     public static final List<String> interfaz = Arrays.asList("prInterface");
-    public static final List<String> miembro = Arrays.asList("prBoolean", "prChar", "prInt", "idClase", "idGen", "prStatic", "prVoid", "prPublic", "prPrivate");
+    public static final List<String> claseOInterfaz = Arrays.asList("prClass", "prInterface", "prSealed", "prNonSealed", "prFinal");
+    public static final List<String> miembro = Arrays.asList("prBoolean", "prChar", "prInt", "idClase", "idGen", "prStatic", "prFinal", "prVoid", "prPublic", "prPrivate");
     public static final List<String> metodoInterfaz = Arrays.asList("prBoolean", "prChar", "prInt", "idClase", "idGen", "prVoid");
     public static final List<String> tipo = Arrays.asList("prBoolean", "prChar", "prInt", "idClase", "idGen");
     public static final List<String> atributoOMetodo = Arrays.asList("prBoolean", "prChar", "prInt", "idGen");
