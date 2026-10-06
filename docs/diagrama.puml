@@ -1,0 +1,142 @@
+@startuml
+title Diagrama de clases del analizador semántico
+
+skinparam classAttributeIconSize 0
+hide empty members
+
+class TablaDeSimbolos {
+    + {static} ts : TablaDeSimbolos
+    - clasesOInterfaces : Map<String, ClaseOInterfaz>
+    - claseActual : ClaseOInterfaz
+    + chequeoDeclaraciones()
+    + agregarClaseOInterfaz(ClaseOInterfaz)
+    + agregarAtributo(Atributo)
+    + agregarMetodo(Metodo)
+    + agregarConstructor(Constructor)
+    - cargarPredefinidas()
+}
+
+abstract class EntidadDeclarable {
+    # token : Token
+}
+
+abstract class ClaseOInterfaz {
+    # nombre : String
+    # parametroGenericoOpcional : String
+    # metodos : Map<String, Metodo>
+    # consolidado : boolean
+    ~ {abstract} estaBienDeclarado()
+    ~ {abstract} consolidar()
+    ~ {abstract} getPadres() : List<TipoReferencia>
+    # chequearHerenciaCircular()
+    # heredarMetodos(List<TipoReferencia>)
+}
+
+class Clase {
+    # superclase : TipoReferencia
+    # interfacesImplementadas : List<TipoReferencia>
+    # atributos : Map<String, Atributo>
+    # constructores : Map<Integer, Constructor>
+    ~ estaBienDeclarado()
+    ~ consolidar()
+    ~ getPadres() : List<TipoReferencia>
+}
+
+class Interfaz {
+    # superInterfaces : List<TipoReferencia>
+    ~ estaBienDeclarado()
+    ~ consolidar()
+    ~ getPadres() : List<TipoReferencia>
+}
+
+class Atributo {
+    # nombre : String
+    # tipo : Tipo
+    ~ estaBienDeclarado(ClaseOInterfaz)
+}
+
+abstract class Unidad {
+    # parametrosOrdenados : List<Parametro>
+    + agregarParametro(Token, Tipo)
+    + aridad() : int
+    ~ estaBienDeclarado(ClaseOInterfaz)
+}
+
+class Metodo {
+    # nombre : String
+    # esEstatico : boolean
+    # tipoRetorno : Tipo
+    + getClave() : String
+    ~ estaBienDeclarado(ClaseOInterfaz)
+}
+
+class Constructor
+
+class Parametro {
+    # nombre : String
+    # tipo : Tipo
+    # posicion : int
+}
+
+abstract class Tipo {
+    ~ {abstract} estaBienDeclarado(ClaseOInterfaz)
+    ~ {abstract} instanciar(String, Tipo) : Tipo
+    ~ {abstract} esIgual(Tipo) : boolean
+}
+
+abstract class TipoPrimitivo
+class TipoInt
+class TipoChar
+class TipoBoolean
+class TipoVoid
+
+class TipoReferencia {
+    # token : Token
+    # nombre : String
+    # argumentoGenerico : Tipo
+}
+
+class TipoParametro {
+    # token : Token
+    # nombre : String
+}
+
+class TipoArreglo {
+    # tipoBase : Tipo
+    # dimensiones : int
+}
+
+class RuntimeException
+
+class ErrorSemantico {
+    - lexema : String
+    - nroLinea : int
+}
+
+' Herencia
+EntidadDeclarable <|-- ClaseOInterfaz
+EntidadDeclarable <|-- Atributo
+EntidadDeclarable <|-- Unidad
+EntidadDeclarable <|-- Parametro
+ClaseOInterfaz <|-- Clase
+ClaseOInterfaz <|-- Interfaz
+Unidad <|-- Metodo
+Unidad <|-- Constructor
+
+Tipo <|-- TipoPrimitivo
+Tipo <|-- TipoVoid
+Tipo <|-- TipoReferencia
+Tipo <|-- TipoParametro
+Tipo <|-- TipoArreglo
+TipoPrimitivo <|-- TipoInt
+TipoPrimitivo <|-- TipoChar
+TipoPrimitivo <|-- TipoBoolean
+
+RuntimeException <|-- ErrorSemantico
+
+' Disposición vertical
+TablaDeSimbolos -[hidden]right- RuntimeException
+TablaDeSimbolos -[hidden]down- EntidadDeclarable
+Metodo -[hidden]down- Tipo
+
+@enduml
