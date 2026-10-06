@@ -8,6 +8,25 @@
 
 # Diagrama de Clases de la Tabla de Símbolos
 
+Este diagrama es una versión simplificada (no exhaustiva) del diagrama de clases, pensada para facilitar la comprensión
+de la jerarquía de clases. Solo se incluye la información relevante al diseño del analizador semántico. Por ese motivo
+se omitieron las flechas de dependencia, agregación, composición y asociación, que dificultan la lectura del gráfico:
+las relaciones entre clases pueden deducirse a partir del tipo de los atributos de cada clase.
+
+Notación de visibilidad utilizada:
+
+- `+`: público.
+- `-`: privado.
+- `#`: protegido.
+- `~`: visible solo dentro del paquete.
+
+El ícono junto al nombre de cada clase indica su tipo:
+
+- `C`: clase concreta.
+- `A`: clase abstracta. Sus métodos abstractos se muestran en cursiva.
+
+![Diagrama de clases de la tabla de símbolos](diagrama.png)
+
 # Instrucciones de Compilación y Uso
 
 ## Requisitos previos
@@ -54,13 +73,13 @@ descriptivos, en caso de que sea necesario recrear su ejecución (e.g.: MainEtap
 
 # Logros
 
-### Etapa 2
+### Etapa 2 (Usa MainEtapa2)
 
 * Genericidad Avanzada E2
 * Inicializacion de Arreglos E2 (corregido)
 * Operador Ternario E2 (corregido)
 
-### Etapa 3
+### Etapa 3 (Usa Main)
 
 * Entrega Anticipada E3
 * Genericidad Avanzada E3
