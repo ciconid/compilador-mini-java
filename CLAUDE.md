@@ -65,3 +65,34 @@ directories:
 
 `resources/lexico/SantiSalamanca/ignorados/` holds cases that are intentionally not run. Each tester's `init` field type
 selects which `Main*` class it exercises.
+
+### Naming convention for new test cases
+
+Every new test case file must be named `<numero>_<etiqueta>_<descripcion>.java`, so classmates can tell which cases
+need achievements ("logros") they may not have implemented:
+
+- `numero`: the next free number in that folder (numbers are never reused).
+- `etiqueta`: `FB` if the case only uses base functionality ("funcionalidad base"), otherwise one `L_<logro>_E<etapa>`
+  tag per achievement the case needs. The achievement the case tests goes first; any other achievement whose syntax or
+  semantics the case uses (e.g. a constructor without `public` needs Visibilidad Mejorada) follows, in stage order.
+- `descripcion`: snake_case, as short as possible without losing meaning. Long words may be abbreviated.
+
+Achievement tags (add new ones following the same abbreviation style):
+
+| Tag                      | Logro                         |
+|--------------------------|-------------------------------|
+| `L_vis_mejorada_E2`      | Visibilidad Mejorada E2       |
+| `L_atr_inicializados_E2` | Atributos inicializados E2    |
+| `L_op_posfijos_E2`       | Operadores Posfijos E2        |
+| `L_op_ternario_E2`       | Operador Ternario E2          |
+| `L_inic_arreglos_E2`     | Inicializacion de Arreglos E2 |
+| `L_gen_avanzada_E2`      | Genericidad Avanzada E2       |
+| `L_gen_avanzada_E3`      | Genericidad Avanzada E3       |
+| `L_herencia_multiple_E3` | Herencia Multiple E3          |
+| `L_sobrecarga_E3`        | Sobrecarga! E3                |
+
+Examples: `01_FB_clase_repetida.java`, `113_L_sobrecarga_E3_clase_sealed_sin_subclases.java`,
+`55_L_sobrecarga_E3_L_vis_mejorada_E2_metodo_final_con_visibilidad_y_static.java`.
+
+Only `resources/semantico/NicolasCid/` follows this convention so far; older lexical and syntactic cases keep their
+original names.
