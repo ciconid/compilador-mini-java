@@ -17,9 +17,17 @@ public class Interfaz extends ClaseOInterfaz {
         return superInterfaces;
     }
 
+    List<TipoReferencia> getSupertiposDirectos() {
+        return superInterfaces;
+    }
+
     void estaBienDeclarado() {
+        if (esFinal()) {
+            throw new ErrorSemantico(token, "La interfaz " + nombre + " no puede ser final");
+        }
         chequearListaDeInterfaces(superInterfaces);
         chequearHerenciaCircular();
+        chequearModificadores();
         chequearMetodos();
     }
 

@@ -35,32 +35,33 @@ public class AnalizadorSintactico {
     }
 
     void claseOInterfaz() {
-        modificadorClaseOpcional();
+        Token modificador = modificadorClaseOpcional();
         if (Primeros.clase.contains(tokenActual.token())) {
-            clase();
+            clase(modificador);
         } else if (Primeros.interfaz.contains(tokenActual.token())) {
-            interfaz();
+            interfaz(modificador);
         } else {
             throw new ErrorSintactico(tokenActual.lexema(), tokenActual.nroDeLinea(), "class, interface");
         }
     }
 
-    void modificadorClaseOpcional() {
+    Token modificadorClaseOpcional() {
         if (Arrays.asList("prSealed").contains(tokenActual.token())) {
-            match("prSealed");
+            return match("prSealed");
         } else if (Arrays.asList("prNonSealed").contains(tokenActual.token())) {
-            match("prNonSealed");
+            return match("prNonSealed");
         } else if (Arrays.asList("prFinal").contains(tokenActual.token())) {
-            match("prFinal");
+            return match("prFinal");
         } else {
-            // epsilon
+            return null;
         }
     }
 
-    void clase() {
+    void clase(Token modificador) {
         match("prClass");
         Token nombre = match("idClase");
         TablaDeSimbolos.ts.agregarClaseOInterfaz(new Clase(nombre));
+        TablaDeSimbolos.ts.setModificador(modificador);
         genericidadOpcional();
         herenciaOpcional();
         permitsOpcional();
@@ -69,10 +70,11 @@ public class AnalizadorSintactico {
         match("puLlaveCierra");
     }
 
-    void interfaz() {
+    void interfaz(Token modificador) {
         match("prInterface");
         Token nombre = match("idClase");
         TablaDeSimbolos.ts.agregarClaseOInterfaz(new Interfaz(nombre));
+        TablaDeSimbolos.ts.setModificador(modificador);
         genericidadOpcional();
         extensionOpcional();
         permitsOpcional();
@@ -124,19 +126,21 @@ public class AnalizadorSintactico {
 
     void permitsOpcional() {
         if (Arrays.asList("prPermits").contains(tokenActual.token())) {
-            match("prPermits");
-            match("idClase");
-            restoListaPermits();
+            Token permits = match("prPermits");
+            List<Token> permitidos = new ArrayList<>();
+            permitidos.add(match("idClase"));
+            restoListaPermits(permitidos);
+            TablaDeSimbolos.ts.setPermits(permits, permitidos);
         } else {
             // epsilon
         }
     }
 
-    void restoListaPermits() {
+    void restoListaPermits(List<Token> permitidos) {
         if (Arrays.asList("puComa").contains(tokenActual.token())) {
             match("puComa");
-            match("idClase");
-            restoListaPermits();
+            permitidos.add(match("idClase"));
+            restoListaPermits(permitidos);
         } else {
             // epsilon
         }
@@ -296,9 +300,10 @@ public class AnalizadorSintactico {
 
     void metodoStatic() {
         match("prStatic");
-        finalOpcional();
+        boolean esFinal = finalOpcional();
         Tipo tipoRetorno = tipoMetodo();
         Metodo metodo = new Metodo(match("idMetVar"), true, tipoRetorno);
+        metodo.setEsFinal(esFinal);
         argsFormales(metodo);
         TablaDeSimbolos.ts.agregarMetodo(metodo);
         bloque();
@@ -308,16 +313,18 @@ public class AnalizadorSintactico {
         match("prFinal");
         Tipo tipoRetorno = tipoMetodo();
         Metodo metodo = new Metodo(match("idMetVar"), false, tipoRetorno);
+        metodo.setEsFinal(true);
         argsFormales(metodo);
         TablaDeSimbolos.ts.agregarMetodo(metodo);
         bloque();
     }
 
-    void finalOpcional() {
+    boolean finalOpcional() {
         if (Arrays.asList("prFinal").contains(tokenActual.token())) {
             match("prFinal");
+            return true;
         } else {
-            // epsilon
+            return false;
         }
     }
 

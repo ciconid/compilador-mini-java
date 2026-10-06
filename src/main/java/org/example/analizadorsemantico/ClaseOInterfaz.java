@@ -13,6 +13,9 @@ public abstract class ClaseOInterfaz extends EntidadDeclarable {
     protected String parametroGenericoOpcional;
     protected Map<String, Metodo> metodos;
     protected boolean consolidado;
+    protected Token modificador;
+    protected Token tokenPermits;
+    protected List<Token> permitidos;
 
     public ClaseOInterfaz(Token token) {
         super(token);
@@ -31,6 +34,94 @@ public abstract class ClaseOInterfaz extends EntidadDeclarable {
     abstract void estaBienDeclarado();
 
     abstract List<TipoReferencia> getPadres();
+
+    abstract List<TipoReferencia> getSupertiposDirectos();
+
+    boolean esSealed() {
+        return modificador != null && modificador.token().equals("prSealed");
+    }
+
+    boolean esNonSealed() {
+        return modificador != null && modificador.token().equals("prNonSealed");
+    }
+
+    boolean esFinal() {
+        return modificador != null && modificador.token().equals("prFinal");
+    }
+
+    boolean heredaDirectamenteDe(String nombrePadre) {
+        for (TipoReferencia supertipo : getSupertiposDirectos()) {
+            if (supertipo.nombre.equals(nombrePadre)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private boolean permite(String nombreSubtipo) {
+        for (Token permitido : permitidos) {
+            if (permitido.lexema().equals(nombreSubtipo)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    protected void chequearModificadores() {
+        boolean tienePadreSealed = false;
+        for (TipoReferencia supertipo : getSupertiposDirectos()) {
+            ClaseOInterfaz padre = supertipo.getReferenciada();
+            if (padre.esFinal()) {
+                throw new ErrorSemantico(supertipo.token, nombre + " no puede heredar de " + padre.nombre
+                        + " porque es final");
+            }
+            if (padre.esSealed()) {
+                tienePadreSealed = true;
+                if (padre.permitidos != null && !padre.permite(nombre)) {
+                    throw new ErrorSemantico(supertipo.token, nombre + " no esta permitido por el tipo sealed "
+                            + padre.nombre);
+                }
+            }
+        }
+        if (tienePadreSealed && modificador == null) {
+            throw new ErrorSemantico(token, nombre + " hereda de un tipo sealed y debe ser final, sealed o non-sealed");
+        }
+        if (esNonSealed() && !tienePadreSealed) {
+            throw new ErrorSemantico(token, nombre + " es non-sealed pero no hereda de un tipo sealed");
+        }
+        chequearPermits();
+    }
+
+    private void chequearPermits() {
+        if (tokenPermits != null && !esSealed()) {
+            throw new ErrorSemantico(tokenPermits, "Solo un tipo sealed puede tener permits, y " + nombre
+                    + " no lo es");
+        }
+        if (!esSealed()) {
+            return;
+        }
+        if (permitidos == null) {
+            if (!TablaDeSimbolos.ts.tieneSubtipoDirecto(nombre)) {
+                throw new ErrorSemantico(token, "El tipo sealed " + nombre + " no tiene subtipos directos");
+            }
+            return;
+        }
+        Set<String> nombres = new HashSet<>();
+        for (Token permitido : permitidos) {
+            if (!nombres.add(permitido.lexema())) {
+                throw new ErrorSemantico(permitido, permitido.lexema() + " esta repetido en el permits de " + nombre);
+            }
+            ClaseOInterfaz subtipo = TablaDeSimbolos.ts.getClaseOInterfaz(permitido.lexema());
+            if (subtipo == null) {
+                throw new ErrorSemantico(permitido, "La clase o interfaz " + permitido.lexema()
+                        + " no esta declarada");
+            }
+            if (!subtipo.heredaDirectamenteDe(nombre)) {
+                throw new ErrorSemantico(permitido, permitido.lexema() + " esta en el permits de " + nombre
+                        + " pero no hereda directamente de el");
+            }
+        }
+    }
 
     protected void chequearMetodos() {
         for (Metodo metodo : metodos.values()) {
@@ -110,6 +201,9 @@ public abstract class ClaseOInterfaz extends EntidadDeclarable {
     }
 
     private void chequearRedefinicion(Metodo heredado, Metodo propio) {
+        if (heredado.esFinal) {
+            throw new ErrorSemantico(propio.token, "El metodo " + propio.nombre + " no puede redefinir un metodo final");
+        }
         if (heredado.esEstatico) {
             throw new ErrorSemantico(propio.token, "El metodo " + propio.nombre
                     + " no puede redefinir un metodo estatico heredado");

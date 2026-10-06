@@ -46,6 +46,12 @@ public class Clase extends ClaseOInterfaz {
         return superclase == null ? List.of() : List.of(superclase);
     }
 
+    List<TipoReferencia> getSupertiposDirectos() {
+        List<TipoReferencia> supertipos = new ArrayList<>(getPadres());
+        supertipos.addAll(interfacesImplementadas);
+        return supertipos;
+    }
+
     void estaBienDeclarado() {
         if (superclase != null) {
             superclase.estaBienDeclarado(this);
@@ -55,6 +61,7 @@ public class Clase extends ClaseOInterfaz {
         }
         chequearListaDeInterfaces(interfacesImplementadas);
         chequearHerenciaCircular();
+        chequearModificadores();
         for (Atributo atributo : atributos.values()) {
             atributo.estaBienDeclarado(this);
         }

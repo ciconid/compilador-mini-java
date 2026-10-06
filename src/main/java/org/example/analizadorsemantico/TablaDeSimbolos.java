@@ -30,6 +30,15 @@ public class TablaDeSimbolos {
         return clasesOInterfaces.get(nombre);
     }
 
+    boolean tieneSubtipoDirecto(String nombre) {
+        for (ClaseOInterfaz claseOInterfaz : clasesOInterfaces.values()) {
+            if (claseOInterfaz.heredaDirectamenteDe(nombre)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public void agregarClaseOInterfaz(ClaseOInterfaz claseOInterfaz) {
         if (clasesOInterfaces.containsKey(claseOInterfaz.nombre)) {
             throw new ErrorSemantico(claseOInterfaz.token, "La clase o interfaz " + claseOInterfaz.nombre
@@ -37,6 +46,15 @@ public class TablaDeSimbolos {
         }
         clasesOInterfaces.put(claseOInterfaz.nombre, claseOInterfaz);
         claseActual = claseOInterfaz;
+    }
+
+    public void setModificador(Token modificador) {
+        claseActual.modificador = modificador;
+    }
+
+    public void setPermits(Token tokenPermits, List<Token> permitidos) {
+        claseActual.tokenPermits = tokenPermits;
+        claseActual.permitidos = permitidos;
     }
 
     public void setParametroGenerico(Token token) {
