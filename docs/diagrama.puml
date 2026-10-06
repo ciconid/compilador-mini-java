@@ -25,10 +25,15 @@ abstract class ClaseOInterfaz {
     # parametroGenericoOpcional : String
     # metodos : Map<String, Metodo>
     # consolidado : boolean
+    # modificador : Token
+    # tokenPermits : Token
+    # permitidos : List<Token>
     ~ {abstract} estaBienDeclarado()
     ~ {abstract} consolidar()
     ~ {abstract} getPadres() : List<TipoReferencia>
+    ~ {abstract} getSupertiposDirectos() : List<TipoReferencia>
     # chequearHerenciaCircular()
+    # chequearModificadores()
     # heredarMetodos(List<TipoReferencia>)
 }
 
@@ -40,6 +45,7 @@ class Clase {
     ~ estaBienDeclarado()
     ~ consolidar()
     ~ getPadres() : List<TipoReferencia>
+    ~ getSupertiposDirectos() : List<TipoReferencia>
 }
 
 class Interfaz {
@@ -47,6 +53,7 @@ class Interfaz {
     ~ estaBienDeclarado()
     ~ consolidar()
     ~ getPadres() : List<TipoReferencia>
+    ~ getSupertiposDirectos() : List<TipoReferencia>
 }
 
 class Atributo {
@@ -66,6 +73,7 @@ class Metodo {
     # nombre : String
     # esEstatico : boolean
     # tipoRetorno : Tipo
+    # esFinal : boolean
     + getClave() : String
     ~ estaBienDeclarado(ClaseOInterfaz)
 }
