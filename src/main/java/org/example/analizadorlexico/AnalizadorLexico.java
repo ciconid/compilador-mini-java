@@ -3,12 +3,15 @@ package org.example.analizadorlexico;
 import org.example.sourcemanager.SourceManager;
 
 import java.io.IOException;
+import java.util.ArrayDeque;
+import java.util.Deque;
 
 public class AnalizadorLexico {
     private String lexema;
     private char caracterActual;
     private final SourceManager gestorDeFuente;
     private int nroLineaInicalDelError;
+    private final Deque<Character> pendientes = new ArrayDeque<>();
 
     public AnalizadorLexico(SourceManager gestorDeFuente) {
         lexema = "";
@@ -126,6 +129,9 @@ public class AnalizadorLexico {
             actualizarCaracterActual();
             return e1();
         } else {
+            if (lexema.equals("non") && caracterActual == '-') {
+                return e30();
+            }
             return switch (lexema) {
                 case "class" -> crearToken("prClass");
                 case "boolean" -> crearToken("prBoolean");
@@ -148,6 +154,9 @@ public class AnalizadorLexico {
                 case "private" -> crearToken("prPrivate");
                 case "var" -> crearToken("prVar");
                 case "false" -> crearToken("prFalse");
+                case "sealed" -> crearToken("prSealed");
+                case "final" -> crearToken("prFinal");
+                case "permits" -> crearToken("prPermits");
                 default -> crearToken("idMetVar");
             };
         }
@@ -423,6 +432,25 @@ public class AnalizadorLexico {
         throw new ErrorLexico(lexema, nroLinea);
     }
 
+    private Token e30() {
+        String esperado = "-sealed";
+        StringBuilder leidos = new StringBuilder();
+        while (leidos.length() < esperado.length() && caracterActual == esperado.charAt(leidos.length())) {
+            leidos.append(caracterActual);
+            actualizarCaracterActual();
+        }
+        if (leidos.length() == esperado.length() && !Character.isLetterOrDigit(caracterActual) && caracterActual != '_') {
+            lexema = lexema + leidos;
+            return crearToken("prNonSealed");
+        }
+        leidos.append(caracterActual);
+        caracterActual = leidos.charAt(0);
+        for (int i = 1; i < leidos.length(); i++) {
+            pendientes.add(leidos.charAt(i));
+        }
+        return crearToken("idMetVar");
+    }
+
 
     /*TEMPLATE
     *
@@ -439,6 +467,10 @@ public class AnalizadorLexico {
     }
 
     private void actualizarCaracterActual() {
+        if (!pendientes.isEmpty()) {
+            caracterActual = pendientes.poll();
+            return;
+        }
         try {
             caracterActual = gestorDeFuente.getNextChar();
         } catch (IOException e) {

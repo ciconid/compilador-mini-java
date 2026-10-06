@@ -108,6 +108,14 @@ public class TokensYLexemas {
                 return "var";
             case "prFalse":
                 return "false";
+            case "prSealed":
+                return "sealed";
+            case "prFinal":
+                return "final";
+            case "prPermits":
+                return "permits";
+            case "prNonSealed":
+                return "non-sealed";
 
             // Identificadores y literales (sin lexema fijo)
             case "idMetVar":
