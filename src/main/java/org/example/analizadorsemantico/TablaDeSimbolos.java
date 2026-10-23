@@ -11,6 +11,7 @@ public class TablaDeSimbolos {
 
     private final Map<String, ClaseOInterfaz> clasesOInterfaces;
     private ClaseOInterfaz claseActual;
+    private Unidad unidadActual;
 
     public TablaDeSimbolos() {
         clasesOInterfaces = new LinkedHashMap<>();
@@ -27,6 +28,13 @@ public class TablaDeSimbolos {
     }
 
     public void chequeoSentencias() {
+        for (ClaseOInterfaz claseOInterfaz : clasesOInterfaces.values()) {
+            claseActual = claseOInterfaz;
+            for (Unidad unidad : claseOInterfaz.unidadesDeclaradas) {
+                unidadActual = unidad;
+                unidad.bloque.chequear();
+            }
+        }
     }
 
     ClaseOInterfaz getClaseOInterfaz(String nombre) {

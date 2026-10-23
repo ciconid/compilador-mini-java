@@ -67,7 +67,7 @@ precedencia).
 
 Cada incremento deja todos los SinErrores (cátedra + propios, etapas 1–4) en verde.
 
-- [x] 0. **Infraestructura de tests y mains**
+- ✅ 0. **Infraestructura de tests y mains**
    - Copiar `Main` → `MainEtapa3`; testers de `src/test/java/semantico/**` usan `MainEtapa3`.
    - Arreglar `src/test/java/semantico2/catedra/*` (package `semantico2.catedra`, `import org.example.Main`, paths
      `resources/semantico2/catedra/...`) y crear `semantico2/NC/*` apuntando a `resources/semantico2/NicolasCid/`.
@@ -75,14 +75,16 @@ Cada incremento deja todos los SinErrores (cátedra + propios, etapas 1–4) en 
      MainEtapa3, `semantico2`).
    - Verifica: 5 SinErrores de cátedra pasan; etapa 3 sigue igual.
 
-- [ ] 1. **Esqueleto AST + placeholders**
-   - Clases abstractas, `NodoBloque`, placeholders y `TipoPendiente`; `Unidad` guarda su `NodoBloque`.
-   - `bloque()` devuelve `NodoBloque`; `sentencia()` devuelve `NodoSentenciaPendiente` para todo; se asocia el bloque
-     a la unidad en `metodo*()`/`constructor()`.
-   - `chequeoSentencias()` recorre unidades propias con contexto seteado.
+- ✅ 1. **Esqueleto AST + placeholders**
+   - `NodoSentencia`, `NodoBloque` y `NodoSentenciaPendiente`; `Unidad` guarda su `NodoBloque` (vacío por defecto).
+   - `bloque()` devuelve `NodoBloque`; `sentencia()` devuelve `NodoSentenciaPendiente` para todo salvo bloques
+     anidados; se asocia el bloque a la unidad en `metodo*()`/`constructor()`.
+   - `chequeoSentencias()` recorre `unidadesDeclaradas` de cada clase/interfaz con `claseActual`/`unidadActual`.
 
 - [ ] 2. **Sentencias de control y expresiones sin nombres**
-   - `NodoVacia`, `NodoBloque` anidado, `NodoIf`, `NodoWhile` (cond `boolean`), `NodoReturn` (void / no void /
+   - `NodoExpresion`, `NodoExpresionPendiente` y `TipoPendiente` (movidos desde el incremento 1); las expresiones del
+     parser pasan a devolver nodos.
+   - `NodoVacia`, `NodoIf`, `NodoWhile` (cond `boolean`), `NodoReturn` (void / no void /
      constructor, resultado void prohibido).
    - `NodoLiteral`, `NodoExpBinaria`, `NodoExpUnaria`, `NodoParentizada`; `conformaCon` para primitivos, `null`
      y `String`. El resto de los operandos sigue como `NodoExpresionPendiente`.

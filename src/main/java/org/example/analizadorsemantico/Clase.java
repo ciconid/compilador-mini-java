@@ -40,6 +40,7 @@ public class Clase extends ClaseOInterfaz {
                     + " parametros en la clase " + nombre);
         }
         constructores.put(constructor.aridad(), constructor);
+        unidadesDeclaradas.add(constructor);
     }
 
     List<TipoReferencia> getPadres() {

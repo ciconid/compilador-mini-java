@@ -2,6 +2,7 @@ package org.example.analizadorsemantico;
 
 import org.example.analizadorlexico.Token;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -16,11 +17,13 @@ public abstract class ClaseOInterfaz extends EntidadDeclarable {
     protected Token modificador;
     protected Token tokenPermits;
     protected List<Token> permitidos;
+    protected List<Unidad> unidadesDeclaradas;
 
     public ClaseOInterfaz(Token token) {
         super(token);
         nombre = token.lexema();
         metodos = new LinkedHashMap<>();
+        unidadesDeclaradas = new ArrayList<>();
     }
 
     void agregarMetodo(Metodo metodo) {
@@ -29,6 +32,7 @@ public abstract class ClaseOInterfaz extends EntidadDeclarable {
                     + " parametros ya esta declarado en " + nombre);
         }
         metodos.put(metodo.getClave(), metodo);
+        unidadesDeclaradas.add(metodo);
     }
 
     abstract void estaBienDeclarado();

@@ -1,16 +1,23 @@
 package org.example.analizadorsemantico;
 
 import org.example.analizadorlexico.Token;
+import org.example.analizadorsemantico.ast.NodoBloque;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public abstract class Unidad extends EntidadDeclarable {
     protected List<Parametro> parametrosOrdenados;
+    protected NodoBloque bloque;
 
     public Unidad(Token token) {
         super(token);
         parametrosOrdenados = new ArrayList<>();
+        bloque = new NodoBloque();
+    }
+
+    public void setBloque(NodoBloque bloque) {
+        this.bloque = bloque;
     }
 
     public void agregarParametro(Token token, Tipo tipo) {

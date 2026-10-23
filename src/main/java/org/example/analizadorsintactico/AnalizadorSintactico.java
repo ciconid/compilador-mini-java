@@ -3,6 +3,7 @@ package org.example.analizadorsintactico;
 import org.example.analizadorlexico.AnalizadorLexico;
 import org.example.analizadorlexico.Token;
 import org.example.analizadorsemantico.*;
+import org.example.analizadorsemantico.ast.*;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -306,7 +307,7 @@ public class AnalizadorSintactico {
         metodo.setEsFinal(esFinal);
         argsFormales(metodo);
         TablaDeSimbolos.ts.agregarMetodo(metodo);
-        bloque();
+        metodo.setBloque(bloque());
     }
 
     void metodoFinal() {
@@ -316,7 +317,7 @@ public class AnalizadorSintactico {
         metodo.setEsFinal(true);
         argsFormales(metodo);
         TablaDeSimbolos.ts.agregarMetodo(metodo);
-        bloque();
+        metodo.setBloque(bloque());
     }
 
     boolean finalOpcional() {
@@ -333,7 +334,7 @@ public class AnalizadorSintactico {
         Metodo metodo = new Metodo(match("idMetVar"), false, new TipoVoid());
         argsFormales(metodo);
         TablaDeSimbolos.ts.agregarMetodo(metodo);
-        bloque();
+        metodo.setBloque(bloque());
     }
 
 
@@ -355,7 +356,7 @@ public class AnalizadorSintactico {
         Metodo metodo = new Metodo(nombre, false, tipoRetorno);
         argsFormales(metodo);
         TablaDeSimbolos.ts.agregarMetodo(metodo);
-        bloque();
+        metodo.setBloque(bloque());
     }
 
     void metodoInterfaz() {
@@ -370,7 +371,7 @@ public class AnalizadorSintactico {
         Constructor constructor = new Constructor(nombre);
         argsFormales(constructor);
         TablaDeSimbolos.ts.agregarConstructor(constructor);
-        bloque();
+        constructor.setBloque(bloque());
     }
 
     void modificadorOpcional() {
@@ -529,39 +530,47 @@ public class AnalizadorSintactico {
         unidad.agregarParametro(match("idMetVar"), tipo);
     }
 
-    void bloque() {
+    NodoBloque bloque() {
+        NodoBloque bloque = new NodoBloque();
         match("puLlaveAbre");
-        listaSentencias();
+        listaSentencias(bloque);
         match("puLlaveCierra");
+        return bloque;
     }
 
-    void listaSentencias() {
+    void listaSentencias(NodoBloque bloque) {
         if (Primeros.sentencia.contains(tokenActual.token())) {
-            sentencia();
-            listaSentencias();
+            bloque.agregarSentencia(sentencia());
+            listaSentencias(bloque);
         } else {
             // epsilon
         }
     }
 
-    void sentencia() {
+    NodoSentencia sentencia() {
         if (Arrays.asList("puPuntoYComa").contains(tokenActual.token())) {
             match("puPuntoYComa");
+            return new NodoSentenciaPendiente();
         } else if (Primeros.asignacionYLlamada.contains(tokenActual.token())) {
             asignacionYLlamada();
             match("puPuntoYComa");
+            return new NodoSentenciaPendiente();
         } else if (Primeros.varLocal.contains(tokenActual.token())) {
             varLocal();
             match("puPuntoYComa");
+            return new NodoSentenciaPendiente();
         } else if (Primeros.returnNT.contains(tokenActual.token())) {
             returnNT();
             match("puPuntoYComa");
+            return new NodoSentenciaPendiente();
         } else if (Primeros.ifNT.contains(tokenActual.token())) {
             ifNT();
+            return new NodoSentenciaPendiente();
         } else if (Primeros.whileNT.contains(tokenActual.token())) {
             whileNT();
+            return new NodoSentenciaPendiente();
         } else if (Primeros.bloque.contains(tokenActual.token())) {
-            bloque();
+            return bloque();
         } else {
             List<String> tokens = new ArrayList<>();
             tokens.add("puPuntoYComa");
