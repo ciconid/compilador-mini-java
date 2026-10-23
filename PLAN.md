@@ -190,7 +190,7 @@ Cada incremento deja todos los SinErrores (cátedra + propios, etapas 1–4) en 
      diamante en asignación, `return`, `var` y a través de una interfaz.
    - Cubre `semIIError02` y `semIIError03`.
 
-- [ ] **5. Llamadas**
+- ✅ **5. Llamadas**
 
    Las llamadas sin receptor y las estáticas dejan de ser placeholder.
    - **`NodoLlamadaMetodo(token, args)`** (`m(a, b)`): busca `(nombre, aridad)` en los métodos de la clase actual

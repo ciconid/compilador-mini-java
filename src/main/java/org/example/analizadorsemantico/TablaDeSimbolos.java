@@ -73,7 +73,7 @@ public class TablaDeSimbolos {
         return null;
     }
 
-    ClaseOInterfaz getClaseOInterfaz(String nombre) {
+    public ClaseOInterfaz getClaseOInterfaz(String nombre) {
         return clasesOInterfaces.get(nombre);
     }
 

@@ -35,8 +35,16 @@ public abstract class ClaseOInterfaz extends EntidadDeclarable {
         unidadesDeclaradas.add(metodo);
     }
 
+    public String getNombre() {
+        return nombre;
+    }
+
     public Atributo getAtributo(String nombre) {
         return null;
+    }
+
+    public Metodo getMetodo(String nombre, int aridad) {
+        return metodos.get(nombre + "/" + aridad);
     }
 
     public boolean esGenerica() {

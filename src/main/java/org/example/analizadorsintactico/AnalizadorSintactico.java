@@ -824,8 +824,7 @@ public class AnalizadorSintactico {
             match("prNew");
             return restoNew();
         } else if (Primeros.llamadaMetodoEstatico.contains(tokenActual.token())) {
-            llamadaMetodoEstatico();
-            return new NodoExpresionPendiente();
+            return llamadaMetodoEstatico();
         } else if (Primeros.expresionParentizada.contains(tokenActual.token())) {
             return expresionParentizada();
         } else {
@@ -835,8 +834,7 @@ public class AnalizadorSintactico {
 
     NodoExpresion restoidMetVar(Token id) {
         if (Primeros.argsActuales.contains(tokenActual.token())) {
-            argsActuales();
-            return new NodoExpresionPendiente();
+            return new NodoLlamadaMetodo(id, argsActuales());
         } else {
             return new NodoAccesoVar(id);
         }
@@ -921,11 +919,11 @@ public class AnalizadorSintactico {
         }
     }
 
-    void llamadaMetodoEstatico() {
-        match("idClase");
+    NodoExpresion llamadaMetodoEstatico() {
+        Token tokenClase = match("idClase");
         match("puPunto");
-        match("idMetVar");
-        argsActuales();
+        Token tokenMetodo = match("idMetVar");
+        return new NodoLlamadaEstatica(tokenClase, tokenMetodo, argsActuales());
     }
 
     void dimensiones() {
