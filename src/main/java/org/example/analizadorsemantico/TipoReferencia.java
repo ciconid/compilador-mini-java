@@ -33,6 +33,13 @@ public class TipoReferencia extends Tipo {
         }
     }
 
+    public void estaBienUsado(ClaseOInterfaz contexto) {
+        estaBienDeclarado(contexto);
+        if (argumentoGenerico == null && getReferenciada().esGenerica()) {
+            throw new ErrorSemantico(token, "La clase o interfaz generica " + nombre + " requiere un argumento de tipo");
+        }
+    }
+
     Tipo instanciar(String parametro, Tipo argumento) {
         if (argumentoGenerico == null) {
             return this;
@@ -88,6 +95,39 @@ public class TipoReferencia extends Tipo {
         return tipoMiembro.instanciar(parametro, argumentoGenerico);
     }
 
+    public TipoReferencia supertipoComun(TipoReferencia otro) {
+        List<TipoReferencia> comunes = new ArrayList<>();
+        for (TipoReferencia ancestro : getAncestros()) {
+            if (otro.conformaCon(ancestro) && comunes.stream().noneMatch(ancestro::esIgual)) {
+                comunes.add(ancestro);
+            }
+        }
+        List<TipoReferencia> minimos = new ArrayList<>();
+        for (TipoReferencia comun : comunes) {
+            if (comunes.stream().noneMatch(c -> !c.esIgual(comun) && c.conformaCon(comun))) {
+                minimos.add(comun);
+            }
+        }
+        for (TipoReferencia minimo : minimos) {
+            if (minimo.getReferenciada() instanceof Clase) {
+                return minimo;
+            }
+        }
+        return minimos.isEmpty() ? object(token.nroDeLinea()) : minimos.get(0);
+    }
+
+    public static TipoReferencia object(int nroDeLinea) {
+        return new TipoReferencia(new Token("idClase", "Object", nroDeLinea), null);
+    }
+
+    private List<TipoReferencia> getAncestros() {
+        List<TipoReferencia> ancestros = new ArrayList<>(List.of(this));
+        for (TipoReferencia supertipo : getSupertiposDirectos()) {
+            ancestros.addAll(supertipo.getAncestros());
+        }
+        return ancestros;
+    }
+
     private TipoReferencia getAncestro(String nombreAncestro) {
         if (nombre.equals(nombreAncestro)) {
             return this;
@@ -109,7 +149,7 @@ public class TipoReferencia extends Tipo {
                 return referenciaEsperada.argumentoGenerico;
             }
         }
-        return new TipoReferencia(new Token("idClase", "Object", token.nroDeLinea()), null);
+        return object(token.nroDeLinea());
     }
 
     public String toString() {

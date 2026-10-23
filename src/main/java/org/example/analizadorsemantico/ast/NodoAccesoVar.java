@@ -17,7 +17,7 @@ public class NodoAccesoVar extends NodoExpresion {
             return local.getTipo();
         }
         Unidad unidad = TablaDeSimbolos.ts.getUnidadActual();
-        Parametro parametro = unidad.getParametro(nombre);
+        Parametro parametro = unidad == null ? null : unidad.getParametro(nombre);
         if (parametro != null) {
             return parametro.getTipo();
         }
@@ -25,8 +25,12 @@ public class NodoAccesoVar extends NodoExpresion {
         if (atributo == null) {
             throw new ErrorSemantico(token, "La variable " + nombre + " no esta declarada");
         }
-        if (unidad.esEstatico()) {
+        if (TablaDeSimbolos.ts.enContextoEstatico()) {
             throw new ErrorSemantico(token, "No se puede acceder al atributo " + nombre + " desde un metodo estatico");
+        }
+        if (TablaDeSimbolos.ts.esReferenciaAdelantada(atributo)) {
+            throw new ErrorSemantico(token, "El atributo " + nombre
+                    + " no puede usarse en un inicializador antes de su declaracion");
         }
         return atributo.getTipo();
     }

@@ -12,12 +12,14 @@ public class Clase extends ClaseOInterfaz {
     protected List<TipoReferencia> interfacesImplementadas;
     protected Map<String, Atributo> atributos;
     protected Map<Integer, Constructor> constructores;
+    protected List<Atributo> atributosDeclarados;
 
     public Clase(Token token) {
         super(token);
         superclase = new TipoReferencia(new Token("idClase", "Object", 0), null);
         interfacesImplementadas = new ArrayList<>();
         atributos = new LinkedHashMap<>();
+        atributosDeclarados = new ArrayList<>();
         constructores = new LinkedHashMap<>();
     }
 
@@ -27,6 +29,7 @@ public class Clase extends ClaseOInterfaz {
                     + " ya esta declarado en la clase " + nombre);
         }
         atributos.put(atributo.nombre, atributo);
+        atributosDeclarados.add(atributo);
     }
 
     void agregarConstructor(Constructor constructor) {

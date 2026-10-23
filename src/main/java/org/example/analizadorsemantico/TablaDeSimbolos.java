@@ -15,6 +15,7 @@ public class TablaDeSimbolos {
     private final Map<String, ClaseOInterfaz> clasesOInterfaces;
     private ClaseOInterfaz claseActual;
     private Unidad unidadActual;
+    private Atributo atributoActual;
     private Deque<Map<String, VariableLocal>> ambitos;
 
     public TablaDeSimbolos() {
@@ -35,6 +36,15 @@ public class TablaDeSimbolos {
     public void chequeoSentencias() {
         for (ClaseOInterfaz claseOInterfaz : clasesOInterfaces.values()) {
             claseActual = claseOInterfaz;
+            unidadActual = null;
+            ambitos = new ArrayDeque<>();
+            if (claseOInterfaz instanceof Clase clase) {
+                for (Atributo atributo : clase.atributosDeclarados) {
+                    atributoActual = atributo;
+                    atributo.chequearInicializador();
+                }
+                atributoActual = null;
+            }
             for (Unidad unidad : claseOInterfaz.unidadesDeclaradas) {
                 unidadActual = unidad;
                 ambitos = new ArrayDeque<>();
@@ -49,6 +59,18 @@ public class TablaDeSimbolos {
 
     public Unidad getUnidadActual() {
         return unidadActual;
+    }
+
+    public boolean enContextoEstatico() {
+        return unidadActual != null && unidadActual.esEstatico();
+    }
+
+    public boolean esReferenciaAdelantada(Atributo atributo) {
+        if (atributoActual == null) {
+            return false;
+        }
+        List<Atributo> declarados = ((Clase) claseActual).atributosDeclarados;
+        return declarados.indexOf(atributo) >= declarados.indexOf(atributoActual);
     }
 
     public void abrirAmbito() {

@@ -13,7 +13,7 @@ public class NodoThis extends NodoExpresion {
     }
 
     public Tipo chequear() {
-        if (TablaDeSimbolos.ts.getUnidadActual().esEstatico()) {
+        if (TablaDeSimbolos.ts.enContextoEstatico()) {
             throw new ErrorSemantico(token, "No se puede usar this en un metodo estatico");
         }
         return TablaDeSimbolos.ts.getClaseActual().getTipoPropio();

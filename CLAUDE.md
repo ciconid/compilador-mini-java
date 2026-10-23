@@ -95,6 +95,9 @@ Achievement tags (add new ones following the same abbreviation style):
 | `L_gen_avanzada_E3`      | Genericidad Avanzada E3       |
 | `L_herencia_multiple_E3` | Herencia Multiple E3          |
 | `L_sobrecarga_E3`        | Sobrecarga! E3                |
+| `L_ternario_E4`          | Ternario E4                   |
+| `L_atr_inicializados_E4` | Atributos Inicializados E4    |
+| `L_posfijos_E4`          | Postfijos E4                  |
 
 Examples: `01_FB_clase_repetida.java`, `113_L_sobrecarga_E3_clase_sealed_sin_subclases.java`,
 `55_L_sobrecarga_E3_L_vis_mejorada_E2_metodo_final_con_visibilidad_y_static.java`.

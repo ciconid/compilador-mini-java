@@ -40,7 +40,7 @@ public class NodoLlamadaEncadenada extends NodoEncadenado {
 
     private TipoReferencia getVistaDelReceptor(Tipo tipoReceptor) {
         if (tipoReceptor instanceof TipoArreglo && token.lexema().equals("toString") && argumentos.isEmpty()) {
-            return new TipoReferencia(new Token("idClase", "Object", token.nroDeLinea()), null);
+            return TipoReferencia.object(token.nroDeLinea());
         }
         if (tipoReceptor instanceof TipoReferencia referencia) {
             return referencia;

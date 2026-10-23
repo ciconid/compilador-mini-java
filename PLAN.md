@@ -13,9 +13,11 @@ La cátedra recomienda avanzar en incrementos testeables: los nodos aún no impl
 van poniendo verdes a medida que se reemplazan placeholders por nodos reales.
 
 Decisiones tomadas:
-- Versión básica, **sin logros E4** por ahora.
+- Versión básica: no se persiguen logros E4 que requieran trabajo extra.
 - Lo que el parser ya acepta por logros E2 (ternario, posfijos, inicialización de arreglos, diamante, atributos
-  inicializados) se **chequea como Java**.
+  inicializados) se **chequea como Java**. Eso cumple los logros *Ternario E4*, *Atributos Inicializados –
+  Chequeado!* y *Postfijos – Chequeado*, que se declaran en el informe.
+- Lo que la documentación de la materia no especifica se resuelve como en Java.
 - Se crea `MainEtapa3`; `Main` pasa a ser etapa 4.
 
 Regla de trabajo (CLAUDE.md): antes de implementar cada incremento se escriben sus casos en
@@ -226,7 +228,7 @@ Cada incremento deja todos los SinErrores (cátedra + propios, etapas 1–4) en 
    - Casos: atributos/métodos inexistentes en el receptor, encadenados sobre primitivos o `T`, `length` asignado,
      `crearA().x;` como sentencia, genéricos vistos desde el receptor. Cubre `semIICorrecto04/05`.
 
-- [ ] **7. Arreglos y extras de E2**
+- ✅ **7. Arreglos y extras de E2**
 
    Lo que el parser acepta por logros de la etapa 2 se chequea como en Java.
    - **`NodoNewArreglo(tipoBase, tamaños)`**: tipo base válido en el contexto (no raw), cada tamaño int; el tipo es
@@ -235,10 +237,13 @@ Cada incremento deja todos los SinErrores (cátedra + propios, etapas 1–4) en 
      un elemento que es a su vez `{...}` se chequea un nivel más abajo.
    - **`NodoPosfijo(op, operando)`** (`x++`): operando int y asignable; el resultado es int, no asignable. Como en
      Java, es válido como sentencia.
-   - **`NodoTernario(tokenInterrogacion, cond, siV, siF)`**: condición boolean; el tipo es el de la rama más
-     general si una conforma con la otra (p. ej. `null` y `String` → `String`), si no es error.
+   - **`NodoTernario(tokenInterrogacion, cond, siV, siF)`**: condición boolean; si una rama conforma con la otra,
+     el tipo es el de la más general (p. ej. `null` y `String` → `String`). Entre referencias sin relación, como
+     en Java, es el supertipo común más específico (si hay varios mínimos se elige la clase); entre primitivos
+     distintos es error.
    - **Atributos inicializados**: el parser guarda la expresión en el `Atributo` y la TS la chequea en contexto de
-     instancia de su clase (sin unidad actual); el tipo tiene que conformar con el del atributo.
+     instancia de su clase (sin unidad actual); el tipo tiene que conformar con el del atributo. Como en Java, no
+     se puede usar por nombre simple un atributo propio declarado más abajo.
    - Casos: tamaños no int, elementos mal tipados en inicializadores, posfijo sobre no-int o no asignable, ramas
      incompatibles del ternario, inicializadores de atributos mal tipados. Cubre `semIICorrecto03`.
 
@@ -260,7 +265,8 @@ Cada incremento deja todos los SinErrores (cátedra + propios, etapas 1–4) en 
    - Confirmar que el parser ya no genera placeholders y borrar `NodoSentenciaPendiente`,
      `NodoExpresionPendiente` y `TipoPendiente` (y los casos especiales que los contemplan en `conformaCon`).
    - `docs/informe-etapa4.md`: cómo compilar y correr, diagrama de clases del AST (`docs/diagrama.puml`) y logros
-     (ninguno); actualizar `docs/check.sh` si aplica.
+     (Ternario E4, Atributos Inicializados – Chequeado!, Postfijos – Chequeado); actualizar `docs/check.sh` si
+     aplica.
 
 ## Archivos críticos
 

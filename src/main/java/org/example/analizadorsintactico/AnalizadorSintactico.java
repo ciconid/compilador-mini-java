@@ -339,12 +339,13 @@ public class AnalizadorSintactico {
 
 
     void atributo(Token nombre, Tipo tipo) {
-        TablaDeSimbolos.ts.agregarAtributo(new Atributo(nombre, tipo));
+        Atributo atributo = new Atributo(nombre, tipo);
+        TablaDeSimbolos.ts.agregarAtributo(atributo);
         if (Arrays.asList("puPuntoYComa").contains(tokenActual.token())) {
             match("puPuntoYComa");
         } else if (Arrays.asList("opAsignacion").contains(tokenActual.token())) {
-            match("opAsignacion");
-            expresion();
+            Token tokenIgual = match("opAsignacion");
+            atributo.setInicializador(tokenIgual, expresion());
             match("puPuntoYComa");
         } else {
             throw new ErrorSintactico(tokenActual.lexema(), tokenActual.nroDeLinea(), "; o =");
@@ -725,18 +726,18 @@ public class AnalizadorSintactico {
 
     NodoExpresion opcionalOperando(NodoExpresion operando) {
         if (Primeros.operadorUnarioPosfijo.contains(tokenActual.token())) {
-            operadorUnarioPosfijo();
-            return new NodoExpresionPendiente();
+            Token operador = operadorUnarioPosfijo();
+            return new NodoPosfijo(operador, operando);
         } else {
             return operando;
         }
     }
 
-    void operadorUnarioPosfijo() {
+    Token operadorUnarioPosfijo() {
         if (Arrays.asList("opIncremento").contains(tokenActual.token())) {
-            match("opIncremento");
+            return match("opIncremento");
         } else if (Arrays.asList("opDecremento").contains(tokenActual.token())) {
-            match("opDecremento");
+            return match("opDecremento");
         } else {
             throw new ErrorSintactico(tokenActual.lexema(), tokenActual.nroDeLinea(), "NO ALCANZABLE - OPERADOR UNARIO POSFIJO");
         }
@@ -840,13 +841,11 @@ public class AnalizadorSintactico {
 
     NodoExpresion restoNew() {
         if (Primeros.tipoPrimitivo.contains(tokenActual.token())) {
-            tipoPrimitivo();
-            dimensiones();
-            return new NodoExpresionPendiente();
+            Tipo tipoBase = tipoPrimitivo();
+            return dimensiones(tipoBase);
         } else if (Arrays.asList("idGen").contains(tokenActual.token())) {
-            match("idGen");
-            dimensiones();
-            return new NodoExpresionPendiente();
+            Tipo tipoBase = new TipoParametro(match("idGen"));
+            return dimensiones(tipoBase);
         } else if (Primeros.tipoReferencia.contains(tokenActual.token())) {
             return restoNewClase(match("idClase"));
         } else {
@@ -883,8 +882,7 @@ public class AnalizadorSintactico {
 
     NodoExpresion restoTipoReferencia(Token idClase, Tipo argumentoGenerico) {
         if (Primeros.dimensiones.contains(tokenActual.token())) {
-            dimensiones();
-            return new NodoExpresionPendiente();
+            return dimensiones(new TipoReferencia(idClase, argumentoGenerico));
         } else if (Primeros.argsActuales.contains(tokenActual.token())) {
             return new NodoNewObjeto(idClase, argumentoGenerico, false, argsActuales());
         } else {
@@ -907,11 +905,11 @@ public class AnalizadorSintactico {
 
     NodoExpresion restoTernario(NodoExpresion condicion) {
         if (Primeros.restoTernario.contains(tokenActual.token())) {
-            match("puInterrogacion");
-            expresion();
+            Token tokenInterrogacion = match("puInterrogacion");
+            NodoExpresion siVerdadero = expresion();
             match("puDosPuntos");
-            expresion();
-            return new NodoExpresionPendiente();
+            NodoExpresion siFalso = expresion();
+            return new NodoTernario(tokenInterrogacion, condicion, siVerdadero, siFalso);
         } else {
             return condicion;
         }
@@ -924,17 +922,20 @@ public class AnalizadorSintactico {
         return new NodoLlamadaEstatica(tokenClase, tokenMetodo, argsActuales());
     }
 
-    void dimensiones() {
-        match("puCorcheteAbre");
-        restoDimensiones();
+    NodoExpresion dimensiones(Tipo tipoBase) {
+        Token corchete = match("puCorcheteAbre");
+        return restoDimensiones(tipoBase, corchete);
     }
 
-    void restoDimensiones() {
+    NodoExpresion restoDimensiones(Tipo tipoBase, Token corchete) {
         if (Primeros.dimensionesConTamanio.contains(tokenActual.token())) {
-            dimensionesConTamanio();
+            List<Token> corchetes = new ArrayList<>(List.of(corchete));
+            List<NodoExpresion> tamanios = new ArrayList<>();
+            dimensionesConTamanio(corchetes, tamanios);
+            return new NodoNewArreglo(tipoBase, corchetes, tamanios);
         } else if (Primeros.dimensionesSinTamanio.contains(tokenActual.token())) {
-            dimensionesSinTamanio();
-            inicializadorArreglo();
+            int dimensiones = dimensionesSinTamanio();
+            return new NodoNewArregloInicializado(tipoBase, dimensiones, inicializadorArreglo());
         } else {
             List<String> tokens = new ArrayList<>(Primeros.dimensionesConTamanio);
             tokens.addAll(Primeros.dimensionesSinTamanio);
@@ -946,66 +947,69 @@ public class AnalizadorSintactico {
         }
     }
 
-    void dimensionesConTamanio() {
-        expresion();
+    void dimensionesConTamanio(List<Token> corchetes, List<NodoExpresion> tamanios) {
+        tamanios.add(expresion());
         match("puCorcheteCierra");
-        restoDimensionesConTamanio();
+        restoDimensionesConTamanio(corchetes, tamanios);
     }
 
-    void restoDimensionesConTamanio() {
+    void restoDimensionesConTamanio(List<Token> corchetes, List<NodoExpresion> tamanios) {
         if (Primeros.corcheteAbre.contains(tokenActual.token())) {
-            match("puCorcheteAbre");
-            dimensionesConTamanio();
+            corchetes.add(match("puCorcheteAbre"));
+            dimensionesConTamanio(corchetes, tamanios);
         } else {
             // epsilon
         }
     }
 
-    void dimensionesSinTamanio() {
+    int dimensionesSinTamanio() {
         match("puCorcheteCierra");
-        restoDimensionesSinTamanio();
+        return 1 + restoDimensionesSinTamanio();
     }
 
-    void restoDimensionesSinTamanio() {
+    int restoDimensionesSinTamanio() {
         if (Primeros.corcheteAbre.contains(tokenActual.token())) {
             match("puCorcheteAbre");
-            dimensionesSinTamanio();
+            return dimensionesSinTamanio();
         } else {
             //epsilon
+            return 0;
         }
 
     }
 
-    void inicializadorArreglo() {
-        match("puLlaveAbre");
-        iniArregloExpresiones();
+    NodoInicializadorArreglo inicializadorArreglo() {
+        Token tokenLlave = match("puLlaveAbre");
+        List<NodoExpresion> elementos = new ArrayList<>();
+        iniArregloExpresiones(elementos);
         match("puLlaveCierra");
+        return new NodoInicializadorArreglo(tokenLlave, elementos);
     }
 
-    void iniArregloExpresiones() {
+    void iniArregloExpresiones(List<NodoExpresion> elementos) {
         if (Primeros.expresion.contains(tokenActual.token()) || Primeros.llaveAbre.contains(tokenActual.token())) {
-            elementoArreglo();
-            iniArregloExpresionesOpcionales();
+            elementos.add(elementoArreglo());
+            iniArregloExpresionesOpcionales(elementos);
         } else {
             //epsilon
         }
     }
 
-    void iniArregloExpresionesOpcionales() {
+    void iniArregloExpresionesOpcionales(List<NodoExpresion> elementos) {
         if (Primeros.coma.contains(tokenActual.token())) {
             match("puComa");
-            elementoArreglo();
-            iniArregloExpresionesOpcionales();
+            elementos.add(elementoArreglo());
+            iniArregloExpresionesOpcionales(elementos);
         } else {
             //epsilon
         }
     }
 
-    void elementoArreglo() {
+    NodoExpresion elementoArreglo() {
         if (Primeros.llaveAbre.contains(tokenActual.token())) {
-            inicializadorArreglo();
+            return inicializadorArreglo();
         } else {
-            expresion();
+            return expresion();
         }
     }
 

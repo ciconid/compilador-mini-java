@@ -7,6 +7,10 @@ public abstract class Tipo {
 
     abstract boolean esIgual(Tipo otro);
 
+    public void estaBienUsado(ClaseOInterfaz contexto) {
+        estaBienDeclarado(contexto);
+    }
+
     public boolean conformaCon(Tipo destino) {
         return destino instanceof TipoPendiente || esIgual(destino);
     }

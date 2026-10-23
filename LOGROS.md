@@ -1,18 +1,40 @@
-# Logros: orden de implementación
+# Logros de la etapa 4
 
-De más fácil a más difícil, según el estado actual del proyecto.
+Lista de `docs/Pautas Etapa 4.pdf`. Los completados se declaran en `docs/informe-etapa4.md`.
 
-No se implementan: Entrega Anticipada, Imbatibilidad y Kudos. Dependen de cuándo se entrega y de cómo corrige la cátedra.
+## Completados
 
-## 1. Multi-Detección de Errores
+- ✅ **Ternario E4**: las expresiones ternarias están correctamente tipadas (`NodoTernario`).
+- ✅ **Atributos Inicializados – Chequeado!**: los inicializadores de atributos se chequean como en Java, incluida la
+  referencia adelantada (`Atributo.chequearInicializador()`).
+- ✅ **Postfijos – Chequeado**: `++` y `--` sólo sobre operandos `int` asignables (`NodoPosfijo`).
 
-- **Es un cambio transversal.** Todo el diseño asume que el análisis corta en el primer error (30 `throw new ErrorSemantico`). Habría que juntar los errores en una lista, recuperarse en cada declaración y, cuando hay nombres repetidos, descartar las dos entidades.
-- **La consolidación se vuelve frágil.** `consolidar()` hace casts del tipo `(Clase) superclase.getReferenciada()` que asumen que la segunda pasada no encontró errores. Con recuperación, las entidades inválidas se tienen que saltear para no provocar errores en cascada o excepciones.
-- **Interacción con el orden:** si se hace después de los demás logros, también hay que adaptar su código. Si se hace antes, todo logro nuevo tiene que escribirse pensando en la recuperación.
+## Pendientes
 
-## 2. Métodos Genéricos: el más difícil
+- [ ] **Genericidad Avanzada E4**: genéricos anidados en expresiones y sentencias, diamante como en Java, sin tipos
+  raw, comodines ni cotas. El diamante ya funciona; faltan los tipos raw (incremento 8) y probar genéricos anidados.
+- [ ] **Instanceof**: operador `instanceof` con una clase o interfaz no genérica a la derecha; sin arreglos ni
+  variable asociada.
+- [ ] **Visibilidad – Chequeada**: los accesos a atributos, métodos y constructores respetan los modificadores de
+  visibilidad, como en Java.
+- [ ] **Super! E4**: `super` para acceder a métodos o atributos de un ancestro, o para invocar su constructor.
+- [ ] **Métodos Genéricos E4**: métodos genéricos bien usados y con cuerpos bien tipados, como en Java, con
+  parámetros de tipo sin cotas (ni siquiera `Object` implícita).
+- [ ] **Variables Locales Clásicas Controladas**: las declaraciones de variables clásicas (en todas sus variantes)
+  están bien tipadas.
+- [ ] **For E4**: `for` clásico (inicialización con asignación o `var`, condición `boolean`, actualización con
+  asignación) y `for` de iteradores sobre la interfaz predefinida `MiniIterable<T>`.
+- [ ] **Todos los Caminos llevan al Retorno sin código muerto**: cada camino de un método llega a un `return` y no
+  hay código inalcanzable, como en Java.
+- [ ] **Floats y Coerción**: literales `float` y coerción de `int` a `float`, `int` a `char`, `char` a `int`, y de
+  `char` e `int` a `String`, en los mismos contextos que Java.
+- [ ] **Minilambdas E4**: lambdas sin tipos en los parámetros y con una única expresión como cuerpo; sin capturar
+  locales ni parámetros externos, y sin `this`.
+- [ ] **Multi-Detección de Errores Semánticos en Sentencias**: ante un error en una sentencia o expresión, el
+  compilador se recupera y sigue al menos con la próxima sentencia.
 
-- **Sintaxis:** `<T> T m(T x)` hace que un miembro pueda empezar con `<`. Eso cambia los conjuntos de primeros de la gramática LL(1).
-- **Alcance de los parámetros de tipo:** hoy el contexto de validación es solo la clase (`estaBienDeclarado(ClaseOInterfaz contexto)`), y pasaría a ser la clase más el método.
-- **Redefinición como en Java:** hay que comparar signaturas sin importar cómo se llama el parámetro de tipo. `<T> void m(T)` redefine a `<U> void m(U)`, y eso no lo cubre el `esIgual` actual.
-- **Instanciación:** hay que combinarla con los parámetros de tipo de la clase.
+## No dependen de la implementación
+
+- **Imbatibilidad Semántica II**: pasar toda la batería de prueba de la cátedra.
+- **Entrega Anticipada Semántica II**: entregar 48 hs antes de la fecha límite.
+- **Grandioso Laburo!**: la entrega tiene sólo algunos errores menores.

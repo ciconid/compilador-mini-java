@@ -22,7 +22,7 @@ public class NodoLlamadaMetodo extends NodoExpresion {
             throw new ErrorSemantico(token, "El metodo " + nombre + " con " + argumentos.size()
                     + " parametros no esta declarado en " + clase.getNombre());
         }
-        if (TablaDeSimbolos.ts.getUnidadActual().esEstatico() && !metodo.esEstatico()) {
+        if (TablaDeSimbolos.ts.enContextoEstatico() && !metodo.esEstatico()) {
             throw new ErrorSemantico(token, "No se puede llamar al metodo de instancia " + nombre
                     + " desde un metodo estatico");
         }
