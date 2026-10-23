@@ -26,6 +26,9 @@ public class TablaDeSimbolos {
         }
     }
 
+    public void chequeoSentencias() {
+    }
+
     ClaseOInterfaz getClaseOInterfaz(String nombre) {
         return clasesOInterfaces.get(nombre);
     }

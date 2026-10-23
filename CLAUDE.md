@@ -5,8 +5,9 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ## Project
 
 MiniJava compiler in Java 21 for a university compilers course, built in stages ("etapas"): 1 = lexical, 2 = syntactic,
-3 = semantic (in progress on branch `etapa-3`). Code, comments, docs, and commit messages are in Spanish. Language spec
-and per-stage requirements ("Pautas") are PDFs in `docs/`; stage reports are `docs/informe-etapaN.md`.
+3 = semantic declarations, 4 = semantic statement checking over ASTs (in progress; incremental plan and progress in
+`PLAN.md`). Code, comments, docs, and commit messages are in Spanish. Language spec and per-stage requirements
+("Pautas") are PDFs in `docs/`; stage reports are `docs/informe-etapaN.md`.
 
 ## Rules (from AGENTS.md)
 
@@ -38,13 +39,15 @@ Pipeline (packages under `src/main/java/org/example/`):
 returns `Token` records → `analizadorsintactico.AnalizadorSintactico`, a recursive-descent parser that parses the whole
 file **in its constructor** (`inicial()`), using FIRST sets from `Primeros` and token names from `TokensYLexemas` →
 `analizadorsemantico` (stage 3: symbol table `TablaDeSimbolos`, entity hierarchy `EntidadDeclarable` → `ClaseOInterfaz`/
-`Metodo`/`Constructor`/`Parametro`, and the `Tipo` hierarchy; still mostly stubs).
+`Metodo`/`Constructor`/`Parametro`, and the `Tipo` hierarchy). `Main` runs
+`TablaDeSimbolos.ts.chequeoDeclaraciones()` and then `chequeoSentencias()` (stage 4).
 
 Errors are unchecked exceptions (`ErrorLexico`, `ErrorSintactico`, `ErrorSemantico`). Compilation stops at the first
 error.
 
-Entry points: there is one `main` class per stage. `MainEtapa1` (lexer only), `MainEtapa2` (lexer + parser) and `Main` (
-current stage, used by the jar) are kept separately because each stage's testers bind to its own main class.
+Entry points: there is one `main` class per stage. `MainEtapa1` (lexer only), `MainEtapa2` (lexer + parser),
+`MainEtapa3` (declaration checking only) and `Main` (current stage, used by the jar) are kept separately because each
+stage's testers bind to its own main class.
 
 ## Output contract and tests
 
@@ -55,13 +58,15 @@ spec:
 - On error it prints `[Error:<lexema>|<linea>]`, which must match the case file's first line minus its first 3 chars (
   e.g. `///[Error:A1|7]`).
 
-Testers (`src/test/java/{lexico,sintactico,semantico}/...`) are JUnit 4 `Parameterized` (run via the vintage engine).
-Each one loads every file in a hard-coded `resources/...` directory, relative to the project root. Test-case
+Testers (`src/test/java/{lexico,sintactico,semantico,semantico2}/...`) are JUnit 4 `Parameterized` (run via the vintage
+engine). Each one loads every file in a hard-coded `resources/...` directory, relative to the project root. Test-case
 directories:
 
 - `resources/<etapa>/{sinErrores,conErrores}`: the course staff's cases ("cátedra").
 - `resources/<etapa>/<NombreCompañero>/{sinErrores,conErrores}`: classmates' cases (SS, TB, NC subpackages).
-- `resources/semantico/catedra/`: the course staff's cases for stage 3.
+- `resources/semantico/catedra/`: the course staff's cases for stage 3 (testers use `MainEtapa3`).
+- `resources/semantico2/`: stage 4 cases (`catedra/` and `NicolasCid/`, testers in `semantico2.{catedra,NC}` use
+  `Main`).
 
 `resources/lexico/SantiSalamanca/ignorados/` holds cases that are intentionally not run. Each tester's `init` field type
 selects which `Main*` class it exercises.
@@ -94,5 +99,5 @@ Achievement tags (add new ones following the same abbreviation style):
 Examples: `01_FB_clase_repetida.java`, `113_L_sobrecarga_E3_clase_sealed_sin_subclases.java`,
 `55_L_sobrecarga_E3_L_vis_mejorada_E2_metodo_final_con_visibilidad_y_static.java`.
 
-Only `resources/semantico/NicolasCid/` follows this convention so far; older lexical and syntactic cases keep their
-original names.
+Only `resources/semantico/NicolasCid/` and `resources/semantico2/NicolasCid/` follow this convention so far; older
+lexical and syntactic cases keep their original names.

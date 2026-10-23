@@ -5,7 +5,7 @@ import java.io.File;
 import java.io.PrintStream;
 import java.util.ArrayList;
 
-import org.example.Main;
+import org.example.MainEtapa3;
 import org.hamcrest.CoreMatchers;
 import org.junit.After;
 import org.junit.Test;
@@ -24,7 +24,7 @@ public class TesterDeCasosSinErroresNC {
     private static final String testFilesDirectoryPath = "resources/semantico/NicolasCid/sinErrores/";
 
     //TODO: el tipo de esta variable init tiene que ser la clase que tiene el main
-    private static final Main init = null;
+    private static final MainEtapa3 init = null;
 
     private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
     private final PrintStream originalOut = System.out;

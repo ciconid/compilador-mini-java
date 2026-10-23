@@ -35,6 +35,7 @@ public class Main {
         try {
             AnalizadorSintactico analizadorSintactico = new AnalizadorSintactico(analizadorLexico);
             TablaDeSimbolos.ts.chequeoDeclaraciones();
+            TablaDeSimbolos.ts.chequeoSentencias();
         } catch (ErrorSintactico e) {
             System.out.println("Error Sintactico en linea " + e.getNroLinea() + ": Se esperaba " + e.getLexemasEsperados() + ", pero se encontro \"" + e.getLexema() + "\"");
             System.out.println();
