@@ -16,4 +16,8 @@ public class NodoParentizada extends NodoExpresion {
     public Tipo chequear(Tipo esperado) {
         return expresion.chequear(esperado);
     }
+
+    public boolean tieneBaseParentizada() {
+        return true;
+    }
 }

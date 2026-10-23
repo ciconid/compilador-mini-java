@@ -20,4 +20,8 @@ public abstract class NodoExpresion {
     public boolean esLlamada() {
         return false;
     }
+
+    public boolean tieneBaseParentizada() {
+        return false;
+    }
 }

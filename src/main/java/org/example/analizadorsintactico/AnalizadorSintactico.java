@@ -794,22 +794,20 @@ public class AnalizadorSintactico {
     NodoExpresion restoReferencia(NodoExpresion referencia) {
         if (Arrays.asList("puPunto").contains(tokenActual.token())) {
             match("puPunto");
-            match("idMetVar");
-            argsActualesOpcionales();
-            return restoReferencia(new NodoExpresionPendiente());
+            Token id = match("idMetVar");
+            return restoReferencia(restoEncadenado(referencia, id));
         } else if (Primeros.accesoArreglo.contains(tokenActual.token())) {
-            accesoArreglo();
-            return restoReferencia(new NodoExpresionPendiente());
+            return restoReferencia(accesoArreglo(referencia));
         } else {
             return referencia;
         }
     }
 
-    void argsActualesOpcionales() {
+    NodoExpresion restoEncadenado(NodoExpresion receptor, Token id) {
         if (Primeros.argsActuales.contains(tokenActual.token())) {
-            argsActuales();
+            return new NodoLlamadaEncadenada(receptor, id, argsActuales());
         } else {
-            //epsilon
+            return new NodoAtributoEncadenado(receptor, id);
         }
     }
 
@@ -1041,10 +1039,11 @@ public class AnalizadorSintactico {
         }
     }
 
-    void accesoArreglo() {
-        match("puCorcheteAbre");
-        expresion();
+    NodoExpresion accesoArreglo(NodoExpresion receptor) {
+        Token tokenCorchete = match("puCorcheteAbre");
+        NodoExpresion indice = expresion();
         match("puCorcheteCierra");
+        return new NodoAccesoArreglo(receptor, tokenCorchete, indice);
     }
 
 

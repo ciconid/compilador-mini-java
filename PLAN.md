@@ -206,10 +206,11 @@ Cada incremento deja todos los SinErrores (cátedra + propios, etapas 1–4) en 
    - Casos: método inexistente o con otra aridad, argumentos mal tipados, método de instancia desde estático,
      `Clase.m()` sobre un método de instancia, usos de resultados void. Cubre `semIIError04`.
 
-- [ ] **6. Encadenados**
+- ✅ **6. Encadenados**
 
-   `restoReferencia` deja de devolver placeholder: arma una cadena de nodos colgada del primario, y cada eslabón se
-   chequea con el tipo del anterior como receptor (`chequear(Tipo receptor)`).
+   `restoReferencia` deja de devolver placeholder: cada eslabón (`NodoEncadenado`) envuelve al anterior como
+   receptor, lo chequea primero y trabaja sobre su tipo. Una variable de tipo interfaz también ve los métodos de
+   `Object` (como en Java).
    - **`NodoAtributoEncadenado(token)`** (`.x`): el receptor tiene que ser una clase; el tipo del atributo se ve
      con la sustitución del receptor (si `c` es `Caja<String>`, `c.dato` es `String`). Sobre un arreglo sólo existe
      `length` (int, no asignable).
