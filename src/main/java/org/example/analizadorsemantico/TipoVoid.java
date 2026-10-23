@@ -4,7 +4,7 @@ public class TipoVoid extends Tipo {
     void estaBienDeclarado(ClaseOInterfaz contexto) {
     }
 
-    Tipo instanciar(String parametro, Tipo argumento) {
+    Tipo instanciar(TipoParametro parametro, Tipo argumento) {
         return this;
     }
 

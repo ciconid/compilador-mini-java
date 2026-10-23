@@ -3,7 +3,7 @@
 
 class Caja<T>{
     int[][] matriz;
-    Caja[] cajas;
+    Caja<T>[] cajas;
     T[][] elementos;
 
     String[] m(char[][] p, T[] q)

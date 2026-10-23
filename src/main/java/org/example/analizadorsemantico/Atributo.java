@@ -25,7 +25,7 @@ public class Atributo extends EntidadDeclarable {
     }
 
     void estaBienDeclarado(ClaseOInterfaz contexto) {
-        tipo.estaBienDeclarado(contexto);
+        tipo.estaBienUsado(contexto);
     }
 
     void chequearInicializador() {
@@ -39,7 +39,7 @@ public class Atributo extends EntidadDeclarable {
         }
     }
 
-    Atributo instanciar(String parametro, Tipo argumento) {
+    Atributo instanciar(TipoParametro parametro, Tipo argumento) {
         if (parametro == null) {
             return this;
         }

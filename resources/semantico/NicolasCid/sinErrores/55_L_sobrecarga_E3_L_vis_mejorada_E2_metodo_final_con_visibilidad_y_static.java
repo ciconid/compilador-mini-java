@@ -8,7 +8,7 @@ class A1<T>{
     private final int n()
     {}
 
-    static final A1 o()
+    static final A1<String> o()
     {}
 
     public final T p()

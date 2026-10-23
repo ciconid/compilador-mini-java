@@ -265,7 +265,7 @@ public class AnalizadorSintactico {
             restoAtributoOMetodo(nombre, tipo);
         } else if (Arrays.asList("idGen").contains(tokenActual.token())) {
             Token idGen = match("idGen");
-            Tipo tipo = conDimensiones(new TipoParametro(idGen), dimensionesOpcionales());
+            Tipo tipo = conDimensiones(tipoParametro(idGen), dimensionesOpcionales());
             Token nombre = match("idMetVar");
             restoAtributoOMetodo(nombre, tipo);
         } else {
@@ -418,7 +418,7 @@ public class AnalizadorSintactico {
         } else if (Primeros.tipoReferencia.contains(tokenActual.token())) {
             return tipoReferencia();
         } else if (Arrays.asList("idGen").contains(tokenActual.token())) {
-            return new TipoParametro(match("idGen"));
+            return tipoParametro(match("idGen"));
         } else {
             List<String> tokens = new ArrayList<>(Primeros.tipoPrimitivo);
             tokens.addAll(Primeros.tipoReferencia);
@@ -480,9 +480,13 @@ public class AnalizadorSintactico {
         }
     }
 
+    TipoParametro tipoParametro(Token idGen) {
+        return new TipoParametro(idGen, TablaDeSimbolos.ts.getClaseActual().getNombre());
+    }
+
     Tipo instanciadoOParametrico() {
         if (Arrays.asList("idGen").contains(tokenActual.token())) {
-            return new TipoParametro(match("idGen"));
+            return tipoParametro(match("idGen"));
         } else if (Arrays.asList("idClase").contains(tokenActual.token())) {
             return tipoReferencia();
         } else {
@@ -844,7 +848,7 @@ public class AnalizadorSintactico {
             Tipo tipoBase = tipoPrimitivo();
             return dimensiones(tipoBase);
         } else if (Arrays.asList("idGen").contains(tokenActual.token())) {
-            Tipo tipoBase = new TipoParametro(match("idGen"));
+            Tipo tipoBase = tipoParametro(match("idGen"));
             return dimensiones(tipoBase);
         } else if (Primeros.tipoReferencia.contains(tokenActual.token())) {
             return restoNewClase(match("idClase"));

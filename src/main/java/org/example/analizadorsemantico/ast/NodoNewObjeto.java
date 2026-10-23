@@ -26,6 +26,9 @@ public class NodoNewObjeto extends NodoExpresion {
         String nombre = tokenClase.lexema();
         TipoReferencia tipo = new TipoReferencia(tokenClase, argumentoGenerico);
         tipo.estaBienDeclarado(TablaDeSimbolos.ts.getClaseActual());
+        if (TablaDeSimbolos.ts.enContextoEstatico()) {
+            tipo.chequearSinParametroDeTipo();
+        }
         if (!(tipo.getReferenciada() instanceof Clase clase)) {
             throw new ErrorSemantico(tokenClase, "No se puede crear una instancia de " + nombre
                     + " porque no es una clase");

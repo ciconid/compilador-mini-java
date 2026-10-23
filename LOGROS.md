@@ -8,11 +8,11 @@ Lista de `docs/Pautas Etapa 4.pdf`. Los completados se declaran en `docs/informe
 - ✅ **Atributos Inicializados – Chequeado!**: los inicializadores de atributos se chequean como en Java, incluida la
   referencia adelantada (`Atributo.chequearInicializador()`).
 - ✅ **Postfijos – Chequeado**: `++` y `--` sólo sobre operandos `int` asignables (`NodoPosfijo`).
+- ✅ **Genericidad Avanzada E4**: genéricos anidados en expresiones y sentencias, diamante como en Java y sin tipos
+  raw (`Tipo.estaBienUsado`, `TipoReferencia.inferirArgumento`).
 
 ## Pendientes
 
-- [ ] **Genericidad Avanzada E4**: genéricos anidados en expresiones y sentencias, diamante como en Java, sin tipos
-  raw, comodines ni cotas. El diamante ya funciona; faltan los tipos raw (incremento 8) y probar genéricos anidados.
 - [ ] **Instanceof**: operador `instanceof` con una clase o interfaz no genérica a la derecha; sin arreglos ni
   variable asociada.
 - [ ] **Visibilidad – Chequeada**: los accesos a atributos, métodos y constructores respetan los modificadores de

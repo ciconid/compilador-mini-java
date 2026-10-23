@@ -13,8 +13,16 @@ public class TipoArreglo extends Tipo {
         tipoBase.estaBienDeclarado(contexto);
     }
 
-    Tipo instanciar(String parametro, Tipo argumento) {
+    public void estaBienUsado(ClaseOInterfaz contexto) {
+        tipoBase.estaBienUsado(contexto);
+    }
+
+    Tipo instanciar(TipoParametro parametro, Tipo argumento) {
         return new TipoArreglo(tipoBase.instanciar(parametro, argumento), dimensiones);
+    }
+
+    TipoParametro getParametroUsado() {
+        return tipoBase.getParametroUsado();
     }
 
     boolean esIgual(Tipo otro) {

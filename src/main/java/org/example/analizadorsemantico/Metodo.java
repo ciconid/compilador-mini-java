@@ -33,11 +33,17 @@ public class Metodo extends Unidad {
 
     @Override
     void estaBienDeclarado(ClaseOInterfaz contexto) {
-        tipoRetorno.estaBienDeclarado(contexto);
+        tipoRetorno.estaBienUsado(contexto);
         super.estaBienDeclarado(contexto);
+        if (esEstatico) {
+            tipoRetorno.chequearSinParametroDeTipo();
+            for (Parametro parametro : parametrosOrdenados) {
+                parametro.tipo.chequearSinParametroDeTipo();
+            }
+        }
     }
 
-    Metodo instanciar(String parametro, Tipo argumento) {
+    Metodo instanciar(TipoParametro parametro, Tipo argumento) {
         if (parametro == null) {
             return this;
         }

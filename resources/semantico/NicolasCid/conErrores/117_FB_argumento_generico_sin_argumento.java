@@ -1,5 +1,5 @@
-///[SinErrores]
-// Clase generica sin argumento usada como argumento de otra
+///[Error:Lista|11]
+// Una clase generica sin argumento no puede usarse como argumento de otra (seria un tipo raw)
 
 class Caja<T>{
 }

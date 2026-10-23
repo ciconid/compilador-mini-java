@@ -18,6 +18,9 @@ public class NodoNewArreglo extends NodoExpresion {
 
     public Tipo chequear() {
         tipoBase.estaBienUsado(TablaDeSimbolos.ts.getClaseActual());
+        if (TablaDeSimbolos.ts.enContextoEstatico()) {
+            tipoBase.chequearSinParametroDeTipo();
+        }
         for (int i = 0; i < tamanios.size(); i++) {
             Tipo tipoTamanio = tamanios.get(i).chequear();
             if (!tipoTamanio.conformaCon(new TipoInt())) {

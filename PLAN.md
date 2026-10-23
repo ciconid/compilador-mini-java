@@ -247,7 +247,7 @@ Cada incremento deja todos los SinErrores (cátedra + propios, etapas 1–4) en 
    - Casos: tamaños no int, elementos mal tipados en inicializadores, posfijo sobre no-int o no asignable, ramas
      incompatibles del ternario, inicializadores de atributos mal tipados. Cubre `semIICorrecto03`.
 
-- [ ] **8. Genericidad fina y contexto estático**
+- ✅ **8. Genericidad fina y contexto estático**
 
    Ajustes de genericidad que no se resuelven sólo con la sustitución.
    - **Origen de los parámetros**: `TipoParametro` guarda la clase/interfaz que lo declara, para que un `T`
@@ -255,8 +255,10 @@ Cada incremento deja todos los SinErrores (cátedra + propios, etapas 1–4) en 
      descendiente. La igualdad y la conformidad comparan nombre y origen.
    - **Contexto estático**: el parámetro de tipo de la clase no puede aparecer en el cuerpo de un método estático
      (`new T[10]`, `new Caja<T>()`).
-   - **Tipos raw**: verificar si la etapa 3 ya los rechaza en declaraciones (no lo vi en
-     `TipoReferencia.estaBienDeclarado`) y completarlo si falta.
+   - **Tipos raw**: la etapa 3 no los rechazaba. Ahora atributos, parámetros, retornos, tipos base de arreglos,
+     argumentos genéricos y creaciones usan `estaBienUsado`; sólo la referencia directa de `extends`/`implements`
+     puede omitir el argumento. El caso de etapa 3 que aceptaba `Caja<Lista>` pasó a conErrores.
+   - **Genéricos anidados** (`Caja<Caja<String>>`): casos que, junto con los raws, cubren Genericidad Avanzada E4.
    - Casos: herencia sin argumento con parámetros homónimos, `T` en cuerpos estáticos, raw types.
 
 - [ ] **9. Cierre**
@@ -265,8 +267,8 @@ Cada incremento deja todos los SinErrores (cátedra + propios, etapas 1–4) en 
    - Confirmar que el parser ya no genera placeholders y borrar `NodoSentenciaPendiente`,
      `NodoExpresionPendiente` y `TipoPendiente` (y los casos especiales que los contemplan en `conformaCon`).
    - `docs/informe-etapa4.md`: cómo compilar y correr, diagrama de clases del AST (`docs/diagrama.puml`) y logros
-     (Ternario E4, Atributos Inicializados – Chequeado!, Postfijos – Chequeado); actualizar `docs/check.sh` si
-     aplica.
+     (Ternario E4, Atributos Inicializados – Chequeado!, Postfijos – Chequeado, Genericidad Avanzada E4); actualizar
+     `docs/check.sh` si aplica.
 
 ## Archivos críticos
 

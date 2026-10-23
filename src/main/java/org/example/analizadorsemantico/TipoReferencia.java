@@ -29,7 +29,7 @@ public class TipoReferencia extends Tipo {
             if (referenciada.parametroGenericoOpcional == null) {
                 throw new ErrorSemantico(token, nombre + " no es generica");
             }
-            argumentoGenerico.estaBienDeclarado(contexto);
+            argumentoGenerico.estaBienUsado(contexto);
         }
     }
 
@@ -40,11 +40,15 @@ public class TipoReferencia extends Tipo {
         }
     }
 
-    Tipo instanciar(String parametro, Tipo argumento) {
+    Tipo instanciar(TipoParametro parametro, Tipo argumento) {
         if (argumentoGenerico == null) {
             return this;
         }
         return new TipoReferencia(token, argumentoGenerico.instanciar(parametro, argumento));
+    }
+
+    TipoParametro getParametroUsado() {
+        return argumentoGenerico == null ? null : argumentoGenerico.getParametroUsado();
     }
 
     boolean esIgual(Tipo otro) {
@@ -88,11 +92,11 @@ public class TipoReferencia extends Tipo {
     }
 
     public Tipo instanciarMiembro(Tipo tipoMiembro) {
-        String parametro = getReferenciada().parametroGenericoOpcional;
-        if (parametro == null || argumentoGenerico == null) {
+        ClaseOInterfaz referenciada = getReferenciada();
+        if (!referenciada.esGenerica() || argumentoGenerico == null) {
             return tipoMiembro;
         }
-        return tipoMiembro.instanciar(parametro, argumentoGenerico);
+        return tipoMiembro.instanciar(referenciada.getParametroFormal(), argumentoGenerico);
     }
 
     public TipoReferencia supertipoComun(TipoReferencia otro) {

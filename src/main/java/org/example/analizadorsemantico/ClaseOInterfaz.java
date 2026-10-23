@@ -52,11 +52,15 @@ public abstract class ClaseOInterfaz extends EntidadDeclarable {
     }
 
     public TipoReferencia getTipoPropio() {
+        return new TipoReferencia(token, getParametroFormal());
+    }
+
+    TipoParametro getParametroFormal() {
         if (!esGenerica()) {
-            return new TipoReferencia(token, null);
+            return null;
         }
         Token tokenParametro = new Token("idGen", parametroGenericoOpcional, token.nroDeLinea());
-        return new TipoReferencia(token, new TipoParametro(tokenParametro));
+        return new TipoParametro(tokenParametro, nombre);
     }
 
     abstract void estaBienDeclarado();
@@ -189,9 +193,9 @@ public abstract class ClaseOInterfaz extends EntidadDeclarable {
 
     abstract void consolidar();
 
-    protected String parametroAInstanciar(ClaseOInterfaz padre, TipoReferencia referenciaAlPadre) {
-        if (padre.parametroGenericoOpcional != null && referenciaAlPadre.argumentoGenerico != null) {
-            return padre.parametroGenericoOpcional;
+    protected TipoParametro parametroAInstanciar(ClaseOInterfaz padre, TipoReferencia referenciaAlPadre) {
+        if (padre.esGenerica() && referenciaAlPadre.argumentoGenerico != null) {
+            return padre.getParametroFormal();
         }
         return null;
     }
@@ -200,7 +204,7 @@ public abstract class ClaseOInterfaz extends EntidadDeclarable {
         Map<String, Metodo> heredados = new LinkedHashMap<>();
         for (TipoReferencia referenciaAlPadre : referenciasAPadres) {
             ClaseOInterfaz padre = referenciaAlPadre.getReferenciada();
-            String parametro = parametroAInstanciar(padre, referenciaAlPadre);
+            TipoParametro parametro = parametroAInstanciar(padre, referenciaAlPadre);
             for (Metodo metodoPadre : padre.metodos.values()) {
                 Metodo heredado = metodoPadre.instanciar(parametro, referenciaAlPadre.argumentoGenerico);
                 Metodo previo = heredados.get(heredado.getClave());

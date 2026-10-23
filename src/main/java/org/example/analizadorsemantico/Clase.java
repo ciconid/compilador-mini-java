@@ -104,7 +104,7 @@ public class Clase extends ClaseOInterfaz {
     }
 
     private void heredarAtributos(Clase padre) {
-        String parametro = parametroAInstanciar(padre, superclase);
+        TipoParametro parametro = parametroAInstanciar(padre, superclase);
         Map<String, Atributo> consolidados = new LinkedHashMap<>();
         for (Atributo atributoPadre : padre.atributos.values()) {
             consolidados.put(atributoPadre.nombre, atributoPadre.instanciar(parametro, superclase.argumentoGenerico));
@@ -122,7 +122,7 @@ public class Clase extends ClaseOInterfaz {
     private void chequearContratoInterfaz(TipoReferencia interfazImplementada, Map<String, Metodo> metodosPropios) {
         Interfaz interfaz = (Interfaz) interfazImplementada.getReferenciada();
         interfaz.consolidar();
-        String parametro = parametroAInstanciar(interfaz, interfazImplementada);
+        TipoParametro parametro = parametroAInstanciar(interfaz, interfazImplementada);
         for (Metodo metodoInterfaz : interfaz.metodos.values()) {
             Metodo requerido = metodoInterfaz.instanciar(parametro, interfazImplementada.argumentoGenerico);
             Metodo implementacion = metodos.get(requerido.getClave());

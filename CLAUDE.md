@@ -98,6 +98,7 @@ Achievement tags (add new ones following the same abbreviation style):
 | `L_ternario_E4`          | Ternario E4                   |
 | `L_atr_inicializados_E4` | Atributos Inicializados E4    |
 | `L_posfijos_E4`          | Postfijos E4                  |
+| `L_gen_avanzada_E4`      | Genericidad Avanzada E4       |
 
 Examples: `01_FB_clase_repetida.java`, `113_L_sobrecarga_E3_clase_sealed_sin_subclases.java`,
 `55_L_sobrecarga_E3_L_vis_mejorada_E2_metodo_final_con_visibilidad_y_static.java`.

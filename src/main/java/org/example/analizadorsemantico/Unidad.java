@@ -62,7 +62,7 @@ public abstract class Unidad extends EntidadDeclarable {
 
     void estaBienDeclarado(ClaseOInterfaz contexto) {
         for (Parametro parametro : parametrosOrdenados) {
-            parametro.tipo.estaBienDeclarado(contexto);
+            parametro.tipo.estaBienUsado(contexto);
         }
     }
 }
