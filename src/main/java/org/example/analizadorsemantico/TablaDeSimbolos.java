@@ -37,6 +37,10 @@ public class TablaDeSimbolos {
         }
     }
 
+    public Unidad getUnidadActual() {
+        return unidadActual;
+    }
+
     ClaseOInterfaz getClaseOInterfaz(String nombre) {
         return clasesOInterfaces.get(nombre);
     }

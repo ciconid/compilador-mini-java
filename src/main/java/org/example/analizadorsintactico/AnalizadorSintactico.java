@@ -550,7 +550,7 @@ public class AnalizadorSintactico {
     NodoSentencia sentencia() {
         if (Arrays.asList("puPuntoYComa").contains(tokenActual.token())) {
             match("puPuntoYComa");
-            return new NodoSentenciaPendiente();
+            return new NodoVacia();
         } else if (Primeros.asignacionYLlamada.contains(tokenActual.token())) {
             asignacionYLlamada();
             match("puPuntoYComa");
@@ -560,15 +560,13 @@ public class AnalizadorSintactico {
             match("puPuntoYComa");
             return new NodoSentenciaPendiente();
         } else if (Primeros.returnNT.contains(tokenActual.token())) {
-            returnNT();
+            NodoReturn nodoReturn = returnNT();
             match("puPuntoYComa");
-            return new NodoSentenciaPendiente();
+            return nodoReturn;
         } else if (Primeros.ifNT.contains(tokenActual.token())) {
-            ifNT();
-            return new NodoSentenciaPendiente();
+            return ifNT();
         } else if (Primeros.whileNT.contains(tokenActual.token())) {
-            whileNT();
-            return new NodoSentenciaPendiente();
+            return whileNT();
         } else if (Primeros.bloque.contains(tokenActual.token())) {
             return bloque();
         } else {
@@ -599,60 +597,62 @@ public class AnalizadorSintactico {
         expresionCompuesta();
     }
 
-    void returnNT() {
-        match("prReturn");
-        expresionOpcional();
+    NodoReturn returnNT() {
+        Token tokenReturn = match("prReturn");
+        return new NodoReturn(tokenReturn, expresionOpcional());
     }
 
-    void expresionOpcional() {
+    NodoExpresion expresionOpcional() {
         if (Primeros.expresion.contains(tokenActual.token())) {
-            expresion();
+            return expresion();
         } else {
-            // epsilon
+            return null;
         }
     }
 
-    void ifNT() {
-        ifBase();
-        elseNT();
+    NodoIf ifNT() {
+        NodoIf nodoIf = ifBase();
+        nodoIf.setSentenciaElse(elseNT());
+        return nodoIf;
     }
 
-    void ifBase() {
-        match("prIf");
+    NodoIf ifBase() {
+        Token tokenIf = match("prIf");
         match("puParentesisAbre");
-        expresion();
+        NodoExpresion condicion = expresion();
         match("puParentesisCierra");
-        sentencia();
+        return new NodoIf(tokenIf, condicion, sentencia());
     }
 
-    void elseNT() {
+    NodoSentencia elseNT() {
         if (Arrays.asList("prElse").contains(tokenActual.token())) {
             match("prElse");
-            sentencia();
+            return sentencia();
         } else {
-            // epsilon
+            return null;
         }
     }
 
-    void whileNT() {
-        match("prWhile");
+    NodoWhile whileNT() {
+        Token tokenWhile = match("prWhile");
         match("puParentesisAbre");
-        expresion();
+        NodoExpresion condicion = expresion();
         match("puParentesisCierra");
-        sentencia();
+        return new NodoWhile(tokenWhile, condicion, sentencia());
     }
 
-    void expresion() {
-        expresionCompuesta();
-        restoExpresion();
+    NodoExpresion expresion() {
+        NodoExpresion ladoIzq = expresionCompuesta();
+        return restoExpresion(ladoIzq);
     }
 
-    void restoExpresion() {
+    NodoExpresion restoExpresion(NodoExpresion ladoIzq) {
         if (Primeros.operadorAsignacion.contains(tokenActual.token())) {
             operadorAsignacion();
             expresionCompuesta();
+            return new NodoExpresionPendiente();
         } else {
-            // epsilon
+            return ladoIzq;
         }
     }
 
@@ -660,60 +660,60 @@ public class AnalizadorSintactico {
         match("opAsignacion");
     }
 
-    void expresionCompuesta() {
-        expresionBasica();
-        restoExpresionCompuesta();
-        restoTernario();
+    NodoExpresion expresionCompuesta() {
+        NodoExpresion expresion = restoExpresionCompuesta(expresionBasica());
+        return restoTernario(expresion);
     }
 
-    void restoExpresionCompuesta() {
+    NodoExpresion restoExpresionCompuesta(NodoExpresion ladoIzq) {
         if (Primeros.operadorBinario.contains(tokenActual.token())) {
-            operadorBinario();
-            expresionCompuesta();
+            Token operador = operadorBinario();
+            NodoExpresion ladoDer = expresionBasica();
+            return restoExpresionCompuesta(new NodoExpBinaria(operador, ladoIzq, ladoDer));
         } else {
-            // epsilon
+            return ladoIzq;
         }
     }
 
-    void operadorBinario() {
+    Token operadorBinario() {
         if (Arrays.asList("opOr").contains(tokenActual.token())) {
-            match("opOr");
+            return match("opOr");
         } else if (Arrays.asList("opAnd").contains(tokenActual.token())) {
-            match("opAnd");
+            return match("opAnd");
         } else if (Arrays.asList("opIgualdad").contains(tokenActual.token())) {
-            match("opIgualdad");
+            return match("opIgualdad");
         } else if (Arrays.asList("opDistinto").contains(tokenActual.token())) {
-            match("opDistinto");
+            return match("opDistinto");
         } else if (Arrays.asList("opMenor").contains(tokenActual.token())) {
-            match("opMenor");
+            return match("opMenor");
         } else if (Arrays.asList("opMayor").contains(tokenActual.token())) {
-            match("opMayor");
+            return match("opMayor");
         } else if (Arrays.asList("opMenorIgual").contains(tokenActual.token())) {
-            match("opMenorIgual");
+            return match("opMenorIgual");
         } else if (Arrays.asList("opMayorIgual").contains(tokenActual.token())) {
-            match("opMayorIgual");
+            return match("opMayorIgual");
         } else if (Arrays.asList("opSuma").contains(tokenActual.token())) {
-            match("opSuma");
+            return match("opSuma");
         } else if (Arrays.asList("opResta").contains(tokenActual.token())) {
-            match("opResta");
+            return match("opResta");
         } else if (Arrays.asList("opMultiplicacion").contains(tokenActual.token())) {
-            match("opMultiplicacion");
+            return match("opMultiplicacion");
         } else if (Arrays.asList("opDivision").contains(tokenActual.token())) {
-            match("opDivision");
+            return match("opDivision");
         } else if (Arrays.asList("opModulo").contains(tokenActual.token())) {
-            match("opModulo");
+            return match("opModulo");
         } else {
             throw new ErrorSintactico(tokenActual.lexema(), tokenActual.nroDeLinea(), "NO ALCANZABLE - OP BINARIO");
         }
     }
 
-    void expresionBasica() {
+    NodoExpresion expresionBasica() {
         if (Primeros.operadorUnario.contains(tokenActual.token())) {
-            operadorUnario();
-            operando();
+            Token operador = operadorUnario();
+            return new NodoExpUnaria(operador, operando());
         } else if (Primeros.operando.contains(tokenActual.token())) {
-            operando();
-            opcionalOperando();
+            NodoExpresion operando = operando();
+            return opcionalOperando(operando);
         } else {
             List<String> tokens = new ArrayList<>(Primeros.operadorUnario);
             tokens.addAll(Primeros.operando);
@@ -725,11 +725,12 @@ public class AnalizadorSintactico {
         }
     }
 
-    void opcionalOperando() {
+    NodoExpresion opcionalOperando(NodoExpresion operando) {
         if (Primeros.operadorUnarioPosfijo.contains(tokenActual.token())) {
             operadorUnarioPosfijo();
+            return new NodoExpresionPendiente();
         } else {
-            //epsilon
+            return operando;
         }
     }
 
@@ -743,23 +744,23 @@ public class AnalizadorSintactico {
         }
     }
 
-    void operadorUnario() {
+    Token operadorUnario() {
         if (Arrays.asList("opSuma").contains(tokenActual.token())) {
-            match("opSuma");
+            return match("opSuma");
         } else if (Arrays.asList("opResta").contains(tokenActual.token())) {
-            match("opResta");
+            return match("opResta");
         } else if (Arrays.asList("opNegacion").contains(tokenActual.token())) {
-            match("opNegacion");
+            return match("opNegacion");
         } else {
             throw new ErrorSintactico(tokenActual.lexema(), tokenActual.nroDeLinea(), "NO ALCANZABLE - OPERADOR UNARIO");
         }
     }
 
-    void operando() {
+    NodoExpresion operando() {
         if (Primeros.primitivo.contains(tokenActual.token())) {
-            primitivo();
+            return primitivo();
         } else if (Primeros.referencia.contains(tokenActual.token())) {
-            referencia();
+            return referencia();
         } else {
             List<String> tokens = new ArrayList<>(Primeros.primitivo);
             tokens.addAll(Primeros.referencia);
@@ -771,38 +772,38 @@ public class AnalizadorSintactico {
         }
     }
 
-    void primitivo() {
+    NodoExpresion primitivo() {
         if (Arrays.asList("prTrue").contains(tokenActual.token())) {
-            match("prTrue");
+            return new NodoLiteral(match("prTrue"));
         } else if (Arrays.asList("prFalse").contains(tokenActual.token())) {
-            match("prFalse");
+            return new NodoLiteral(match("prFalse"));
         } else if (Arrays.asList("intLiteral").contains(tokenActual.token())) {
-            match("intLiteral");
+            return new NodoLiteral(match("intLiteral"));
         } else if (Arrays.asList("charLiteral").contains(tokenActual.token())) {
-            match("charLiteral");
+            return new NodoLiteral(match("charLiteral"));
         } else if (Arrays.asList("prNull").contains(tokenActual.token())) {
-            match("prNull");
+            return new NodoLiteral(match("prNull"));
         } else {
             throw new ErrorSintactico(tokenActual.lexema(), tokenActual.nroDeLinea(), "NO ALCANZABLE - PRIMITIVO");
         }
     }
 
-    void referencia() {
-        primario();
-        restoReferencia();
+    NodoExpresion referencia() {
+        NodoExpresion primario = primario();
+        return restoReferencia(primario);
     }
 
-    void restoReferencia() {
+    NodoExpresion restoReferencia(NodoExpresion referencia) {
         if (Arrays.asList("puPunto").contains(tokenActual.token())) {
             match("puPunto");
             match("idMetVar");
             argsActualesOpcionales();
-            restoReferencia();
+            return restoReferencia(new NodoExpresionPendiente());
         } else if (Primeros.accesoArreglo.contains(tokenActual.token())) {
             accesoArreglo();
-            restoReferencia();
+            return restoReferencia(new NodoExpresionPendiente());
         } else {
-            //epsilon
+            return referencia;
         }
     }
 
@@ -814,21 +815,25 @@ public class AnalizadorSintactico {
         }
     }
 
-    void primario() {
+    NodoExpresion primario() {
         if (Arrays.asList("prThis").contains(tokenActual.token())) {
             match("prThis");
+            return new NodoExpresionPendiente();
         } else if (Arrays.asList("stringLiteral").contains(tokenActual.token())) {
-            match("stringLiteral");
+            return new NodoLiteral(match("stringLiteral"));
         } else if (Arrays.asList("idMetVar").contains(tokenActual.token())) {
             match("idMetVar");
             restoidMetVar();
+            return new NodoExpresionPendiente();
         } else if (Arrays.asList("prNew").contains(tokenActual.token())) {
             match("prNew");
             restoNew();
+            return new NodoExpresionPendiente();
         } else if (Primeros.llamadaMetodoEstatico.contains(tokenActual.token())) {
             llamadaMetodoEstatico();
+            return new NodoExpresionPendiente();
         } else if (Primeros.expresionParentizada.contains(tokenActual.token())) {
-            expresionParentizada();
+            return expresionParentizada();
         } else {
             throw new ErrorSintactico(tokenActual.lexema(), tokenActual.nroDeLinea(), "NO ALCANZABLE - PRIMARIO");
         }
@@ -900,20 +905,22 @@ public class AnalizadorSintactico {
         }
     }
 
-    void expresionParentizada() {
+    NodoExpresion expresionParentizada() {
         match("puParentesisAbre");
-        expresion();
+        NodoExpresion expresion = expresion();
         match("puParentesisCierra");
+        return new NodoParentizada(expresion);
     }
 
-    void restoTernario() {
+    NodoExpresion restoTernario(NodoExpresion condicion) {
         if (Primeros.restoTernario.contains(tokenActual.token())) {
             match("puInterrogacion");
             expresion();
             match("puDosPuntos");
             expresion();
+            return new NodoExpresionPendiente();
         } else {
-            //epsilon
+            return condicion;
         }
     }
 

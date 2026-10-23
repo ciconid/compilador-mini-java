@@ -19,6 +19,10 @@ public class Metodo extends Unidad {
         this.esFinal = esFinal;
     }
 
+    public Tipo getTipoRetorno() {
+        return tipoRetorno;
+    }
+
     public String getClave() {
         return nombre + "/" + aridad();
     }

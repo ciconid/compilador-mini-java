@@ -81,7 +81,10 @@ Cada incremento deja todos los SinErrores (cátedra + propios, etapas 1–4) en 
      anidados; se asocia el bloque a la unidad en `metodo*()`/`constructor()`.
    - `chequeoSentencias()` recorre `unidadesDeclaradas` de cada clase/interfaz con `claseActual`/`unidadActual`.
 
-- [ ] 2. **Sentencias de control y expresiones sin nombres**
+- ✅ 2. **Sentencias de control y expresiones sin nombres**
+   - Binarios sin precedencia y asociativos a izquierda (gramática original `ExpComp → ExpComp op ExpBasica`):
+     `restoExpresionCompuesta(ladoIzq)` arma `((a op b) op c)`; el ternario queda por encima de los binarios.
+   - Tokens de error: operador (binario/unario), `if`/`while` (condición), `return`.
    - `NodoExpresion`, `NodoExpresionPendiente` y `TipoPendiente` (movidos desde el incremento 1); las expresiones del
      parser pasan a devolver nodos.
    - `NodoVacia`, `NodoIf`, `NodoWhile` (cond `boolean`), `NodoReturn` (void / no void /

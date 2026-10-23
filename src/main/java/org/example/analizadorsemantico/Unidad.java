@@ -29,6 +29,8 @@ public abstract class Unidad extends EntidadDeclarable {
         parametrosOrdenados.add(new Parametro(token, tipo, parametrosOrdenados.size()));
     }
 
+    public abstract Tipo getTipoRetorno();
+
     public int aridad() {
         return parametrosOrdenados.size();
     }

@@ -46,4 +46,8 @@ public class TipoReferencia extends Tipo {
         }
         return argumentoGenerico.esIgual(referencia.argumentoGenerico);
     }
+
+    public String toString() {
+        return argumentoGenerico == null ? nombre : nombre + "<" + argumentoGenerico + ">";
+    }
 }

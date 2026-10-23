@@ -22,4 +22,8 @@ public class TipoArreglo extends Tipo {
                 && arreglo.dimensiones == dimensiones
                 && tipoBase.esIgual(arreglo.tipoBase);
     }
+
+    public String toString() {
+        return tipoBase + "[]".repeat(dimensiones);
+    }
 }

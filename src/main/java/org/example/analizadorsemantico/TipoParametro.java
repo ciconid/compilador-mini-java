@@ -25,4 +25,8 @@ public class TipoParametro extends Tipo {
     boolean esIgual(Tipo otro) {
         return otro instanceof TipoParametro tipoParametro && tipoParametro.nombre.equals(nombre);
     }
+
+    public String toString() {
+        return nombre;
+    }
 }
