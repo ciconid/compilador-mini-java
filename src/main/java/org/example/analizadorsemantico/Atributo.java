@@ -12,6 +12,10 @@ public class Atributo extends EntidadDeclarable {
         this.tipo = tipo;
     }
 
+    public Tipo getTipo() {
+        return tipo;
+    }
+
     void estaBienDeclarado(ClaseOInterfaz contexto) {
         tipo.estaBienDeclarado(contexto);
     }

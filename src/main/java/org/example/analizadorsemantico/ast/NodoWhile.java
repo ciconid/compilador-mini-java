@@ -22,6 +22,6 @@ public class NodoWhile extends NodoSentencia {
             throw new ErrorSemantico(tokenWhile, "La condicion del while debe ser de tipo boolean, pero es de tipo "
                     + tipoCondicion);
         }
-        cuerpo.chequear();
+        cuerpo.chequearComoCuerpo();
     }
 }

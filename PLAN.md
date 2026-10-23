@@ -67,7 +67,7 @@ precedencia).
 
 Cada incremento deja todos los SinErrores (cátedra + propios, etapas 1–4) en verde.
 
-- ✅ 0. **Infraestructura de tests y mains**
+- ✅ **0. Infraestructura de tests y mains**
    - Copiar `Main` → `MainEtapa3`; testers de `src/test/java/semantico/**` usan `MainEtapa3`.
    - Arreglar `src/test/java/semantico2/catedra/*` (package `semantico2.catedra`, `import org.example.Main`, paths
      `resources/semantico2/catedra/...`) y crear `semantico2/NC/*` apuntando a `resources/semantico2/NicolasCid/`.
@@ -75,13 +75,13 @@ Cada incremento deja todos los SinErrores (cátedra + propios, etapas 1–4) en 
      MainEtapa3, `semantico2`).
    - Verifica: 5 SinErrores de cátedra pasan; etapa 3 sigue igual.
 
-- ✅ 1. **Esqueleto AST + placeholders**
+- ✅ **1. Esqueleto AST + placeholders**
    - `NodoSentencia`, `NodoBloque` y `NodoSentenciaPendiente`; `Unidad` guarda su `NodoBloque` (vacío por defecto).
    - `bloque()` devuelve `NodoBloque`; `sentencia()` devuelve `NodoSentenciaPendiente` para todo salvo bloques
      anidados; se asocia el bloque a la unidad en `metodo*()`/`constructor()`.
    - `chequeoSentencias()` recorre `unidadesDeclaradas` de cada clase/interfaz con `claseActual`/`unidadActual`.
 
-- ✅ 2. **Sentencias de control y expresiones sin nombres**
+- ✅ **2. Sentencias de control y expresiones sin nombres**
    - Binarios sin precedencia y asociativos a izquierda (gramática original `ExpComp → ExpComp op ExpBasica`):
      `restoExpresionCompuesta(ladoIzq)` arma `((a op b) op c)`; el ternario queda por encima de los binarios.
    - Tokens de error: operador (binario/unario), `if`/`while` (condición), `return`.
@@ -93,47 +93,172 @@ Cada incremento deja todos los SinErrores (cátedra + propios, etapas 1–4) en 
      y `String`. El resto de los operandos sigue como `NodoExpresionPendiente`.
    - Casos: `if (4+true)`, `while (1)`, `return 'a'` en método int, `return 1` en void/constructor, etc.
 
-- [ ] 3. **Variables y asignación**
-   - `NodoVarLocal` (no repetir parámetro ni local visible, inicializador no `null`/void, var como cuerpo directo de
-     if/else/while es error), ámbitos en `NodoBloque`.
-   - `NodoAccesoVar` (local → parámetro → atributo; atributo en contexto estático es error), `NodoAsignacion`,
-     `NodoSentenciaExpresion` (sólo asignación o llamada; el placeholder cuenta como llamada válida).
-   - Cubre `semIIError01`, `semIIError05`, `semIICorrecto01/02`.
+- ✅ **3. Variables y asignación**
 
-- [ ] 4. **Conformidad de referencias, this y creación de objetos**
-   - `conformaCon` para `TipoReferencia` (ancestros e interfaces con sustitución, invariancia de argumentos),
-     `TipoArreglo` (invariante, conforma con Object), `TipoParametro` (sólo consigo mismo), `TipoNull`.
-   - `==`/`!=` entre referencias, `NodoThis` (prohibido en estático), `NodoNewObjeto` (clase no interfaz, sin raw,
-     constructor por aridad, args conformes, diamante inferido del tipo esperado).
-   - Cubre `semIIError02`, `semIIError03`.
+   Se empiezan a resolver nombres: las variables dejan de ser placeholder y aparecen las sentencias de declaración,
+   asignación y expresión.
+   - **Ámbitos**: la TS mantiene una pila de ámbitos de locales. `NodoBloque.chequear()` apila uno al entrar y lo
+     desapila al salir, así una local deja de ser visible al terminar su bloque y los bloques hermanos pueden repetir
+     nombres.
+   - **`NodoVarLocal(tokenNombre, inicializador)`**: chequea el inicializador *antes* de registrar la variable (así
+     `var x = x + 1` no se ve a sí misma, y si hay un atributo `x` se usa ese). Es error si el nombre coincide con un
+     parámetro o con una local visible, o si el inicializador es `null` o void. La local toma exactamente el tipo del
+     inicializador. `NodoIf`/`NodoWhile` rechazan una `NodoVarLocal` como cuerpo directo (then, else o cuerpo).
+   - **`NodoAccesoVar(token)`**: busca local (del ámbito actual hacia afuera) → parámetro de la unidad → atributo de
+     la clase actual (la tabla consolidada ya incluye los heredados). Si cae en un atributo y la unidad es estática,
+     es error. Es asignable.
+   - **`NodoAsignacion(tokenIgual, izq, der)`**: el lado izquierdo tiene que ser asignable y el tipo del derecho
+     conformar con el del izquierdo. Devuelve el tipo del izquierdo, así sirve como expresión (`return x = 3`).
+   - **`NodoSentenciaExpresion(expresion, tokenPuntoYComa)`**: sólo acepta asignaciones o llamadas. Se agregan a
+     `NodoExpresion` los servicios `esAsignable()`/`esAsignacion()`/`esLlamada()` (default `false`;
+     `NodoParentizada` siempre `false`; el placeholder `true` en asignable y llamada para no dar errores falsos).
+   - El cuerpo de if/else/while se chequea con `chequearComoCuerpo()`, que `NodoVarLocal` redefine para dar error.
+   - Soporte en la TS/entidades: getters de parámetros, atributos, condición de estático de la unidad y clase
+     actual.
+   - Tokens de error: el id (variable no declarada, local repetida, var inválida), `=` (asignación), `;` (expresión
+     que no es sentencia).
+   - Casos (17–36 conErrores, 06–11 sinErrores): variables no declaradas, atributo en estático, asignaciones
+     inválidas, locales repetidas/fuera de ámbito/usadas en su inicializador, var como cuerpo de if/else/while.
+     Cubre `semIIError01` y `semIIError05`.
 
-- [ ] 5. **Llamadas**
-   - `NodoLlamadaMetodo` (búsqueda `(nombre, aridad)` en la clase actual; en estático sólo estáticos),
-     `NodoLlamadaEstatica` (`Clase.m`, debe ser estático), args conformes con formales vistos desde el receptor,
-     resultado void no usable como valor.
-   - Cubre `semIIError04`.
+- ✅ **4. Conformidad de referencias, this y creación de objetos**
 
-- [ ] 6. **Encadenados**
-   - Atributo / llamada / indexación encadenados sobre el tipo estático del receptor con sustitución; `length` y
-     `toString()` de arreglos; receptor `T`, primitivo o `null` no admite punto; restricciones de primario
-     parentizado en sentencias y destinos.
-   - Cubre `semIICorrecto04/05`.
+   Se completa la conformidad para tipos no primitivos y se agregan `this` y `new Clase(...)`. Hoy un tipo
+   referencia sólo conforma con otro igual, y `this`/`new` son placeholder.
 
-- [ ] 7. **Arreglos y extras de E2**
-   - `NodoNewArreglo` (tamaños int, tipo base válido), `NodoInicializadorArreglo` (elementos conformes, como Java).
-   - `NodoPosfijo` (operando int asignable), `NodoTernario` (cond boolean, tipo resultante como Java),
-     atributos inicializados (el parser construye la expresión del atributo y la TS la chequea en contexto de
-     instancia de su clase). Cubre `semIICorrecto03`.
+   **Conformidad**
+   - **`TipoReferencia.conformaCon(destino)`**: conforma si:
+     1. son iguales (nombre y argumento genérico), o
+     2. el destino es `Object`, o
+     3. algún supertipo directo (superclase o interfaz implementada/extendida) conforma con el destino, recursivo
+        hacia arriba.
 
-- [ ] 8. **Genericidad fina y contexto estático**
-   - `TipoParametro` conserva la clase que lo declara (herencia sin argumento conserva el parámetro de origen).
-   - Parámetro de tipo prohibido en cuerpos estáticos (`new T[10]`, `var x = new Caja<T>()`), tipos raw en cuerpos.
-   - Verificar si la etapa 3 ya rechaza raw types en declaraciones (no lo vi en `TipoReferencia.estaBienDeclarado`).
+     Al subir se aplica la sustitución genérica: si `class Final extends Intermedia<String>` e
+     `Intermedia<U> extends Base<U>`, el supertipo de `Final` es `Intermedia<String>` y el de éste `Base<String>`.
+     Así `Final` conforma con `Base<String>` pero no con `Base<Object>` (argumentos invariantes).
+   - **`TipoArreglo`**: sólo con un arreglo idéntico o con `Object` (`String[]` no conforma con `Object[]`).
+   - **`TipoParametro`**: sólo consigo mismo (ya es así): `T` no conforma con `Object` ni al revés.
+   - **`==`/`!=`** ya usan `conformaCon` en ambas direcciones, así que comparar clases sin relación pasa a ser error
+     solo.
 
-- [ ] 9. **Cierre**
+   **`this`**
+   - **`NodoThis`**: error en método estático (token `this`). Su tipo es la clase actual con su parámetro (dentro
+     de `Caja<T>`, `Caja<T>`). No es asignable (`this.x` llega con encadenados, incremento 6).
+
+   **`new Clase(...)`**
+   - **`NodoNewObjeto(tipo, diamante, args)`** chequea, en orden:
+     1. el tipo es válido (reuso `estaBienDeclarado` de etapa 3: la clase existe, no recibe argumento si no es
+        genérica, el argumento es válido);
+     2. es una **clase**, no interfaz;
+     3. si es genérica tiene argumento (sin argumento ni diamante es raw → error);
+     4. existe un constructor con esa aridad;
+     5. cada argumento conforma con su formal visto con la sustitución (`new Caja<String>(x)`: un parámetro `T` se
+        chequea como `String`).
+
+     Tipo resultante: el tipo completo (`Caja<String>`). Es válido como sentencia (`new A1();`) y no es asignable
+     (lo que necesita `semIIError03`).
+   - Token de error: el nombre de la clase (análogo al nombre del método en llamadas).
+
+   **Diamante (`new Caja<>()`)**
+   - `NodoExpresion` suma `chequear(Tipo esperado)`, que por defecto ignora el esperado y llama a `chequear()`. Los
+     contextos que conocen el tipo esperado lo pasan: asignación (tipo del izquierdo), `return` (tipo de retorno) y,
+     en el incremento 5, argumentos (tipo del formal).
+   - El diamante busca, entre los ancestros de la clase creada, el que tiene el nombre del tipo esperado, y si ese
+     ancestro usa el parámetro de la clase, infiere el argumento de ahí. Ej.: `class C<T> implements I<T>` →
+     `I<String> x = new C<>()` infiere `C<String>`.
+   - Sin contexto (`var c = new Caja<>()`) se infiere `Caja<Object>`, como en Java. Límite conocido: sin contexto
+     no se infiere desde los argumentos del constructor (`new Caja<>(3)` da error porque no hay boxing).
+   - `NodoParentizada` pasa el tipo esperado a su expresión interna.
+
+   **Implementación**
+   - `TipoReferencia.instanciarMiembro(tipo)`: ve un tipo de un miembro (o supertipo) desde el receptor, sustituyendo
+     el parámetro de la clase por el argumento del receptor. Se reusa en los incrementos 5 y 6.
+   - `Unidad.chequearArgumentos(args, receptor, token)`: rutina de argumentos compartida por constructores y, en el
+     incremento 5, métodos (pasa el formal como tipo esperado a cada argumento).
+   - `ClaseOInterfaz.getTipoPropio()` (`Caja<T>`), usado por `this` y por la inferencia del diamante
+     (`TipoReferencia.inferirArgumento`).
+
+   **Casos** (usan parámetros y atributos para fijar el tipo destino, porque un `var` toma el tipo exacto de su
+   inicializador)
+   - conErrores: superclase → subclase, clases sin relación, interfaz → clase; genéricos invariantes; arreglos
+     invariantes; `T` → `Object` en `Caja<T>`; `==` entre clases sin relación; `this` en estático; `new` de
+     interfaz, de clase inexistente, raw, con argumento sobre no genérica, con aridad sin constructor y con argumento
+     mal tipado; diamante sin contexto asignado luego a `Caja<String>`.
+   - sinErrores: subclase → superclase en varios niveles, clase → interfaz y superinterfaces, todo → `Object`
+     (incluidos arreglos), `null` → referencias; cadena genérica `Final` → `Base<String>`; `this`, `this == null`;
+     `new` con y sin argumentos, constructor por defecto, genéricos con parámetros `T`, `new A1();` como sentencia;
+     diamante en asignación, `return`, `var` y a través de una interfaz.
+   - Cubre `semIIError02` y `semIIError03`.
+
+- [ ] **5. Llamadas**
+
+   Las llamadas sin receptor y las estáticas dejan de ser placeholder.
+   - **`NodoLlamadaMetodo(token, args)`** (`m(a, b)`): busca `(nombre, aridad)` en los métodos de la clase actual
+     (incluidos heredados). En un método estático sólo puede seleccionar métodos estáticos. Es llamada (válida como
+     sentencia) y su tipo es el retorno del método.
+   - **`NodoLlamadaEstatica(tokenClase, token, args)`** (`Clase.m(...)`): la clase tiene que existir y el método
+     tiene que ser estático. Incluye las predefinidas (`System.printIln(...)`, `Object.debugPrint(...)`).
+   - **Argumentos**: una sola rutina compartida con constructores: misma cantidad que la aridad elegida, cada uno se
+     chequea y su tipo tiene que conformar con el formal (sin buscar otra sobrecarga si no conforma).
+   - **Resultados void**: como `TipoVoid` no conforma con nada, una llamada void como operando, argumento,
+     inicializador, lado derecho o `return` falla sola con los chequeos ya existentes.
+   - Token de error: el nombre del método.
+   - Casos: método inexistente o con otra aridad, argumentos mal tipados, método de instancia desde estático,
+     `Clase.m()` sobre un método de instancia, usos de resultados void. Cubre `semIIError04`.
+
+- [ ] **6. Encadenados**
+
+   `restoReferencia` deja de devolver placeholder: arma una cadena de nodos colgada del primario, y cada eslabón se
+   chequea con el tipo del anterior como receptor (`chequear(Tipo receptor)`).
+   - **`NodoAtributoEncadenado(token)`** (`.x`): el receptor tiene que ser una clase; el tipo del atributo se ve
+     con la sustitución del receptor (si `c` es `Caja<String>`, `c.dato` es `String`). Sobre un arreglo sólo existe
+     `length` (int, no asignable).
+   - **`NodoLlamadaEncadenada(token, args)`** (`.m(...)`): busca `(nombre, aridad)` en el tipo del receptor (clase o
+     interfaz, de instancia o estático), con la misma sustitución en formales y retorno. Sobre un arreglo sólo existe
+     `toString()`.
+   - **`NodoAccesoArreglo(token, indice)`** (`[i]`): el receptor tiene que ser arreglo y el índice int; quita una
+     dimensión. Es asignable.
+   - Receptores inválidos: primitivos, `null`, void, parámetros de tipo sin sustituir; `Object` no permite indexar
+     ni `length`.
+   - **Propiedades estructurales**: `esAsignable`/`esLlamada` de una cadena son las de su último eslabón, salvo que
+     el primario sea una expresión parentizada (`(o).m();` y `(o).x = 1` se rechazan).
+   - Casos: atributos/métodos inexistentes en el receptor, encadenados sobre primitivos o `T`, `length` asignado,
+     `crearA().x;` como sentencia, genéricos vistos desde el receptor. Cubre `semIICorrecto04/05`.
+
+- [ ] **7. Arreglos y extras de E2**
+
+   Lo que el parser acepta por logros de la etapa 2 se chequea como en Java.
+   - **`NodoNewArreglo(tipoBase, tamaños)`**: tipo base válido en el contexto (no raw), cada tamaño int; el tipo es
+     el base con tantas dimensiones como tamaños. No es válida como sentencia.
+   - **`NodoInicializadorArreglo`** (`new int[][]{{1}, {2, 3}}`): cada elemento conforma con el tipo base en su nivel;
+     un elemento que es a su vez `{...}` se chequea un nivel más abajo.
+   - **`NodoPosfijo(op, operando)`** (`x++`): operando int y asignable; el resultado es int, no asignable. Como en
+     Java, es válido como sentencia.
+   - **`NodoTernario(tokenInterrogacion, cond, siV, siF)`**: condición boolean; el tipo es el de la rama más
+     general si una conforma con la otra (p. ej. `null` y `String` → `String`), si no es error.
+   - **Atributos inicializados**: el parser guarda la expresión en el `Atributo` y la TS la chequea en contexto de
+     instancia de su clase (sin unidad actual); el tipo tiene que conformar con el del atributo.
+   - Casos: tamaños no int, elementos mal tipados en inicializadores, posfijo sobre no-int o no asignable, ramas
+     incompatibles del ternario, inicializadores de atributos mal tipados. Cubre `semIICorrecto03`.
+
+- [ ] **8. Genericidad fina y contexto estático**
+
+   Ajustes de genericidad que no se resuelven sólo con la sustitución.
+   - **Origen de los parámetros**: `TipoParametro` guarda la clase/interfaz que lo declara, para que un `T`
+     conservado por herencia sin argumento (`Derivada extends Base`) no se confunda con un `T` propio del
+     descendiente. La igualdad y la conformidad comparan nombre y origen.
+   - **Contexto estático**: el parámetro de tipo de la clase no puede aparecer en el cuerpo de un método estático
+     (`new T[10]`, `new Caja<T>()`).
+   - **Tipos raw**: verificar si la etapa 3 ya los rechaza en declaraciones (no lo vi en
+     `TipoReferencia.estaBienDeclarado`) y completarlo si falta.
+   - Casos: herencia sin argumento con parámetros homónimos, `T` en cuerpos estáticos, raw types.
+
+- [ ] **9. Cierre**
+
+   Se eliminan los placeholders y se arma la entrega.
    - Confirmar que el parser ya no genera placeholders y borrar `NodoSentenciaPendiente`,
-     `NodoExpresionPendiente` y `TipoPendiente`.
-   - `docs/informe-etapa4.md` con diagrama de clases del AST (`docs/diagrama.puml`), cómo compilar/correr, logros
+     `NodoExpresionPendiente` y `TipoPendiente` (y los casos especiales que los contemplan en `conformaCon`).
+   - `docs/informe-etapa4.md`: cómo compilar y correr, diagrama de clases del AST (`docs/diagrama.puml`) y logros
      (ninguno); actualizar `docs/check.sh` si aplica.
 
 ## Archivos críticos

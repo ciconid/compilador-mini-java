@@ -2,6 +2,9 @@ package org.example.analizadorsemantico;
 
 import org.example.analizadorlexico.Token;
 
+import java.util.ArrayDeque;
+import java.util.Deque;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -12,9 +15,11 @@ public class TablaDeSimbolos {
     private final Map<String, ClaseOInterfaz> clasesOInterfaces;
     private ClaseOInterfaz claseActual;
     private Unidad unidadActual;
+    private Deque<Map<String, VariableLocal>> ambitos;
 
     public TablaDeSimbolos() {
         clasesOInterfaces = new LinkedHashMap<>();
+        ambitos = new ArrayDeque<>();
         cargarPredefinidas();
     }
 
@@ -32,13 +37,40 @@ public class TablaDeSimbolos {
             claseActual = claseOInterfaz;
             for (Unidad unidad : claseOInterfaz.unidadesDeclaradas) {
                 unidadActual = unidad;
+                ambitos = new ArrayDeque<>();
                 unidad.bloque.chequear();
             }
         }
     }
 
+    public ClaseOInterfaz getClaseActual() {
+        return claseActual;
+    }
+
     public Unidad getUnidadActual() {
         return unidadActual;
+    }
+
+    public void abrirAmbito() {
+        ambitos.push(new HashMap<>());
+    }
+
+    public void cerrarAmbito() {
+        ambitos.pop();
+    }
+
+    public void agregarVariableLocal(VariableLocal variable) {
+        ambitos.peek().put(variable.nombre, variable);
+    }
+
+    public VariableLocal getVariableLocal(String nombre) {
+        for (Map<String, VariableLocal> ambito : ambitos) {
+            VariableLocal variable = ambito.get(nombre);
+            if (variable != null) {
+                return variable;
+            }
+        }
+        return null;
     }
 
     ClaseOInterfaz getClaseOInterfaz(String nombre) {

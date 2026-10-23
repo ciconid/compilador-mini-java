@@ -20,7 +20,7 @@ public class NodoReturn extends NodoSentencia {
             }
             return;
         }
-        Tipo tipoExpresion = expresion.chequear();
+        Tipo tipoExpresion = expresion.chequear(tipoRetorno);
         if (tipoRetorno instanceof TipoVoid) {
             throw new ErrorSemantico(tokenReturn, "Un metodo void o un constructor no puede retornar un valor");
         }

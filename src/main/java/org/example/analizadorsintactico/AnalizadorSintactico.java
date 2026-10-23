@@ -552,13 +552,12 @@ public class AnalizadorSintactico {
             match("puPuntoYComa");
             return new NodoVacia();
         } else if (Primeros.asignacionYLlamada.contains(tokenActual.token())) {
-            asignacionYLlamada();
-            match("puPuntoYComa");
-            return new NodoSentenciaPendiente();
+            NodoExpresion expresion = asignacionYLlamada();
+            return new NodoSentenciaExpresion(expresion, match("puPuntoYComa"));
         } else if (Primeros.varLocal.contains(tokenActual.token())) {
-            varLocal();
+            NodoVarLocal nodoVarLocal = varLocal();
             match("puPuntoYComa");
-            return new NodoSentenciaPendiente();
+            return nodoVarLocal;
         } else if (Primeros.returnNT.contains(tokenActual.token())) {
             NodoReturn nodoReturn = returnNT();
             match("puPuntoYComa");
@@ -586,15 +585,15 @@ public class AnalizadorSintactico {
         }
     }
 
-    void asignacionYLlamada() {
-        expresion();
+    NodoExpresion asignacionYLlamada() {
+        return expresion();
     }
 
-    void varLocal() {
+    NodoVarLocal varLocal() {
         match("prVar");
-        match("idMetVar");
+        Token nombre = match("idMetVar");
         match("opAsignacion");
-        expresionCompuesta();
+        return new NodoVarLocal(nombre, expresionCompuesta());
     }
 
     NodoReturn returnNT() {
@@ -648,16 +647,15 @@ public class AnalizadorSintactico {
 
     NodoExpresion restoExpresion(NodoExpresion ladoIzq) {
         if (Primeros.operadorAsignacion.contains(tokenActual.token())) {
-            operadorAsignacion();
-            expresionCompuesta();
-            return new NodoExpresionPendiente();
+            Token tokenIgual = operadorAsignacion();
+            return new NodoAsignacion(tokenIgual, ladoIzq, expresionCompuesta());
         } else {
             return ladoIzq;
         }
     }
 
-    void operadorAsignacion() {
-        match("opAsignacion");
+    Token operadorAsignacion() {
+        return match("opAsignacion");
     }
 
     NodoExpresion expresionCompuesta() {
@@ -817,18 +815,14 @@ public class AnalizadorSintactico {
 
     NodoExpresion primario() {
         if (Arrays.asList("prThis").contains(tokenActual.token())) {
-            match("prThis");
-            return new NodoExpresionPendiente();
+            return new NodoThis(match("prThis"));
         } else if (Arrays.asList("stringLiteral").contains(tokenActual.token())) {
             return new NodoLiteral(match("stringLiteral"));
         } else if (Arrays.asList("idMetVar").contains(tokenActual.token())) {
-            match("idMetVar");
-            restoidMetVar();
-            return new NodoExpresionPendiente();
+            return restoidMetVar(match("idMetVar"));
         } else if (Arrays.asList("prNew").contains(tokenActual.token())) {
             match("prNew");
-            restoNew();
-            return new NodoExpresionPendiente();
+            return restoNew();
         } else if (Primeros.llamadaMetodoEstatico.contains(tokenActual.token())) {
             llamadaMetodoEstatico();
             return new NodoExpresionPendiente();
@@ -839,24 +833,26 @@ public class AnalizadorSintactico {
         }
     }
 
-    void restoidMetVar() {
+    NodoExpresion restoidMetVar(Token id) {
         if (Primeros.argsActuales.contains(tokenActual.token())) {
             argsActuales();
+            return new NodoExpresionPendiente();
         } else {
-            // epsilon
+            return new NodoAccesoVar(id);
         }
     }
 
-    void restoNew() {
+    NodoExpresion restoNew() {
         if (Primeros.tipoPrimitivo.contains(tokenActual.token())) {
             tipoPrimitivo();
             dimensiones();
+            return new NodoExpresionPendiente();
         } else if (Arrays.asList("idGen").contains(tokenActual.token())) {
             match("idGen");
             dimensiones();
+            return new NodoExpresionPendiente();
         } else if (Primeros.tipoReferencia.contains(tokenActual.token())) {
-            match("idClase");
-            restoNewClase();
+            return restoNewClase(match("idClase"));
         } else {
             List<String> tokens = new ArrayList<>(Primeros.tipoPrimitivo);
             tokens.add("idGen");
@@ -869,31 +865,32 @@ public class AnalizadorSintactico {
         }
     }
 
-    void restoNewClase() {
+    NodoExpresion restoNewClase(Token idClase) {
         if (Arrays.asList("opMenor").contains(tokenActual.token())) {
             match("opMenor");
-            restoNewGenerico();
+            return restoNewGenerico(idClase);
         } else {
-            restoTipoReferencia();
+            return restoTipoReferencia(idClase, null);
         }
     }
 
-    void restoNewGenerico() {
+    NodoExpresion restoNewGenerico(Token idClase) {
         if (Arrays.asList("opMayor").contains(tokenActual.token())) {
             match("opMayor");
-            argsActuales();
+            return new NodoNewObjeto(idClase, null, true, argsActuales());
         } else {
-            instanciadoOParametrico();
+            Tipo argumentoGenerico = instanciadoOParametrico();
             match("opMayor");
-            restoTipoReferencia();
+            return restoTipoReferencia(idClase, argumentoGenerico);
         }
     }
 
-    void restoTipoReferencia() {
+    NodoExpresion restoTipoReferencia(Token idClase, Tipo argumentoGenerico) {
         if (Primeros.dimensiones.contains(tokenActual.token())) {
             dimensiones();
+            return new NodoExpresionPendiente();
         } else if (Primeros.argsActuales.contains(tokenActual.token())) {
-            argsActuales();
+            return new NodoNewObjeto(idClase, argumentoGenerico, false, argsActuales());
         } else {
             List<String> tokens = new ArrayList<>(Primeros.dimensionesConTamanio);
             tokens.addAll(Primeros.argsActuales);
@@ -1016,29 +1013,31 @@ public class AnalizadorSintactico {
         }
     }
 
-    void argsActuales() {
+    List<NodoExpresion> argsActuales() {
+        List<NodoExpresion> argumentos = new ArrayList<>();
         match("puParentesisAbre");
-        listaExpsOpcional();
+        listaExpsOpcional(argumentos);
         match("puParentesisCierra");
+        return argumentos;
     }
 
-    void listaExpsOpcional() {
+    void listaExpsOpcional(List<NodoExpresion> argumentos) {
         if (Primeros.listaExps.contains(tokenActual.token())) {
-            listaExps();
+            listaExps(argumentos);
         } else {
             // epsilon
         }
     }
 
-    void listaExps() {
-        expresion();
-        restoListaExps();
+    void listaExps(List<NodoExpresion> argumentos) {
+        argumentos.add(expresion());
+        restoListaExps(argumentos);
     }
 
-    void restoListaExps() {
+    void restoListaExps(List<NodoExpresion> argumentos) {
         if (Arrays.asList("puComa").contains(tokenActual.token())) {
             match("puComa");
-            listaExps();
+            listaExps(argumentos);
         } else {
             // epsilon
         }

@@ -1,5 +1,7 @@
 package org.example.analizadorsemantico.ast;
 
+import org.example.analizadorsemantico.TablaDeSimbolos;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,8 +17,10 @@ public class NodoBloque extends NodoSentencia {
     }
 
     public void chequear() {
+        TablaDeSimbolos.ts.abrirAmbito();
         for (NodoSentencia sentencia : sentencias) {
             sentencia.chequear();
         }
+        TablaDeSimbolos.ts.cerrarAmbito();
     }
 }

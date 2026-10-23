@@ -43,6 +43,14 @@ public class Clase extends ClaseOInterfaz {
         unidadesDeclaradas.add(constructor);
     }
 
+    public Atributo getAtributo(String nombre) {
+        return atributos.get(nombre);
+    }
+
+    public Constructor getConstructor(int aridad) {
+        return constructores.get(aridad);
+    }
+
     List<TipoReferencia> getPadres() {
         return superclase == null ? List.of() : List.of(superclase);
     }

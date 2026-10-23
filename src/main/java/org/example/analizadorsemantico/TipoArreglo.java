@@ -23,6 +23,10 @@ public class TipoArreglo extends Tipo {
                 && tipoBase.esIgual(arreglo.tipoBase);
     }
 
+    public boolean conformaCon(Tipo destino) {
+        return super.conformaCon(destino) || destino instanceof TipoReferencia referencia && referencia.esObject();
+    }
+
     public String toString() {
         return tipoBase + "[]".repeat(dimensiones);
     }

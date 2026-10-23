@@ -27,9 +27,9 @@ public class NodoIf extends NodoSentencia {
             throw new ErrorSemantico(tokenIf, "La condicion del if debe ser de tipo boolean, pero es de tipo "
                     + tipoCondicion);
         }
-        sentenciaThen.chequear();
+        sentenciaThen.chequearComoCuerpo();
         if (sentenciaElse != null) {
-            sentenciaElse.chequear();
+            sentenciaElse.chequearComoCuerpo();
         }
     }
 }

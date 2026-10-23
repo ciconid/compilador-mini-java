@@ -35,6 +35,22 @@ public abstract class ClaseOInterfaz extends EntidadDeclarable {
         unidadesDeclaradas.add(metodo);
     }
 
+    public Atributo getAtributo(String nombre) {
+        return null;
+    }
+
+    public boolean esGenerica() {
+        return parametroGenericoOpcional != null;
+    }
+
+    public TipoReferencia getTipoPropio() {
+        if (!esGenerica()) {
+            return new TipoReferencia(token, null);
+        }
+        Token tokenParametro = new Token("idGen", parametroGenericoOpcional, token.nroDeLinea());
+        return new TipoReferencia(token, new TipoParametro(tokenParametro));
+    }
+
     abstract void estaBienDeclarado();
 
     abstract List<TipoReferencia> getPadres();

@@ -23,6 +23,10 @@ public class Metodo extends Unidad {
         return tipoRetorno;
     }
 
+    public boolean esEstatico() {
+        return esEstatico;
+    }
+
     public String getClave() {
         return nombre + "/" + aridad();
     }

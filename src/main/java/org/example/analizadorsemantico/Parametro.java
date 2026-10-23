@@ -13,4 +13,8 @@ public class Parametro extends EntidadDeclarable {
         this.tipo = tipo;
         this.posicion = posicion;
     }
+
+    public Tipo getTipo() {
+        return tipo;
+    }
 }

@@ -2,6 +2,9 @@ package org.example.analizadorsemantico;
 
 import org.example.analizadorlexico.Token;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class TipoReferencia extends Tipo {
     protected Token token;
     protected String nombre;
@@ -13,11 +16,11 @@ public class TipoReferencia extends Tipo {
         this.argumentoGenerico = argumentoGenerico;
     }
 
-    ClaseOInterfaz getReferenciada() {
+    public ClaseOInterfaz getReferenciada() {
         return TablaDeSimbolos.ts.getClaseOInterfaz(nombre);
     }
 
-    void estaBienDeclarado(ClaseOInterfaz contexto) {
+    public void estaBienDeclarado(ClaseOInterfaz contexto) {
         ClaseOInterfaz referenciada = getReferenciada();
         if (referenciada == null) {
             throw new ErrorSemantico(token, "La clase o interfaz " + nombre + " no esta declarada");
@@ -45,6 +48,68 @@ public class TipoReferencia extends Tipo {
             return referencia.argumentoGenerico == null;
         }
         return argumentoGenerico.esIgual(referencia.argumentoGenerico);
+    }
+
+    public boolean conformaCon(Tipo destino) {
+        if (super.conformaCon(destino)) {
+            return true;
+        }
+        if (!(destino instanceof TipoReferencia referenciaDestino)) {
+            return false;
+        }
+        if (referenciaDestino.esObject()) {
+            return true;
+        }
+        for (TipoReferencia supertipo : getSupertiposDirectos()) {
+            if (supertipo.conformaCon(destino)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    boolean esObject() {
+        return nombre.equals("Object") && argumentoGenerico == null;
+    }
+
+    private List<TipoReferencia> getSupertiposDirectos() {
+        List<TipoReferencia> supertipos = new ArrayList<>();
+        for (TipoReferencia supertipo : getReferenciada().getSupertiposDirectos()) {
+            supertipos.add((TipoReferencia) instanciarMiembro(supertipo));
+        }
+        return supertipos;
+    }
+
+    public Tipo instanciarMiembro(Tipo tipoMiembro) {
+        String parametro = getReferenciada().parametroGenericoOpcional;
+        if (parametro == null || argumentoGenerico == null) {
+            return tipoMiembro;
+        }
+        return tipoMiembro.instanciar(parametro, argumentoGenerico);
+    }
+
+    private TipoReferencia getAncestro(String nombreAncestro) {
+        if (nombre.equals(nombreAncestro)) {
+            return this;
+        }
+        for (TipoReferencia supertipo : getSupertiposDirectos()) {
+            TipoReferencia ancestro = supertipo.getAncestro(nombreAncestro);
+            if (ancestro != null) {
+                return ancestro;
+            }
+        }
+        return null;
+    }
+
+    public Tipo inferirArgumento(Tipo esperado) {
+        if (esperado instanceof TipoReferencia referenciaEsperada && referenciaEsperada.argumentoGenerico != null) {
+            TipoReferencia ancestro = getAncestro(referenciaEsperada.nombre);
+            if (ancestro != null && ancestro.argumentoGenerico != null
+                    && ancestro.argumentoGenerico.esIgual(argumentoGenerico)) {
+                return referenciaEsperada.argumentoGenerico;
+            }
+        }
+        return new TipoReferencia(new Token("idClase", "Object", token.nroDeLinea()), null);
     }
 
     public String toString() {

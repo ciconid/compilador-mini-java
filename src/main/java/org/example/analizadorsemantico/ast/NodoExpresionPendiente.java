@@ -7,4 +7,12 @@ public class NodoExpresionPendiente extends NodoExpresion {
     public Tipo chequear() {
         return new TipoPendiente();
     }
+
+    public boolean esAsignable() {
+        return true;
+    }
+
+    public boolean esLlamada() {
+        return true;
+    }
 }
