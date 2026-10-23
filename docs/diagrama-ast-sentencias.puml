@@ -1,0 +1,79 @@
+@startuml
+title Diagrama de clases de los AST: sentencias
+
+left to right direction
+skinparam classAttributeIconSize 0
+hide empty members
+
+abstract class Unidad {
+    # bloque : NodoBloque
+}
+
+class Atributo {
+    # tokenIgual : Token
+    # inicializador : NodoExpresion
+    ~ chequearInicializador()
+}
+
+abstract class NodoSentencia {
+    + {abstract} chequear()
+    + chequearComoCuerpo()
+}
+
+class NodoBloque {
+    - sentencias : List<NodoSentencia>
+    + agregarSentencia(NodoSentencia)
+    + chequear()
+}
+
+class NodoVacia {
+    + chequear()
+}
+
+class NodoVarLocal {
+    - token : Token
+    - inicializador : NodoExpresion
+    + chequear()
+    + chequearComoCuerpo()
+}
+
+class NodoReturn {
+    - tokenReturn : Token
+    - expresion : NodoExpresion
+    + chequear()
+}
+
+class NodoIf {
+    - tokenIf : Token
+    - condicion : NodoExpresion
+    - sentenciaThen : NodoSentencia
+    - sentenciaElse : NodoSentencia
+    + setSentenciaElse(NodoSentencia)
+    + chequear()
+}
+
+class NodoWhile {
+    - tokenWhile : Token
+    - condicion : NodoExpresion
+    - cuerpo : NodoSentencia
+    + chequear()
+}
+
+class NodoSentenciaExpresion {
+    - expresion : NodoExpresion
+    - tokenPuntoYComa : Token
+    + chequear()
+}
+
+NodoSentencia <|-- NodoBloque
+NodoSentencia <|-- NodoVacia
+NodoSentencia <|-- NodoVarLocal
+NodoSentencia <|-- NodoReturn
+NodoSentencia <|-- NodoIf
+NodoSentencia <|-- NodoWhile
+NodoSentencia <|-- NodoSentenciaExpresion
+
+Unidad -[hidden]- Atributo
+Atributo -[hidden]- NodoSentencia
+
+@enduml

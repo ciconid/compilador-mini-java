@@ -261,12 +261,13 @@ Cada incremento deja todos los SinErrores (cátedra + propios, etapas 1–4) en 
    - **Genéricos anidados** (`Caja<Caja<String>>`): casos que, junto con los raws, cubren Genericidad Avanzada E4.
    - Casos: herencia sin argumento con parámetros homónimos, `T` en cuerpos estáticos, raw types.
 
-- [ ] **9. Cierre**
+- ✅ **9. Cierre**
 
    Se eliminan los placeholders y se arma la entrega.
    - Confirmar que el parser ya no genera placeholders y borrar `NodoSentenciaPendiente`,
      `NodoExpresionPendiente` y `TipoPendiente` (y los casos especiales que los contemplan en `conformaCon`).
-   - `docs/informe-etapa4.md`: cómo compilar y correr, diagrama de clases del AST (`docs/diagrama.puml`) y logros
+   - `docs/informe-etapa4.md`: cómo compilar y correr, diagrama de clases del AST (dividido en
+     `docs/diagrama-ast-{sentencias,expresiones,llamadas}.puml` para que entre en la página) y logros
      (Ternario E4, Atributos Inicializados – Chequeado!, Postfijos – Chequeado, Genericidad Avanzada E4); actualizar
      `docs/check.sh` si aplica.
 

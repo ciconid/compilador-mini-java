@@ -5,8 +5,8 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ## Project
 
 MiniJava compiler in Java 21 for a university compilers course, built in stages ("etapas"): 1 = lexical, 2 = syntactic,
-3 = semantic declarations, 4 = semantic statement checking over ASTs (in progress; incremental plan and progress in
-`PLAN.md`). Code, comments, docs, and commit messages are in Spanish. Language spec and per-stage requirements
+3 = semantic declarations, 4 = semantic statement checking over ASTs (built in increments, see `PLAN.md`;
+achievements in `LOGROS.md`). Code, comments, docs, and commit messages are in Spanish. Language spec and per-stage requirements
 ("Pautas") are PDFs in `docs/`; stage reports are `docs/informe-etapaN.md`.
 
 ## Rules (from AGENTS.md)

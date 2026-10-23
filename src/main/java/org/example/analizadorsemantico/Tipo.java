@@ -24,6 +24,6 @@ public abstract class Tipo {
     }
 
     public boolean conformaCon(Tipo destino) {
-        return destino instanceof TipoPendiente || esIgual(destino);
+        return esIgual(destino);
     }
 }

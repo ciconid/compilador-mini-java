@@ -17,12 +17,6 @@ public class NodoLlamadaEncadenada extends NodoEncadenado {
 
     public Tipo chequear() {
         Tipo tipoReceptor = receptor.chequear();
-        if (tipoReceptor instanceof TipoPendiente) {
-            for (NodoExpresion argumento : argumentos) {
-                argumento.chequear();
-            }
-            return tipoReceptor;
-        }
         String nombre = token.lexema();
         TipoReferencia vista = getVistaDelReceptor(tipoReceptor);
         ClaseOInterfaz clase = vista.getReferenciada();

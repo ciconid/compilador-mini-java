@@ -1,0 +1,87 @@
+@startuml
+title Diagrama de clases de los AST: operadores, literales y accesos
+
+left to right direction
+skinparam classAttributeIconSize 0
+hide empty members
+
+abstract class NodoExpresion {
+    + {abstract} chequear() : Tipo
+    + chequear(esperado : Tipo) : Tipo
+    + esAsignable() : boolean
+    + esAsignacion() : boolean
+    + esLlamada() : boolean
+    + tieneBaseParentizada() : boolean
+}
+
+class NodoAsignacion {
+    - tokenIgual : Token
+    - ladoIzq : NodoExpresion
+    - ladoDer : NodoExpresion
+    + chequear() : Tipo
+    + esAsignacion() : boolean
+}
+
+class NodoExpBinaria {
+    - operador : Token
+    - ladoIzq : NodoExpresion
+    - ladoDer : NodoExpresion
+    + chequear() : Tipo
+}
+
+class NodoExpUnaria {
+    - operador : Token
+    - operando : NodoExpresion
+    + chequear() : Tipo
+}
+
+class NodoPosfijo {
+    - operador : Token
+    - operando : NodoExpresion
+    + chequear() : Tipo
+    + esAsignacion() : boolean
+}
+
+class NodoTernario {
+    - tokenInterrogacion : Token
+    - condicion : NodoExpresion
+    - siVerdadero : NodoExpresion
+    - siFalso : NodoExpresion
+    + chequear() : Tipo
+    + chequear(esperado : Tipo) : Tipo
+}
+
+class NodoLiteral {
+    - token : Token
+    + chequear() : Tipo
+}
+
+class NodoThis {
+    - token : Token
+    + chequear() : Tipo
+}
+
+class NodoParentizada {
+    - expresion : NodoExpresion
+    + chequear() : Tipo
+    + chequear(esperado : Tipo) : Tipo
+    + tieneBaseParentizada() : boolean
+}
+
+class NodoAccesoVar {
+    - token : Token
+    + chequear() : Tipo
+    + esAsignable() : boolean
+}
+
+NodoExpresion <|-- NodoAsignacion
+NodoExpresion <|-- NodoExpBinaria
+NodoExpresion <|-- NodoExpUnaria
+NodoExpresion <|-- NodoPosfijo
+NodoExpresion <|-- NodoTernario
+NodoExpresion <|-- NodoLiteral
+NodoExpresion <|-- NodoThis
+NodoExpresion <|-- NodoParentizada
+NodoExpresion <|-- NodoAccesoVar
+
+@enduml

@@ -15,9 +15,6 @@ public class NodoAtributoEncadenado extends NodoEncadenado {
     public Tipo chequear() {
         Tipo tipoReceptor = receptor.chequear();
         String nombre = token.lexema();
-        if (tipoReceptor instanceof TipoPendiente) {
-            return tipoReceptor;
-        }
         if (tipoReceptor instanceof TipoArreglo) {
             if (!nombre.equals("length")) {
                 throw new ErrorSemantico(token, "Los arreglos no tienen un atributo " + nombre);

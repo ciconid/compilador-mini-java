@@ -1,0 +1,94 @@
+@startuml
+title Diagrama de clases de los AST: llamadas, creaciones y encadenados
+
+left to right direction
+skinparam classAttributeIconSize 0
+hide empty members
+
+abstract class NodoExpresion
+
+class NodoLlamadaMetodo {
+    - token : Token
+    - argumentos : List<NodoExpresion>
+    + chequear() : Tipo
+    + esLlamada() : boolean
+}
+
+class NodoLlamadaEstatica {
+    - tokenClase : Token
+    - token : Token
+    - argumentos : List<NodoExpresion>
+    + chequear() : Tipo
+    + esLlamada() : boolean
+}
+
+class NodoNewObjeto {
+    - tokenClase : Token
+    - argumentoGenerico : Tipo
+    - diamante : boolean
+    - argumentos : List<NodoExpresion>
+    + chequear() : Tipo
+    + chequear(esperado : Tipo) : Tipo
+    + esLlamada() : boolean
+}
+
+class NodoNewArreglo {
+    - tipoBase : Tipo
+    - corchetes : List<Token>
+    - tamanios : List<NodoExpresion>
+    + chequear() : Tipo
+}
+
+class NodoNewArregloInicializado {
+    - tipoBase : Tipo
+    - dimensiones : int
+    - inicializador : NodoInicializadorArreglo
+    + chequear() : Tipo
+}
+
+class NodoInicializadorArreglo {
+    - tokenLlave : Token
+    - elementos : List<NodoExpresion>
+    + chequear() : Tipo
+    + chequear(esperado : Tipo) : Tipo
+}
+
+abstract class NodoEncadenado {
+    # receptor : NodoExpresion
+    + tieneBaseParentizada() : boolean
+}
+
+class NodoAtributoEncadenado {
+    - token : Token
+    - esLength : boolean
+    + chequear() : Tipo
+    + esAsignable() : boolean
+}
+
+class NodoLlamadaEncadenada {
+    - token : Token
+    - argumentos : List<NodoExpresion>
+    + chequear() : Tipo
+    + esLlamada() : boolean
+}
+
+class NodoAccesoArreglo {
+    - tokenCorchete : Token
+    - indice : NodoExpresion
+    + chequear() : Tipo
+    + esAsignable() : boolean
+}
+
+NodoExpresion <|-- NodoLlamadaMetodo
+NodoExpresion <|-- NodoLlamadaEstatica
+NodoExpresion <|-- NodoNewObjeto
+NodoExpresion <|-- NodoNewArreglo
+NodoExpresion <|-- NodoNewArregloInicializado
+NodoExpresion <|-- NodoInicializadorArreglo
+NodoExpresion <|-- NodoEncadenado
+
+NodoEncadenado <|-- NodoAtributoEncadenado
+NodoEncadenado <|-- NodoLlamadaEncadenada
+NodoEncadenado <|-- NodoAccesoArreglo
+
+@enduml

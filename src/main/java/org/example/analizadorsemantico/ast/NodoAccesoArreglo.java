@@ -20,9 +20,6 @@ public class NodoAccesoArreglo extends NodoEncadenado {
             throw new ErrorSemantico(tokenCorchete, "El indice de un acceso a arreglo tiene que ser int, no "
                     + tipoIndice);
         }
-        if (tipoReceptor instanceof TipoPendiente) {
-            return tipoReceptor;
-        }
         if (!(tipoReceptor instanceof TipoArreglo arreglo)) {
             throw new ErrorSemantico(tokenCorchete, "Solo se pueden indexar arreglos, no un valor de tipo "
                     + tipoReceptor);
