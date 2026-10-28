@@ -38,7 +38,7 @@ tengan un caso en `resources/semantico2/NicolasCid/`, sobre todo combinaciones e
 - [x] Constructores: `return` en constructores, constructor por defecto, `new` con argumentos genéricos.
 - [x] Predefinidas: métodos de `System`, `Object` y `String` con argumentos mal tipados o como receptores.
 - [x] Comparar con los casos de cátedra (`resources/semantico2/catedra/`) para ver qué patrones no cubrimos.
-- [ ] Correr los casos nuevos (conErrores 144–185, sinErrores 44–53) y corregir el código si alguno falla.
+- [x] Correr los casos nuevos (conErrores 144–185, sinErrores 44–53): pasan todos sin cambios en el código.
 
 Mismo flujo de trabajo: proponer los casos, esperar aprobación, agregarlos y, si alguno falla, corregir el código.
 
