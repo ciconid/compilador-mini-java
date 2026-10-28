@@ -83,21 +83,9 @@ descriptivos, en caso de que sea necesario recrear su ejecución (e.g.: MainEtap
 
 # Logros
 
-### Etapa 2 (Usa MainEtapa2)
-
-* Genericidad Avanzada E2
-* Inicializacion de Arreglos E2 (corregido)
-* Operador Ternario E2 (corregido)
-
-### Etapa 3 (Usa MainEtapa3)
-
-* Entrega Anticipada E3
-* Genericidad Avanzada E3
-* Herencia Multiple E3
-* Sobrecarga! E3
-
 ### Etapa 4 (Usa Main)
 
+* Entrega Anticipada E4
 * Ternario E4
 * Atributos Inicializados – Chequeado!
 * Postfijos – Chequeado
